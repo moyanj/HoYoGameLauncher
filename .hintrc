@@ -1,0 +1,34 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/name-role-value": [
+      "default",
+      {
+        "button-name": "off",
+        "link-name": "off"
+      }
+    ],
+    "axe/text-alternatives": [
+      "default",
+      {
+        "image-alt": "off"
+      }
+    ],
+    "meta-viewport": "off",
+    "axe/language": [
+      "default",
+      {
+        "html-has-lang": "off"
+      }
+    ],
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id-aria": "off",
+        "duplicate-id-active": "off"
+      }
+    ]
+  }
+}
