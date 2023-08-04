@@ -4,6 +4,8 @@ import json
 import zipfile
 import shutil
 import sys
+from jsmin import jsmin
+from cssmin import cssmin
 
 # 有zip约68s
 config = json.load(open("config/config.json"))
@@ -16,6 +18,7 @@ maindir = os.getcwd()
 try:
     shutil.rmtree("build")
     shutil.rmtree("package")
+    shutil.rmtree("main")
 except:
     pass
 
@@ -37,6 +40,7 @@ os.system(
         work, work, maindir, maindir, maindir, maindir
     )
 )
+
 print("Start modifying the main file name")
 os.rename("./main", "./build")
 os.rename("./build/main.exe", "./build/{}.exe".format(config["name"]))
@@ -47,6 +51,7 @@ os.system(
         work, work, maindir, maindir, maindir, maindir, maindir, maindir
     )
 )
+
 print("Start modifying the 'server' file name.")
 os.rename("./build/app.exe", "./build/server.exe")
 
@@ -57,14 +62,28 @@ os.system(
         work, work, maindir, maindir, maindir, maindir
     )
 )
+
 print("Start copying resources.")
 shutil.copytree("./html", "./build/html")
 shutil.copytree("./server/static", "./build/static")
-print("Start cleaning up useless files")
-shutil.rmtree("./build/clr_loader/ffi/dlls/x86")
-shutil.rmtree("./build/webview/lib/runtimes/win-x86")
-shutil.rmtree("./build/webview/lib/runtimes/win-arm64")
-os.remove("./build/webview/lib/WebBrowserInterop.x86.dll")
+
+if len(cli) != 0:
+    if "min" in cli:
+        print("Start compressing JS and CSS code")
+        f = open("./build/static/js/main.js", encoding="utf-8")
+        jscode = f.read()
+        jsmincode = jsmin(jscode)
+        f.close()
+        f = open("./build/static/js/main.js", "w", encoding="utf-8")
+        f.write(jsmincode)
+        f.close()
+        f = open("./build/static/css/main.css", encoding="utf-8")
+        csscode = f.read()
+        cssmincode = cssmin(csscode)
+        f.close()
+        f = open("./build/static/css/main.css", "w", encoding="utf-8")
+        f.write(cssmincode)
+
 if len(cli) != 0:
     if "zip" in cli:
         print("Start packaging into a compressed package")
@@ -72,4 +91,6 @@ if len(cli) != 0:
         getZipDir(
             dirpath="./build", outFullName="./package/{}.zip".format(config["name"])
         )
+
+
 print("All operations completed!")

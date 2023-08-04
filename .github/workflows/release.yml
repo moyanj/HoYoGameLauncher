@@ -1,0 +1,51 @@
+name: Packaged Development Edition
+
+on: push
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.8"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run build script
+        run: python build.py zip min
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: zip
+          path: package
+
+      - name: Create Release
+        id: create_release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            此次为 GitHub Actions 自动发布的版本。
+
+      - name: Upload Release Asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: package/HoYoGameLauncher.zip
+          asset_name: HoYoGameLauncher.zip
+          asset_content_type: application/zip
