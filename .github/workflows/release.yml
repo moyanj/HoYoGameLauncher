@@ -21,11 +21,23 @@ jobs:
       - name: Run build script
         run: python build.py zip min
 
-      - name: Archive artifacts
+      - name: Archive Main build
         uses: actions/upload-artifact@v2
         with:
-          name: zip
-          path: package
+          name: Main program compression package
+          path: package/HoYoGameLauncher.zip
+
+      - name: Archive HTML build
+        uses: actions/upload-artifact@v2
+        with:
+          name: HTML build
+          path: build/html
+
+      - name: Archive static build
+        uses: actions/upload-artifact@v2
+        with:
+          name: Static build
+          path: build/static
 
       - name: Create Release
         id: create_release

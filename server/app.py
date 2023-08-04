@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory  # flask
+from flask import Flask, request, send_from_directory, redirect  # flask
 import sqlite3 as sql  # 数据库
 import os  # 系统操作
 from flask_cors import CORS  # 跨域
@@ -8,6 +8,8 @@ import json
 import sys
 
 version = int("0")
+avatarID = json.load(open("static/avatar.json", "r", encoding="utf-8"))
+# print(avatarID)
 save_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 # 初始化Flask
 app = Flask(__name__)
@@ -58,7 +60,7 @@ def game(game):
     path = os.path.dirname(gamepath)
     panfu = gamepath.split(":")[0] + ":"
     # 运行
-    # os.system("{} && cd {} && dir && {}".format(panfu, path, file))
+    os.system("{} && cd {} && dir && {}".format(panfu, path, file))
     return "RUN OK", 200, {"Access-Control-Allow-Origin": "*"}
 
 
@@ -69,7 +71,8 @@ def postgamepath():
     """
     gamepath = request.args.get("gamepath")
     game = request.args.get("game")
-    cur.execute("UPDATE game SET path = '{}' WHERE name = '{}';".format(gamepath, game))
+    cur.execute(
+        "UPDATE game SET path = '{}' WHERE name = '{}';".format(gamepath, game))
     conn.commit()
     return "OK", 200, {"Access-Control-Allow-Origin": "*"}
 
@@ -110,6 +113,57 @@ def getfile(filename):
         200,
         {"Access-Control-Allow-Origin": "*"},
     )
+
+
+@app.route("/avatar")
+def getavatar():
+    """
+    获取头像
+    """
+    if os.path.exists("static/images/avatar.png"):
+        return redirect("/files/images/avatar.png")
+    else:
+        global avatarID
+        data = cur.execute("SELECT * FROM config WHERE key = 'uid';")
+        datas = data.fetchall()
+        uid = datas[0][1]
+        if uid == "unknown":
+            return redirect("https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png")
+        else:
+            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
+            data = json.loads(data.text)
+            # print(data)
+            avatar = data['playerInfo']["profilePicture"]["avatarId"]
+            url = avatarID[str(avatar)]
+            data = r.get(url)
+            with open("static/images/avatar.png", "wb") as f:
+                f.write(data.content)
+            return redirect("static/images/avatar.png")
+
+
+@app.route("/username")
+def username():
+    """
+    获取用户名
+    """
+    data = cur.execute("SELECT * FROM config WHERE key = 'username';")
+    datas = data.fetchall()
+    print(datas)
+    user = datas[0][1]
+    if user == "unknown":
+        data = cur.execute("SELECT * FROM config WHERE key = 'uid';")
+        datas = data.fetchall()
+        uid = datas[0][1]
+        data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
+        data = json.loads(data.text)
+        # print(data)
+        name = data['playerInfo']["nickname"]
+        cur.execute("UPDATE config SET value = '{}' WHERE key = 'username';".format(name))
+        conn.commit()
+        return name
+    else:
+        return user
+
 
 
 @app.route("/testupdate")

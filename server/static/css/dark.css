@@ -1,0 +1,43 @@
+/* Dark mode */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+.sidebar.dark-mode {
+    background-color: #222;
+}
+
+.nav-link.dark-mode {
+    color: #fff;
+}
+
+.modal-content.dark-mode {
+    background-color: #333;
+}
+
+input.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+label.dark-mode{
+    color:#fff;
+}
+
+input.dark-mode::placeholder {
+    color: #aaa;
+}
+
+.modal-footer.dark-mode {
+    background-color: #333;
+
+}
+
+.modal-body.dark-mode {
+    background-color: #333;
+}
+
+.active.dark-mode {
+    background-color: #ccc;
+}

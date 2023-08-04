@@ -70,19 +70,32 @@ shutil.copytree("./server/static", "./build/static")
 if len(cli) != 0:
     if "min" in cli:
         print("Start compressing JS and CSS code")
-        f = open("./build/static/js/main.js", encoding="utf-8")
-        jscode = f.read()
-        jsmincode = jsmin(jscode)
-        f.close()
-        f = open("./build/static/js/main.js", "w", encoding="utf-8")
-        f.write(jsmincode)
-        f.close()
-        f = open("./build/static/css/main.css", encoding="utf-8")
-        csscode = f.read()
-        cssmincode = cssmin(csscode)
-        f.close()
-        f = open("./build/static/css/main.css", "w", encoding="utf-8")
-        f.write(cssmincode)
+        try:
+            path = "./build/static/js/"
+            for root,dirs,files in os.walk(path):
+                for file in files:
+                    thispath = os.path.join(root,file)
+                    print(thispath)
+                    f = open(thispath, encoding="utf-8")
+                    jscode = f.read()
+                    jsmincode = jsmin(jscode)
+                    f.close()
+                    f = open(thispath, "w", encoding="utf-8")
+                    f.write(jsmincode)
+                    f.close()
+            path = "./build/static/css/"
+            for root,dirs,files in os.walk(path):
+                for file in files:
+                    print(thispath)
+                    thispath = os.path.join(root,file)
+                    f = open(thispath, encoding="utf-8")
+                    csscode = f.read()
+                    cssmincode = cssmin(csscode)
+                    f.close()
+                    f = open(thispath, "w", encoding="utf-8")
+                    f.write(cssmincode)
+        except:
+            pass
 
 if len(cli) != 0:
     if "zip" in cli:

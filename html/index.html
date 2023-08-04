@@ -4,7 +4,9 @@
     <!-- 引入 CSS 文件 -->
     <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/bootstrap.min.css"> <!-- Bootstrap -->
     <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/bootstrap-icons.min.css"> <!-- Bootstrap-icon -->
+    <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/animation.css"> <!-- 动画 -->
     <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/main.css"> <!-- 自定义样式 -->
+    <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/dark.css"> <!-- 自定义暗黑模式样式 -->
 
     <!-- 引入 JavaScript 文件 -->
     <script src="http://127.0.0.1:6553/files/js/jquery.min.js"></script> <!-- JQuery -->
@@ -34,19 +36,25 @@
                     <img src="http://127.0.0.1:6553/files/images/sr.jpg" alt="StarRail">
                 </a>
             </li>
-            <li class="nav-item">
-                <!-- 切换暗色模式按钮 -->
-                <button  type="button" title="暗色模式" id="darkModeToggle" class="btn btn-primary mt-3 ml-3">
-                    <i class="bi bi-moon"></i>
-                </button>
+            <li>
+                <hr>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img src="http://127.0.0.1:6553/avatar" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div class="user-info">
+                        <h4 id="user-name">dfdf</h4>
+                    </div>
+                </div>
+                
             </li>
-
         </ul>
+
     </div>
 
     <!-- 内容区域 -->
     <div class="container-fluid">
-        <div id="ysContent" class="ysbg">
+        <div id="ysContent" class="ysbg content-area">
             <!-- 原神 -->
             <div id="settings">
                 <!-- 设置按钮 -->
@@ -58,7 +66,7 @@
             <button id="startYSGameBtn" class="btn btn-primary btn-lg">启动游戏</button>
         </div>
 
-        <div id="srContent" class="srbg">
+        <div id="srContent" class="srbg content-area">
             <div id="settings">
                 <!-- 设置按钮 -->
                 <button type="button" title="设置" id="settingsrBtn" class="btn btn-primary">
@@ -108,6 +116,12 @@
                         <label for="gamePathInput">崩坏：星穹铁道路径：</label>
                         <input type="text" class="form-control" id="SRPath" placeholder="请输入游戏路径">
                         <br>
+                        <!-- 切换暗色模式按钮 -->
+                        <div class="dark-mode-switch form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label" for="darkModeToggle">暗色模式</label>
+                        </div>
+                        <br>
                         <button type="button" class="btn btn-primary" id="aboutBtn">关于</button>
 
 
@@ -133,7 +147,6 @@
                     <p>QQ：1561515308</p>
                     <p>本软件遵循BSD开源协议，请勿用于非法用途，否则后果自负！</p>
 
-
                     <p id="Copyright">Copyright © 2018 - 2023 MoYan Corporation, All Rights Reserved</p>
                 </div>
                 <div class="modal-footer">
@@ -142,6 +155,7 @@
             </div>
         </div>
     </div>
+
     <!-- 自定义脚本 -->
     <script src="http://127.0.0.1:6553/files/js/main.js"></script>
 </body>

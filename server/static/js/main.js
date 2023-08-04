@@ -2,7 +2,6 @@ $(document).ready(function () {
 
     // 获取所有图标链接
     var navLinks = $(".nav-link");
-    var darkModeToggle = $("#darkModeToggle");
     // 获取游戏路径
     $.ajax({
         type: "GET",
@@ -35,17 +34,29 @@ $(document).ready(function () {
     });
 
     // 切换暗色模式
-    darkModeToggle.on("click", function () {
-        console.log("切换深色模式")
-        $("body").toggleClass("dark-mode");
-        $("input").toggleClass("dark-mode");
-        $(".sidebar").toggleClass("dark-mode");
-        $(".nav-link").toggleClass("dark-mode");
-        $(".active").toggleClass("dark-mode");
-        $(".modal-body").toggleClass("dark-mode");
-        $(".modal-footer").toggleClass("dark-mode");
+    $('#darkModeToggle').change(function () {
+        if (this.checked) {
+            // 开启暗色模式
+            console.log("切换深色模式")
+            $("body").addClass("dark-mode");
+            $("input").addClass("dark-mode");
+            $(".sidebar").addClass("dark-mode");
+            $(".nav-link").addClass("dark-mode");
+            $(".active").addClass("dark-mode");
+            $(".modal-body").addClass("dark-mode");
+            $(".modal-footer").addClass("dark-mode");
+        } else {
+            // 关闭暗色模式
+            console.log("切换浅色模式")
+            $("body").removeClass("dark-mode");
+            $("input").removeClass("dark-mode");
+            $(".sidebar").removeClass("dark-mode");
+            $(".nav-link").removeClass("dark-mode");
+            $(".active").removeClass("dark-mode");
+            $(".modal-body").removeClass("dark-mode");
+            $(".modal-footer").removeClass("dark-mode");
+        }
     });
-
     // 显示默认页面
     $("#ysContent").show();
     // 激活默认页面
@@ -100,6 +111,7 @@ $(document).ready(function () {
         alert("hello")
 
     });
+    
 });
 
 
