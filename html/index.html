@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HoYoGameLauncher</title>
+    <!-- 引入 CSS 文件 -->
+    <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/bootstrap.min.css"> <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/bootstrap-icons.min.css"> <!-- Bootstrap-icon -->
+    <link rel="stylesheet" href="http://127.0.0.1:6553/files/css/main.css"> <!-- 自定义样式 -->
+
+    <!-- 引入 JavaScript 文件 -->
+    <script src="http://127.0.0.1:6553/files/js/jquery.min.js"></script> <!-- JQuery -->
+    <script src="http://127.0.0.1:6553/files/js/bootstrap.bundle.min.js"></script> <!-- bootstrap -->
+
+
+</head>
+
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <!-- 图标列表 -->
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <!-- 标题 -->
+                <h4>HoYoGame<br>&nbsp;&nbsp;Launcher</h4>
+            </li>
+            <li class="nav-item">
+                <!-- 原神 -->
+                <a id="ys" class="nav-link" href="#">
+                    <img src="http://127.0.0.1:6553/files/images/ys.jpg">
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- 崩铁 -->
+                <a id="sr" class="nav-link" href="#">
+                    <img src="http://127.0.0.1:6553/files/images/sr.jpg">
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- 切换暗色模式按钮 -->
+                <button id="darkModeToggle" class="btn btn-primary mt-3 ml-3">
+                    <i class="bi bi-moon"></i>
+                </button>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="container-fluid">
+        <div id="ysContent" class="ysbg">
+            <!-- 原神 -->
+            <div id="settings">
+                <!-- 设置按钮 -->
+                <button id="settingysBtn" class="btn btn-primary">
+                    <i class="bi bi-gear"></i>
+                </button>
+            </div>
+            <!-- 启动按钮 -->
+            <button id="startYSGameBtn" class="btn btn-primary btn-lg">启动游戏</button>
+        </div>
+
+        <div id="srContent" class="srbg">
+            <div id="settings">
+                <!-- 设置按钮 -->
+                <button id="settingsrBtn" class="btn btn-primary">
+                    <i class="bi bi-gear"></i>
+                </button>
+            </div>
+            <!-- 启动按钮 -->
+            <button id="startSRGameBtn" class="btn btn-primary btn-lg">启动游戏</button>
+        </div>
+    </div>
+    <!-- 模态框 -->
+    <div class="modal" id="RunOK">
+        <!-- 游戏启动成功 -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    游戏启动成功！
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 游戏启动失败 -->
+    <div class="modal" id="RunError">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    游戏启动失败！
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 设置 -->
+    <div class="modal" id="APPset">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="gamePathInput">原神路径：</label>
+                        <input type="text" class="form-control" id="YSPath" placeholder="请输入游戏路径">
+                        <br>
+                        <label for="gamePathInput">崩坏：星穹铁道路径：</label>
+                        <input type="text" class="form-control" id="SRPath" placeholder="请输入游戏路径">
+                        <br>
+                        <button type="button" class="btn btn-primary" id="aboutBtn">关于</button>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="SetSave">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="APPabout">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1>HoYoGameLauncher</h1>
+                    <p>版本：V1.0.0（<a id="testupdata" href="javascript:updata()">检查更新</a>)</p>
+                    <p>作者：莫颜</p>
+                    <p>Github：<a
+                            href="https://github.com/moyanj/HoYoGameLauncher">https://github.com/moyanj/HoYoGameLauncher</a>
+                    </p>
+                    <p>QQ：1561515308</p>
+                    <p>本软件遵循BSD开源协议，请勿用于非法用途，否则后果自负！</p>
+
+
+                    <p id="Copyright">Copyright © 2018 - 2023 MoYan Corporation, All Rights Reserved</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 自定义脚本 -->
+    <script src="http://127.0.0.1:6553/files/js/main.js"></script>
+</body>
+
+</html>

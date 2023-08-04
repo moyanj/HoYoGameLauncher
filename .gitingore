@@ -1,0 +1,4 @@
+server/data.db
+build/
+package/
+.hintrc
