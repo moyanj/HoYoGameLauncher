@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="config\icon.png">
+  <img src="images\icon.png" width="512px" height="512px">
   <a href="https://github.com/moyanj/HoYoGameLauncher">
     HoYoGameLauncher
   </a>
@@ -9,7 +9,7 @@
     <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/Code%20Style-black-000000.svg"/></a>
     <a target="_blank" ><img src="https://img.shields.io/badge/License-BSD-brightgreen.svg" /></a>&nbsp;
     <a target="_blank" ><img src="https://img.shields.io/github/languages/top/moyanj/HoYoGameLauncher.svg" /></a>&nbsp;
-    ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/moyanj/HoYoGameLauncher)
+    <a target="_blank" ><img src="https://img.shields.io/github/commit-activity/t/moyanj/HoYoGameLauncher" /></a>&nbsp;
 </p>
 <p align="center">
   此存储库包含<strong>HoYoGameLauncher</strong>的源代码。<strong>HoYoGameLauncher</strong>是一个<a href="https://www.mihoyo.com">米哈游</a>游戏启动器，旨在简化玩家启动游戏的步骤。它功能强大，维护积极，易于使用。
