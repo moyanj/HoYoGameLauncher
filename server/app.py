@@ -23,6 +23,9 @@ cur = conn.cursor()
 
 
 def updatetype(types):
+    '''
+    判断更新类型
+    '''
     if types == "STATIC":
         return "界面更新"
     elif types == "SERVER":
@@ -35,22 +38,65 @@ def updatetype(types):
         return "unknown"
 
 
-# 验证请求
-
-
 @app.before_request
 def before_request():
+    '''
+    验证请求
+    '''
     # UA = request.headers.get("verifykey")
     ip = request.remote_addr
     if ip != "127.0.0.1":
         return "This is not a request from HoYoGameLauncher", 403
 
 
-# 运行游戏
+@app.route("/init", methods=["GET"])
+def info_init():
+    '''
+    初始化信息
+    '''
+    uid = request.args.get("uid", "unknown")
+    print(request.args)
+    cookie = request.args.get("cookie", "unknown")
+    cur.execute(
+        "UPDATE config SET value = '{}' WHERE key = 'uid';".format(uid))
+    cur.execute(
+        "UPDATE config SET value = '{}' WHERE key = 'cookie';".format(cookie))
+    cur.execute(
+        "UPDATE config SET value = 'unknown' WHERE key = 'username';")
+    cur.execute(
+        "UPDATE config SET value = 'True' WHERE key = 'init';")
+        
+    conn.commit()
+    try:
+        os.remove("static/images/avatar.png")
+    except:
+        pass
+    return "ok"
+
+@app.route("/ifinit")
+def ifinit():
+    '''
+    判断是否初始化
+    '''
+    data = cur.execute("SELECT * FROM config WHERE key = 'init';")
+    data = data.fetchall()
+    print(data)
+    return data[0][1]
+
+@app.route("/getuid")
+def getuid():
+    '''
+    获取uid
+    '''
+    data = cur.execute("SELECT * FROM config WHERE key = 'uid';")
+
 
 
 @app.route("/run/<game>")
 def game(game):
+    '''
+    运行游戏
+    '''
     # 查询游戏路径
     data = cur.execute("SELECT * FROM game WHERE name = '{}';".format(game))
     data = data.fetchall()
@@ -107,11 +153,10 @@ def getfile(filename):
     """
     静态文件
     """
-    print(save_path)
     return (
         send_from_directory(save_path + "/static/", filename),
         200,
-        {"Access-Control-Allow-Origin": "*"},
+        {"Access-Control-Allow-Origin": "*"}
     )
 
 
@@ -148,22 +193,24 @@ def username():
     """
     data = cur.execute("SELECT * FROM config WHERE key = 'username';")
     datas = data.fetchall()
-    print(datas)
     user = datas[0][1]
     if user == "unknown":
         data = cur.execute("SELECT * FROM config WHERE key = 'uid';")
         datas = data.fetchall()
         uid = datas[0][1]
-        data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
-        data = json.loads(data.text)
-        # print(data)
-        name = data['playerInfo']["nickname"]
-        cur.execute("UPDATE config SET value = '{}' WHERE key = 'username';".format(name))
-        conn.commit()
-        return name
+        if uid == "unknown":
+            return "旅行者"
+        else:
+            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
+            data = json.loads(data.text)
+            # print(data)
+            name = data['playerInfo']["nickname"]
+            cur.execute(
+                "UPDATE config SET value = '{}' WHERE key = 'username';".format(name))
+            conn.commit()
+            return name
     else:
         return user
-
 
 
 @app.route("/testupdate")

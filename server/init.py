@@ -73,8 +73,11 @@ def main():
         cur.execute("CREATE TABLE IF NOT EXISTS config (key text, value text)")
         cur.execute("INSERT INTO game VALUES ('ys', '{}', 'null')".format(ysgamepath))
         cur.execute("INSERT INTO game VALUES ('sr', '{}', 'null')".format(srgamepath))
-        cur.execute("INSERT INTO config VALUES ('uid', '243997737')")
+        cur.execute("INSERT INTO config VALUES ('uid', 'unknown')")
         cur.execute("INSERT INTO config VALUES ('username', 'unknown')")
+        cur.execute("INSERT INTO config VALUES ('cookie', 'unknown')")
+        cur.execute("INSERT INTO config VALUES ('init', 'False')")
+        
         conn.commit()
         cur.close()
         conn.close()

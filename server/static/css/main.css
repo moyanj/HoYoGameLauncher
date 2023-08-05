@@ -1,9 +1,10 @@
-/* Suppress scrollbar display */
+/* 隐藏滚动条 */
 html {
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-/* Sidebar Style */
+/* 侧边栏样式 */
 .sidebar {
     width: 12.5vw;
     height: 100vh;
@@ -59,7 +60,7 @@ html {
     /* 设置用户信息栏占据剩余空间 */
 }
 
-/* content area */
+/* 内容区域样式 */
 .container-fluid {
     display: flex;
     margin-left: 25vh;
@@ -71,7 +72,7 @@ html {
     display: none;
 }
 
-/* button */
+/* 按钮 */
 #startYSGameBtn {
     position: absolute;
     bottom: 5vh;
@@ -96,7 +97,7 @@ html {
     right: 5vh;
 }
 
-/* Background image */
+/* 背景图片 */
 .ysbg {
     max-width: 100%;
     height: 100vh;
