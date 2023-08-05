@@ -1,4 +1,5 @@
 <h1 align="center">
+  <img src="config\icon.png">
   <a href="https://github.com/moyanj/HoYoGameLauncher">
     HoYoGameLauncher
   </a>
@@ -8,6 +9,7 @@
     <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/Code%20Style-black-000000.svg"/></a>
     <a target="_blank" ><img src="https://img.shields.io/badge/License-BSD-brightgreen.svg" /></a>&nbsp;
     <a target="_blank" ><img src="https://img.shields.io/github/languages/top/moyanj/HoYoGameLauncher.svg" /></a>&nbsp;
+    ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/moyanj/HoYoGameLauncher)
 </p>
 <p align="center">
   此存储库包含<strong>HoYoGameLauncher</strong>的源代码。<strong>HoYoGameLauncher</strong>是一个<a href="https://www.mihoyo.com">米哈游</a>游戏启动器，旨在简化玩家启动游戏的步骤。它功能强大，维护积极，易于使用。
@@ -71,3 +73,17 @@ python main.py
 ```
 
 之后就会弹出启动器窗口
+## 使用的开源项目
+- [Flask](https://github.com/pallets/flask)（为服务器提供框架）
+- [Flask-Cors](https://github.com/corydolphin/flask-cors)（实现跨域请求）
+- [pywebview](https://github.com/r0x0r/pywebview)（显示页面）
+- [pyinstaller](https://github.com/pyinstaller/pyinstaller)（打包EXE）
+- [jsmin](https://github.com/tikitu/jsmin)（压缩JS）
+- [cssmin](https://github.com/mir-rs/cssmin)（压缩CSS）
+- [requests](https://github.com/psf/requests)（请求API）
+
+## 致谢
+- 由 [Microsoft](https://www.microsoft.com/) 的 [NewBing](https://www.bing.com/new) 为我们提供了图标。
+- 由 [Microsoft](https://code.visualstudio.com/) 提供 IDE 支持。
+- 由 [清华大学](https://github.com/THUDM) 提供CodeGeeX代码辅助编写。
+- 由 [EnkaAPI](https://enka.network/) 提供原神数据查询支持。

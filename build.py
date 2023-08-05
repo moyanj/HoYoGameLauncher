@@ -36,7 +36,7 @@ def getZipDir(dirpath, outFullName):
 
 print("Start packaging 'main'")
 os.system(
-    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {} -w --version-file {}/config/info.txt --icon {}/config/icon.ico {}/main.py > ./log.txt".format(
+    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {} -w --icon {}/config/icon.ico {}/main.py > ./log.txt".format(
         work, work, maindir, maindir, maindir, maindir
     )
 )
@@ -47,7 +47,7 @@ os.rename("./build/main.exe", "./build/{}.exe".format(config["name"]))
 
 print("Start packaging 'server'.")
 os.system(
-    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {}/build -F --version-file {}/config/info.txt --icon {}/config/icon.ico {}/server/app.py > ./log.txt".format(
+    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {}/build -F --icon {}/config/icon_server.ico {}/server/app.py > ./log.txt".format(
         work, work, maindir, maindir, maindir, maindir, maindir, maindir
     )
 )
@@ -58,8 +58,8 @@ os.rename("./build/app.exe", "./build/server.exe")
 
 print("Start packaging 'update'.")
 os.system(
-    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {}/build -F  --version-file {}/config/info.txt {}/update.py > ./log.txt".format(
-        work, work, maindir, maindir, maindir, maindir
+    "C: && pyinstaller --workpath {}\\work --specpath {}\\spec --distpath {}/build -F --icon {}/config/icon_update.ico {}/update.py > ./log.txt".format(
+        work, work, maindir, maindir, maindir, maindir, maindir
     )
 )
 

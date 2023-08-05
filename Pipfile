@@ -4,9 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+cssmin = "0.2.0"
+jsmin = "3.0.1"
+flask = "2.3.2"
+flask-cors = "4.0.0"
+pyinstaller = "5.13.0"
+pywebview = "4.2.2"
+requests = "2.31.0"
 
 [dev-packages]
-autopep8 = "*"
 
 [requires]
 python_version = "3.10"
