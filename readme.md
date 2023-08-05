@@ -1,5 +1,6 @@
 <h1 align="center">
-  <img src="images\icon.png" width="512px" height="512px">
+  <img src="images\icon.png" width="64px" height="64px">
+  <br>
   <a href="https://github.com/moyanj/HoYoGameLauncher">
     HoYoGameLauncher
   </a>
