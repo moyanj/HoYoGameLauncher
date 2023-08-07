@@ -1,6 +1,6 @@
 import webview
 import click
-from server import app as flask
+#from server import app as flask
 # 创建WebView窗口
 @click.command()
 @click.option("-d", "--debug",type=str,default="no",help="是否开启调试模式（yes/no）")
