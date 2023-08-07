@@ -1,7 +1,7 @@
-import sqlite3 as sql
-import os
 from configparser import ConfigParser
 import winreg
+from tools.config import Config
+conf = Config("config.json")
 
 
 def get_Reg_key(path, key_):
@@ -46,12 +46,14 @@ def get_game_path():
         # 读取配置文件
         f = raedini(yslunpath + "\\config.ini")
         ysgamepath = (
-            f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
+            f["launcher"]["game_install_path"] +
+            "/" + f["launcher"]["game_start_name"]
         )
     if sr:
         f = raedini(srlunpath + "\\config.ini")
         srgamepath = (
-            f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
+            f["launcher"]["game_install_path"] +
+            "/" + f["launcher"]["game_start_name"]
         )
 
     return ysgamepath, srgamepath
@@ -61,23 +63,7 @@ def main():
     """
     hasc
     """
-    if os.path.exists("data.db"):
-        pass
-    else:
-        ysgamepath, srgamepath = get_game_path()
-        conn = sql.connect("data.db")
-        cur = conn.cursor()
-        cur.execute(
-            "CREATE TABLE IF NOT EXISTS game (name text, path text, includes text)"
-        )
-        cur.execute("CREATE TABLE IF NOT EXISTS config (key text, value text)")
-        cur.execute("INSERT INTO game VALUES ('ys', '{}', 'null')".format(ysgamepath))
-        cur.execute("INSERT INTO game VALUES ('sr', '{}', 'null')".format(srgamepath))
-        cur.execute("INSERT INTO config VALUES ('uid', 'unknown')")
-        cur.execute("INSERT INTO config VALUES ('username', 'unknown')")
-        cur.execute("INSERT INTO config VALUES ('cookie', 'unknown')")
-        cur.execute("INSERT INTO config VALUES ('init', 'False')")
-        
-        conn.commit()
-        cur.close()
-        conn.close()
+
+    ysgamepath, srgamepath = get_game_path()
+    conf.set_game_path(ysgamepath,"ys")
+    conf.set_game_path(srgamepath,"sr")

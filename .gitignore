@@ -7,6 +7,7 @@ server/static/images/avatar.png
 node_modules
 /dist
 *.pyc
+*.log
 
 
 # local env files

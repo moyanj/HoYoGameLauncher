@@ -3,7 +3,7 @@ $(document).ready(function () {
         type:"GET",
         url:"/ifinit",
         success:function(data){
-            if(data=="False"){
+            if(data=="not ok"){
                 $("#APPinit").show();
             }
         }

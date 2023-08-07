@@ -1,0 +1,31 @@
+{
+    "conf_init": "fasle",
+    "player": {
+        "uid": "unknown",
+        "username": "unknown",
+        "init": "false"
+    },
+    "settings": {
+        "debug": "false",
+        "language": "zh-cn",
+        "theme": "default"
+    },
+    "server": {
+        "port": "6553",
+        "Allowed UA": [
+            "HoYoGameLauncher-WebView/1.0.0",
+            "HoYoGameLauncher-Server/1.0.0"
+        ],
+        "Allowed IP": [
+            "127.0.0.1"
+        ]
+    },
+    "game": {
+        "ys": {
+            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+        },
+        "sr": {
+            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+        }
+    }
+}
