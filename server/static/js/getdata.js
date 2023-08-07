@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type:"GET",
-        url:"http://127.0.0.1:6553/ifinit",
+        url:"/ifinit",
         success:function(data){
             if(data=="False"){
                 $("#APPinit").show();
@@ -12,7 +12,7 @@ $(document).ready(function () {
     // 获取游戏路径
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:6553/get/gamepath",
+        url: "/get/gamepath",
         dataType: 'json',
         success: function (data) {
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
     // 获取游戏名
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:6553/username",
+        url: "/username",
         success: function (data) {
             console.log("玩家名称：" + data);
             //写入输入框

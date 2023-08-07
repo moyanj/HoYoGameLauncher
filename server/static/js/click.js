@@ -44,7 +44,7 @@ $(document).ready(function () {
     $("#startYSGameBtn").on("click", function () {
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:6553/run/ys",
+            url: "/run/ys",
             success: function (data) {
                 // 显示运行成功模态框
                 $("#RunOK").modal("show")
@@ -60,7 +60,7 @@ $(document).ready(function () {
     $("#startSRGameBtn").on("click", function () {
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:6553/run/sr",
+            url: "/run/sr",
             success: function (data) {
                 // 显示运行成功模态框
                 $("#RunOK").modal("show")
@@ -99,7 +99,7 @@ $(document).ready(function () {
     $("#InitSave").on("click", function () {
         var inputOb =  $("#YSuid")
         var dt =inputOb.val();
-        var url = "http://127.0.0.1:6553/init?uid=" + dt
+        var url = "/init?uid=" + dt
         console.log(url)
         $.get(url,function(data) {
             // 显示运行成功模态框

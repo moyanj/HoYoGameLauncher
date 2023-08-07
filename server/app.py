@@ -1,18 +1,18 @@
-from flask import Flask, request, send_from_directory, redirect  # flask
+from flask import Flask, request, send_from_directory, redirect, render_template  # flask
 import sqlite3 as sql  # 数据库
 import os  # 系统操作
 from flask_cors import CORS  # 跨域
-import init  # 函数
+import server.init as init # 函数
 import requests as r
 import json
 import sys
 
 version = int("0")
-avatarID = json.load(open("static/avatar.json", "r", encoding="utf-8"))
+avatarID = json.load(open("server/static/avatar.json", "r", encoding="utf-8"))
 # print(avatarID)
-save_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+save_path = os.path.dirname(os.path.realpath(sys.argv[0])) + "/server"
 # 初始化Flask
-app = Flask(__name__)
+app = Flask(__name__,template_folder="../html")
 # 初始化CORS
 CORS(app, supports_credentials=True)
 # 创建数据库
@@ -47,7 +47,10 @@ def before_request():
     ip = request.remote_addr
     if ip != "127.0.0.1":
         return "This is not a request from HoYoGameLauncher", 403
-
+@app.route("/")
+def index():
+    Static_URL = "http://127.0.0.1:6553/files"
+    return render_template("index.html",static_url = Static_URL)
 
 @app.route("/init", methods=["GET"])
 def info_init():

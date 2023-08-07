@@ -82,6 +82,10 @@ python main.py
 - [jsmin](https://github.com/tikitu/jsmin)（压缩JS）
 - [cssmin](https://github.com/mir-rs/cssmin)（压缩CSS）
 - [requests](https://github.com/psf/requests)（请求API）
+- [bootstrap](https://github.com/twbs/bootstrap)（前端CSS）
+- [Vue.js](https://github.com/vuejs/vue)（前端框架(正在写)）
+
+
 
 ## 致谢
 - 由 [Microsoft](https://www.microsoft.com/) 的 [NewBing](https://www.bing.com/new) 为我们提供了图标。
