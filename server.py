@@ -1,5 +1,4 @@
 from flask import Flask, request, send_from_directory, redirect, render_template  # flask
-import sqlite3 as sql  # 数据库
 import os  # 系统操作
 from flask_cors import CORS  # 跨域
 import tools.init as init # 函数
@@ -23,11 +22,11 @@ console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
 
 # 创建文件处理程序
-file_handler = logging.FileHandler('log/debug.log')
+file_handler = logging.FileHandler('log/flask_debug.log')
 file_handler.setLevel(logging.DEBUG)
 
 # 创建格式化器
-formatter = logging.Formatter('[%(asctime)s]-%(levelname)s : %(message)s')
+formatter = logging.Formatter('%(asctime)s-[%(levelname)s] : %(message)s')
 
 # 将格式化器添加到文件处理程序
 file_handler.setFormatter(formatter)
@@ -50,12 +49,13 @@ def before_request():
     '''
     验证请求
     '''
-    logger.info(f'Request: {request.method} {request.url} - {request.remote_addr}')
     UA = request.headers.get("User-Agent")
     ip = request.remote_addr
     allowed_ua = conf.get_allowed_ua()
     allowed_ip = conf.get_allowed_ip()
+    logger.info(f'请求方法: {request.method} \n 请求路径：{request.url} \n 请求IP： {request.remote_addr}')
     if ip not in allowed_ip or UA not in allowed_ua:
+        logger.warning("接收到一个不正常的请求：")
         return "This is not a request from HoYoGameLauncher", 403
 
 
