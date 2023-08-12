@@ -22,10 +22,12 @@
     },
     "game": {
         "ys": {
-            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
+            "version":"null"
         },
         "sr": {
-            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
+            "version":"null"
         }
     }
 }

@@ -41,7 +41,6 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 
 ## 使用的开源项目
 - [Flask](https://github.com/pallets/flask)（为服务器提供框架）
-- [Flask-Cors](https://github.com/corydolphin/flask-cors)（实现跨域请求）
 - [pywebview](https://github.com/r0x0r/pywebview)（显示页面）
 - [pyinstaller](https://github.com/pyinstaller/pyinstaller)（打包EXE）
 - [requests](https://github.com/psf/requests)（请求API）

@@ -1,50 +1,45 @@
-from flask import Flask, request, send_from_directory, redirect, render_template  # flask
-import sqlite3 as sql  # 数据库
+from flask import Flask, request, send_from_directory, redirect, render_template, jsonify  # flask
 import os  # 系统操作
-from flask_cors import CORS  # 跨域
-import tools.init as init # 函数
-import requests as r
-import json
-import sys
-from tools.config import Config
-import logging
+import tools.init as init  # 函数
+import requests as r  # 网络请求
+import json  # json解析
+import sys  # 我也不知道
+from tools.config import Config  # 配置
+import tools.api as api
+from loguru import logger as log
 
+print = log.debug
+# 创建配置对象
 conf = Config("config.json")
-# 创建Logger对象
-logger = logging.getLogger('flask_app')
-logger.setLevel(logging.DEBUG)
+
+# 初始化一些文件夹
 try:
-    os.mkdir('log')
+    os.mkdir('log')  # 日志文件夹
 except:
     pass
 
-# 创建控制台处理程序
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.DEBUG)
+log.add(
+    'log/flask.log',
+    rotation="1 days",
+    retention="7 days",
+    level="DEBUG", 
+    compression='zip'
+)
 
-# 创建文件处理程序
-file_handler = logging.FileHandler('log/flask_debug.log')
-file_handler.setLevel(logging.DEBUG)
 
-# 创建格式化器
-formatter = logging.Formatter('%(asctime)s-[%(levelname)s] : %(message)s')
+# 初始化一些全局变量
+avatarID = json.load(
+    open("static/avatar.json", "r", encoding="utf-8"))  # 角色头像表
+save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
 
-# 将格式化器添加到文件处理程序
-file_handler.setFormatter(formatter)
 
-# 将文件处理程序添加到Logger对象
-logger.addHandler(file_handler)
-
-avatarID = json.load(open("static/avatar.json", "r", encoding="utf-8"))
-# print(avatarID)
-save_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 # 初始化Flask
-app = Flask(__name__,template_folder=save_path+"/html/")
-# 初始化CORS
-CORS(app, supports_credentials=True)
+app = Flask(__name__, template_folder=save_path+"/html/")
+
 # 配置文件初始化
 init.main()
 
+print("sdd")
 @app.before_request
 def before_request():
     '''
@@ -54,20 +49,23 @@ def before_request():
     ip = request.remote_addr
     allowed_ua = conf.get_allowed_ua()
     allowed_ip = conf.get_allowed_ip()
-    logger.info(f'请求方法: {request.method} \n 请求路径：{request.url} \n 请求IP： {request.remote_addr}')
     if ip not in allowed_ip or UA not in allowed_ua:
-        logger.warning("接收到一个不正常的请求：")
+        log.warning("接收到一个不正常的请求：")
         return "This is not a request from HoYoGameLauncher", 403
+    log.info(
+        f'method:{request.method}  path:{request.path}  IP:{request.remote_addr}')
 
 
 @app.route("/")
 def index():
-    lang=conf.get_language()
+    lang = conf.get_language()
     try:
-        data = json.load(open("language\{}.json".format(lang),encoding="utf-8"))
+        data = json.load(
+            open("language\{}.json".format(lang), encoding="utf-8"))
     except:
-        data = json.load(open("language\zh-cn.json",encoding="utf-8"))
-    return render_template("index.html",lang=data)
+        data = json.load(open("language\zh-cn.json", encoding="utf-8"))
+    return render_template("index.html", lang=data)
+
 
 @app.route("/init", methods=["GET"])
 def info_init():
@@ -83,6 +81,7 @@ def info_init():
         pass
     return "ok"
 
+
 @app.route("/ifinit")
 def ifinit():
     '''
@@ -92,6 +91,7 @@ def ifinit():
         return "ok"
     else:
         return "not ok"
+
 
 @app.route("/run/<game>")
 def game(game):
@@ -106,8 +106,7 @@ def game(game):
     panfu = gamepath.split(":")[0] + ":"
     # 运行
     os.system("{} && cd {} && dir && {}".format(panfu, path, file))
-    return "RUN OK", 200, {"Access-Control-Allow-Origin": "*"}
-
+    return "RUN OK"
 
 @app.route("/post/gamepath")
 def postgamepath():
@@ -116,9 +115,8 @@ def postgamepath():
     """
     gamepath = request.args.get("gamepath")
     game = request.args.get("game")
-    conf.set_game_path(gamepath,game)
-    return "OK", 200, {"Access-Control-Allow-Origin": "*"}
-
+    conf.set_game_path(gamepath, game)
+    return "OK"
 
 @app.route("/get/gamepath/<game>")
 def getonegamepath(game):
@@ -126,9 +124,7 @@ def getonegamepath(game):
     获取一个游戏的路径
     """
     i = conf.get_game_path(game)
-    return i, 200, {"Access-Control-Allow-Origin": "*"}
-
-
+    return i
 @app.route("/get/gamepath")
 def getgamepath():
     """
@@ -138,7 +134,7 @@ def getgamepath():
         "ys": conf.get_game_path("ys"),
         "sr": conf.get_game_path("sr"),
     }
-    return data, 200, {"Access-Control-Allow-Origin": "*"}
+    return data
 
 
 @app.route("/files/<path:filename>")
@@ -148,8 +144,7 @@ def getfile(filename):
     """
     return (
         send_from_directory(save_path + "/static/", filename),
-        200,
-        {"Access-Control-Allow-Origin": "*"}
+        200
     )
 
 
@@ -182,9 +177,9 @@ def username():
     """
     获取用户名
     """
-    user =conf.get_player_username()
+    user = conf.get_player_username()
     if user == "unknown":
-        uid =conf.get_player_uid()
+        uid = conf.get_player_uid()
         if uid == "unknown":
             return "旅行者"
         else:
@@ -196,28 +191,32 @@ def username():
             return name
     else:
         return user
+
+
 @app.route("/get/lang")
 def langs():
     filenamelist = os.listdir("language")
     outlist = []
     for file in filenamelist:
-        d= file.split(".")
+        d = file.split(".")
         outlist.append(d[0])
     return jsonify(outlist)
 
+
 @app.route("/settings/<key>/<val>")
-def settings(key,val):
+def settings(key, val):
     if key == "language":
         conf.set_language(val)
     return "success"
+
 
 @app.route("/get/language")
 def get_language():
     return conf.get_language()
 
+
 @app.route("/bg/ys")
 def bg_ys():
-    req
-
+    return api.get_ysbg()
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6553, debug=True)

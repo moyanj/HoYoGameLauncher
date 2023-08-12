@@ -43,6 +43,7 @@ def pack():
     os.rename("./pack/main.exe", "./pack/HoYoGameLauncher.exe")
     shutil.copytree("html", "pack/html")
     shutil.copytree("static", "pack/static")
+    shutil.copytree("language", "pack/language")
     shutil.copy("config.example.json", "pack/config.json")
     try:
         os.mkdir("./pack/log")

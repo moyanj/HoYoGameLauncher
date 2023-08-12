@@ -1,22 +1,14 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 verify_ssl = true
 name = "pypi"
 
-[[source]]
-url = "https://pypi.org/simple/"
-verify_ssl = true
-name = "pypi-675"
-
 [packages]
-cssmin = "0.2.0"
-jsmin = "3.0.1"
 flask = "2.3.2"
-flask-cors = "4.0.0"
-pyinstaller = "5.13.0"
 pywebview = "4.2.2"
 requests = "2.31.0"
-jzd = {version = "*", index = "pypi-675"}
+pyinstaller = "5.13.0"
+loguru = "*"
 
 [dev-packages]
 

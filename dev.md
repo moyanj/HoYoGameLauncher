@@ -9,10 +9,12 @@ python build.py pack
 ### 配置环境
 
 ```shell
-pip install -r requirements.txt
+pip install pipenv
+python -m pipenv shell
 ```
 
 ## 运行
+请先进入 pipenv 虚拟环境，再运行以下命令：
 ```shell
 python main.py -d yes
 ```

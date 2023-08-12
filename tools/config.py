@@ -1,6 +1,5 @@
 import json
 
-
 class Config:
     def load_config(self):
         with open(self.config_file_path, 'r') as file:
@@ -8,7 +7,7 @@ class Config:
 
     def __init__(self, config_file_path):
         self.config_file_path = config_file_path
-        self.config = None
+        self.config = {}
         self.load_config()
 
     def save_config(self):
@@ -27,14 +26,6 @@ class Config:
         self.load_config()
         return self.config['player']['username']
 
-    def get_language(self):
-        self.load_config()
-        return self.config['settings']['language']
-
-    def set_language(self, username):
-        self.config['settings']['language'] = username
-        self.save_config()
-
     def set_player_username(self, username):
         self.config['player']['username'] = username
         self.save_config()
@@ -44,13 +35,28 @@ class Config:
         return self.config['player']['init'] == 'true'
 
     def set_player_initialized(self, initialized):
-        self.load_config()
-        self.config['player']['init'] = 'true' if initialized else 'false'
+        self.config['player']['init'] = str(initialized).lower()
         self.save_config()
 
     def is_debug_enabled(self):
         self.load_config()
         return self.config['settings']['debug'] == 'true'
+
+    def get_language(self):
+        self.load_config()
+        return self.config['settings']['language']
+
+    def set_language(self, language):
+        self.config['settings']['language'] = language
+        self.save_config()
+
+    def get_theme(self):
+        self.load_config()
+        return self.config['settings']['theme']
+
+    def set_theme(self, theme):
+        self.config['settings']['theme'] = theme
+        self.save_config()
 
     def get_server_port(self):
         self.load_config()
@@ -70,4 +76,12 @@ class Config:
 
     def set_game_path(self, path, game):
         self.config['game'][game]['path'] = path
+        self.save_config()
+
+    def get_game_version(self, game):
+        self.load_config()
+        return self.config['game'][game]['version']
+
+    def set_game_version(self, version, game):
+        self.config['game'][game]['version'] = version
         self.save_config()
