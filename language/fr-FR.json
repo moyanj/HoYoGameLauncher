@@ -1,0 +1,16 @@
+{
+    "start":"Démarrer le jeu",
+    "yspath":"Chemin de Genshin Impact",
+    "srpath":"Chemin de Honkai Impact: Odyssey",
+    "darkmode":"Mode sombre",
+    "about":"À propos",
+    "save":"Enregistrer",
+    "exit":"Quitter",
+    "entergamepath":"Entrer le chemin du jeu",
+    "rungameerr":"Échec du lancement du jeu !",
+    "rungameok":"Lancement du jeu réussi !",
+    "version":"Version",
+    "author":"Auteur : Mo Yan",
+    "abouttext":"Ce logiciel est conforme à la licence open source BSD. Ne l'utilisez pas à des fins illégales, sinon vous en assumerez les conséquences!",
+    "lang":"Langue"
+}

@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory, redirect, render_template  # flask
+from flask import Flask, request, send_from_directory, redirect, render_template,jsonify  # flask
 import sqlite3 as sql  # 数据库
 import os  # 系统操作
 from flask_cors import CORS  # 跨域
@@ -61,7 +61,12 @@ def before_request():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    lang=conf.get_language()
+    try:
+        data = json.load(open("language\{}.json".format(lang),encoding="utf-8"))
+    except:
+        data = json.load(open("language\zh-cn.json",encoding="utf-8"))
+    return render_template("index.html",lang=data)
 
 @app.route("/init", methods=["GET"])
 def info_init():
@@ -190,6 +195,28 @@ def username():
             return name
     else:
         return user
+@app.route("/get/lang")
+def langs():
+    filenamelist = os.listdir("language")
+    outlist = []
+    for file in filenamelist:
+        d= file.split(".")
+        outlist.append(d[0])
+    return jsonify(outlist)
+
+@app.route("/settings/<key>/<val>")
+def settings(key,val):
+    if key == "language":
+        conf.set_language(val)
+    return "success"
+
+@app.route("/get/language")
+def get_language():
+    return conf.get_language()
+
+@app.route("/bg/ys")
+def bg_ys():
+    req
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6553, debug=True)

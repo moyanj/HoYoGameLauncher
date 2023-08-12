@@ -8,6 +8,7 @@ node_modules
 /dist
 *.pyc
 *.log
+config.json
 
 
 # local env files

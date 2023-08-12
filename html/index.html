@@ -18,16 +18,163 @@
 </head>
 
 <body>
-    {% include "sidebar.html" %}
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <!-- 图标列表 -->
+        <ul class="nav flex-column">
+            <li class="nav-item">
+
+                <!-- 标题 -->
+                <h4>HoYoGame<br>&nbsp;&nbsp;Launcher</h4>
+            </li>
+            <li class="nav-item">
+                <!-- 原神 -->
+                <a id="ys" class="nav-link" href="#">
+                    <img src="/files/images/ys.jpg" alt="GenshinImpact">
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- 崩铁 -->
+                <a id="sr" class="nav-link" href="#">
+                    <img src="/files/images/sr.jpg" alt="StarRail">
+                </a>
+            </li>
+            <li>
+                <hr>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <img src="/avatar" alt="User Avatar" id="user-avatar">
+                    </div>
+                    <div class="user-info">
+                        <a id="user-name">unknown</a>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+    </div>
     <!-- 内容区域 -->
     <div class="container-fluid">
-        {% include "content/ys.html" %}
-        {% include "content/sr.html" %}
+        <div id="ysContent" class="ysbg content-area">
+            <!-- 原神 -->
+            <div id="settings">
+                <!-- 设置按钮 -->
+                <button type="button" title="设置" id="settingysBtn" class="btn btn-primary">
+                    <i class="bi bi-gear"></i>
+                </button>
+            </div>
+            <!-- 启动按钮 -->
+            <button id="startYSGameBtn" class="btn btn-primary btn-lg">{{ lang.start }}</button>
+        </div>
+        <div id="srContent" class="srbg content-area">
+            <div id="settings">
+                <!-- 设置按钮 -->
+                <button type="button" title="设置" id="settingsrBtn" class="btn btn-primary">
+                    <i class="bi bi-gear"></i>
+                </button>
+            </div>
+            <!-- 启动按钮 -->
+            <button id="startSRGameBtn" class="btn btn-primary btn-lg">{{ lang.start }}</button>
+        </div>
     </div>
     <!-- 模态框 -->
-    {% include "modal/APPset.html" %}
-    {% include "modal/APPset.html" %}
-    {% include "modal/APPset.html" %}
-    {% include "modal/APPabout.html" %}
-    {% include "modal/APPinit.html" %}
+    <!-- 设置 -->
+    <div class="modal" id="APPset">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="gamePathInput">{{ lang.yspath }}：</label>
+                        <input type="text" class="form-control" id="YSPath" placeholder="{{lang.entergamepath}}">
+                        <br>
+                        <label for="gamePathInput">{{ lang.srpath }}：</label>
+                        <input type="text" class="form-control" id="SRPath" placeholder="{{lang.entergamepath}}">
+                        <br>
+                        <!-- 切换暗色模式按钮 -->
+                        <div class="dark-mode-switch form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label" for="darkModeToggle">{{ lang.darkmode }}</label>
+                        </div>
+                        <br>
+                        <label for="gamePathInput">{{ lang.lang }}：</label>
+                        <select id="LangSelect" class="form-select"></select>
+                        <br>
+                        
+                        <button type="button" class="btn btn-primary" id="aboutBtn">{{lang.about}}</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{lang.exit}}</button>
+                    <button type="button" class="btn btn-primary" id="SetSave">{{lang.save}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 游戏启动失败 -->
+    <div class="modal" id="RunError">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {{lang.rungameerr}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{lang.exit}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="RunOK">
+        <!-- 游戏启动成功 -->
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {{lang.rungameok}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{lang.exit}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="APPabout">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1>HoYoGameLauncher</h1>
+                    <p>{{ lang.version }}：V1.0.0</p>
+                    <p>{{ lang.author }}</p>
+                    <p>Github：<a
+                            href="https://github.com/moyanj/HoYoGameLauncher">https://github.com/moyanj/HoYoGameLauncher</a>
+                    </p>
+                    <p>QQ：1561515308</p>
+                    <p>{{lang.abouttext}}</p>
+
+                    <p id="Copyright">Copyright © 2018 - 2023 MoYan Corporation, All Rights Reserved</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{lang.exit}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 初始化 -->
+    <div class="modal" id="APPinit">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>请设置一些您的基本信息：</h2>
+                    <br>
+                    <div class="form-group">
+                        <label for="YSgameUIDInput">您的原神UID：</label>
+                        <input type="text" class="form-control" id="YSuid" placeholder="请输入原神UID">
+                        <br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="InitSave">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>

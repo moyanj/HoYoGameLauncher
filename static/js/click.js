@@ -97,17 +97,32 @@ $(document).ready(function () {
 
     });
     $("#InitSave").on("click", function () {
-        var inputOb =  $("#YSuid")
-        var dt =inputOb.val();
+        var inputOb = $("#YSuid")
+        var dt = inputOb.val();
         var url = "/init?uid=" + dt
         console.log(url)
-        $.get(url,function(data) {
+        $.get(url, function (data) {
             // 显示运行成功模态框
             $("#APPinit").modal("hide")
             $("#ok").modal("show")
 
 
         })
+        $("#APPinit").modal("hide")
+        $("#ok").modal("show")
     });
-    
+    // 添加下拉列表变化事件监听
+    $("#LangSelect").change(function () {
+        // 在下拉列表发生变化时执行的代码
+        var selectedValue = $(this).val();
+        console.log("选中的值为：" + selectedValue);
+        $.ajax({
+            url: "/settings/language/"+selectedValue,
+            type: "GET",
+            success: function () {
+                location.reload()
+            }
+        })
+    });
+
 })

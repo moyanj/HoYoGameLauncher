@@ -1,0 +1,16 @@
+{
+    "start":"开始游戏",
+    "yspath":"原神路径",
+    "srpath":"崩坏：星穹铁道路径",
+    "darkmode":"暗黑模式",
+    "about":"关于",
+    "save":"保存",
+    "exit":"关闭",
+    "entergamepath":"请输入游戏路径",
+    "rungameerr":"游戏启动失败！",
+    "rungameok":"游戏启动成功！",
+    "version":"版本",
+    "author":"作者：莫颜",
+    "abouttext":"本软件遵循BSD开源协议，请勿用于非法用途，否则后果自负！",
+    "lang":"语言"
+}

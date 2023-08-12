@@ -1,0 +1,16 @@
+{
+    "start":"게임 시작",
+    "yspath":"原神 경로",
+    "srpath":"붕괴: 스타레일 경로",
+    "darkmode":"다크 모드",
+    "about":"소개",
+    "save":"저장",
+    "exit":"종료",
+    "entergamepath":"게임 경로를 입력하세요",
+    "rungameerr":"게임 실행 실패!",
+    "rungameok":"게임 실행 성공!",
+    "version":"버전",
+    "author":"작성자: 모얀",
+    "abouttext":"이 소프트웨어는 BSD 오픈 소스 라이선스를 따릅니다. 불법적인 용도로 사용하지 마십시오. 그렇지 않으면 책임을 져야 합니다!",
+    "lang":"언어"
+}
