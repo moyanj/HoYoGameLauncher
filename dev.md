@@ -35,7 +35,7 @@ python server.py
     },
     "settings": {
         "debug": "false", // 是否使用Debug模式
-        "language": "zh-cn", // 语言（将在v1.0.1上线）
+        "language": "zh-cn", // 语言
         "theme": "default"// 主题（将在v99.99.99上线）
     },
     "server": {

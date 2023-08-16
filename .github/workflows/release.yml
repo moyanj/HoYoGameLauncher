@@ -16,16 +16,18 @@ jobs:
           python-version: "3.10.8"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install pipenv
+          pipinv install
 
       - name: Run build script
         run: |
-          python tools/build.py pack
-          python tools/build.py zip
+          pipenv run python tools/build.py pack
+          pipenv run python tools/build.py zip
 
 
       - name: Archive Main build
         uses: actions/upload-artifact@v2
         with:
-          name: Main program compression package
+          name: HoYoGameLauncher.zip
           path: package/HoYoGameLauncher.zip

@@ -19,7 +19,7 @@
 <p align="center">
 <a href="#介绍">介绍</a> &nbsp;&bull;&nbsp;
 <a href="#安装">安装</a> &nbsp;&bull;&nbsp;
- <a href="https://github.com/moyanj/HoYoGameLauncher/dev.md">开发文档</a>
+ <a href="dev.md">开发文档</a>
 </p>
 
 # 介绍
