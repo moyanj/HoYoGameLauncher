@@ -13,7 +13,7 @@
     <a target="_blank" ><img src="https://img.shields.io/github/commit-activity/t/moyanj/HoYoGameLauncher" /></a>&nbsp;
 </p>
 <p align="center">
-  此存储库包含<strong>HoYoGameLauncher</strong>的源代码。<strong>HoYoGameLauncher</strong>是一个<a href="https://www.mihoyo.com">米哈游</a>游戏启动器，旨在简化玩家启动游戏的步骤。它功能强大，维护积极，易于使用。
+  此存储库包含了<strong>HoYoGameLauncher</strong>的源代码。<strong>HoYoGameLauncher</strong>是一个<a href="https://www.mihoyo.com">米哈游</a>游戏启动器，旨在简化玩家启动游戏的步骤。它功能强大，维护积极，易于使用。
 </p>
 
 <p align="center">
@@ -33,11 +33,11 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 
 # 安装
 下载[最新releases版本](https://github.com/moyanj/HoYoGameLauncher/releases/latest)<br/>
-下载[最新开发版本](https://github.com/moyanj/HoYoGameLauncher/actions/workflows/package.yml)(可能无法正常运行)<br/>
+下载[最新开发版本](https://github.com/moyanj/HoYoGameLauncher/actions/workflows/release.yml)(可能无法正常运行)<br/>
 
 - 如果你下载了exe安装包, 请直接运行，然后根据提示安装。<br/>
 - 如果你下载了zip程序压缩包, 请解压后双击打开`HoYoGameLauncher.exe`即可运行。<br/>
-- 如果你下载了源代码, 请前往[开发文档](https://github.com/moyanj/HoYoGameLauncher/dev.md)查看如何运行。<br/>
+- 如果你下载了源代码, 请前往[开发文档](dev.md)查看如何运行。<br/>
 
 ## 使用的开源项目
 - [Flask](https://github.com/pallets/flask)（为服务器提供框架）
