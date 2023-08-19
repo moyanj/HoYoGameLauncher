@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import winreg
 from tools.config import Config
+
 conf = Config("config.json")
 
 
@@ -46,14 +47,12 @@ def get_game_path():
         # 读取配置文件
         f = raedini(yslunpath + "\\config.ini")
         ysgamepath = (
-            f["launcher"]["game_install_path"] +
-            "/" + f["launcher"]["game_start_name"]
+            f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
     if sr:
         f = raedini(srlunpath + "\\config.ini")
         srgamepath = (
-            f["launcher"]["game_install_path"] +
-            "/" + f["launcher"]["game_start_name"]
+            f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
 
     return ysgamepath, srgamepath
@@ -65,5 +64,5 @@ def main():
     """
 
     ysgamepath, srgamepath = get_game_path()
-    conf.set_game_path(ysgamepath,"ys")
-    conf.set_game_path(srgamepath,"sr")
+    conf.set_game_path(ysgamepath, "ys")
+    conf.set_game_path(srgamepath, "sr")

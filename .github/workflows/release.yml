@@ -17,17 +17,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pipenv
-          pipinv install
-
+          pip install -r requirements.txt
       - name: Run build script
         run: |
-          pipenv run python tools/build.py pack
-          pipenv run python tools/build.py zip
-
+          python tools/build.py pack
 
       - name: Archive Main build
         uses: actions/upload-artifact@v2
         with:
           name: HoYoGameLauncher.zip
-          path: package/HoYoGameLauncher.zip
+          path: pack/

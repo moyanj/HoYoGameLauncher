@@ -2,12 +2,18 @@ import requests as r
 from flask import redirect
 import json
 import hashlib
+
+
 def calculate_md5(data):
     md5_hash = hashlib.md5()
     md5_hash.update(data)
     return md5_hash.hexdigest()
+
+
 def get_ysbg():
-    req = r.get("https://sdk-static.mihoyo.com/hk4e_cn/mdk/launcher/api/content?filter_adv=true&key=eYd89JmJ&language=zh-cn&launcher_id=18")
+    req = r.get(
+        "https://sdk-static.mihoyo.com/hk4e_cn/mdk/launcher/api/content?filter_adv=true&key=eYd89JmJ&language=zh-cn&launcher_id=18"
+    )
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]

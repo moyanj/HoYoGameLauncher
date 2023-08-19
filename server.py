@@ -1,4 +1,11 @@
-from flask import Flask, request, send_from_directory, redirect, render_template, jsonify  # flask
+from flask import (
+    Flask,
+    request,
+    send_from_directory,
+    redirect,
+    render_template,
+    jsonify,
+)  # flask
 import os  # 系统操作
 import tools.init as init  # 函数
 import requests as r  # 网络请求
@@ -7,44 +14,47 @@ import sys  # 我也不知道
 from tools.config import Config  # 配置
 import tools.api as api
 from loguru import logger as log
+from tools import plugin as plu
 
-print = log.debug
-# 创建配置对象
-conf = Config("config.json")
+
 
 # 初始化一些文件夹
 try:
-    os.mkdir('log')  # 日志文件夹
+    os.mkdir("log")  # 日志文件夹
+    os.mkdir("plugins")  # 日志文件夹
 except:
     pass
 
 log.add(
-    'log/flask.log',
+    "log/flask.log",
     rotation="1 days",
     retention="7 days",
-    level="DEBUG", 
-    compression='zip'
+    level="DEBUG",
+    compression="zip",
 )
 
 
 # 初始化一些全局变量
-avatarID = json.load(
-    open("static/avatar.json", "r", encoding="utf-8"))  # 角色头像表
+avatarID = json.load(open("static/avatar.json", "r", encoding="utf-8"))  # 角色头像表
 save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
+print = log.debug
 
 
 # 初始化Flask
-app = Flask(__name__, template_folder=save_path+"/html/")
+app = Flask(__name__, template_folder=save_path + "/html/")
 
 # 配置文件初始化
 init.main()
+plugin = plu.load_plugins("plugins")
+# 创建配置对象
+conf = Config("config.json")
 
-print("sdd")
 @app.before_request
 def before_request():
-    '''
+    """
     验证请求
-    '''
+    """
+    plu.run_funcion(plugin, "hello")
     UA = request.headers.get("User-Agent")
     ip = request.remote_addr
     allowed_ua = conf.get_allowed_ua()
@@ -52,16 +62,14 @@ def before_request():
     if ip not in allowed_ip or UA not in allowed_ua:
         log.warning("接收到一个不正常的请求：")
         return "This is not a request from HoYoGameLauncher", 403
-    log.info(
-        f'method:{request.method}  path:{request.path}  IP:{request.remote_addr}')
+    log.info(f"method:{request.method}  path:{request.path}  IP:{request.remote_addr}")
 
 
 @app.route("/")
 def index():
     lang = conf.get_language()
     try:
-        data = json.load(
-            open("language\{}.json".format(lang), encoding="utf-8"))
+        data = json.load(open("language\{}.json".format(lang), encoding="utf-8"))
     except:
         data = json.load(open("language\zh-cn.json", encoding="utf-8"))
     return render_template("index.html", lang=data)
@@ -69,9 +77,9 @@ def index():
 
 @app.route("/init", methods=["GET"])
 def info_init():
-    '''
+    """
     初始化信息
-    '''
+    """
     uid = request.args.get("uid", "unknown")
     conf.set_player_uid(uid)
     conf.set_player_initialized(True)
@@ -84,9 +92,9 @@ def info_init():
 
 @app.route("/ifinit")
 def ifinit():
-    '''
+    """
     判断是否初始化
-    '''
+    """
     if conf.is_player_initialized():
         return "ok"
     else:
@@ -95,9 +103,9 @@ def ifinit():
 
 @app.route("/run/<game>")
 def game(game):
-    '''
+    """
     运行游戏
-    '''
+    """
     # 查询游戏路径
     gamepath = conf.get_game_path(game)
     # 提取信息
@@ -107,6 +115,7 @@ def game(game):
     # 运行
     os.system("{} && cd {} && dir && {}".format(panfu, path, file))
     return "RUN OK"
+
 
 @app.route("/post/gamepath")
 def postgamepath():
@@ -118,6 +127,7 @@ def postgamepath():
     conf.set_game_path(gamepath, game)
     return "OK"
 
+
 @app.route("/get/gamepath/<game>")
 def getonegamepath(game):
     """
@@ -125,6 +135,8 @@ def getonegamepath(game):
     """
     i = conf.get_game_path(game)
     return i
+
+
 @app.route("/get/gamepath")
 def getgamepath():
     """
@@ -142,10 +154,7 @@ def getfile(filename):
     """
     静态文件
     """
-    return (
-        send_from_directory(save_path + "/static/", filename),
-        200
-    )
+    return (send_from_directory(save_path + "/static/", filename), 200)
 
 
 @app.route("/avatar")
@@ -164,7 +173,7 @@ def getavatar():
             data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
             data = json.loads(data.text)
             # print(data)
-            avatar = data['playerInfo']["profilePicture"]["avatarId"]
+            avatar = data["playerInfo"]["profilePicture"]["avatarId"]
             url = avatarID[str(avatar)]
             data = r.get(url)
             with open("static/images/avatar.png", "wb") as f:
@@ -186,7 +195,7 @@ def username():
             data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
             data = json.loads(data.text)
             # print(data)
-            name = data['playerInfo']["nickname"]
+            name = data["playerInfo"]["nickname"]
             conf.set_player_username(name)
             return name
     else:
@@ -218,5 +227,7 @@ def get_language():
 @app.route("/bg/ys")
 def bg_ys():
     return api.get_ysbg()
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6553, debug=True)
