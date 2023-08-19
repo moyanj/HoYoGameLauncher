@@ -73,7 +73,8 @@ def index():
         data = json.load(open("language\{}.json".format(lang), encoding="utf-8"))
     except:
         data = json.load(open("language\zh-cn.json", encoding="utf-8"))
-    return render_template("index.html", lang=data)
+    plugins_info = plu.get_plugin_info(plugin)
+    return render_template("index.html", lang=data,plugins=plugins_info)
 
 
 @app.route("/init", methods=["GET"])

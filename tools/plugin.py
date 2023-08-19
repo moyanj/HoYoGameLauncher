@@ -41,3 +41,12 @@ def run_one_funcion(plugins,name, funcion, *args, **kwargs):
         return "None"
     else:
         return ret
+
+def get_plugin_info(plugins):
+    ret_data = []
+    for plugin in plugins:
+        try:
+            ret_data.append(plugin.info)
+        except Exception as e:
+            pass
+    return ret_data

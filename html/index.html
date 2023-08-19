@@ -97,11 +97,27 @@
                             <label class="form-check-label" for="darkModeToggle">{{ lang.darkmode }}</label>
                         </div>
                         <br>
+                        <label for="gamePathInput">{{ lang.plugin }}：</label>
+                        <ul id="navigation">
+                        {% for item in plugins %}
+                            <li>
+                                <div>
+                                    <label for="gamePathInput">插件名：</label>
+                                    <a>{{ item.name }}</a>
+                                    <br>
+                                    <label for="gamePathInput"><a href="{{ item.name }}">进入插件主页</a></label>
+                                </div>
+                                <hr>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        <br>
                         <label for="gamePathInput">{{ lang.lang }}：</label>
                         <select id="LangSelect" class="form-select"></select>
                         <br>
                         
                         <button type="button" class="btn btn-primary" id="aboutBtn">{{lang.about}}</button>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -149,7 +165,6 @@
                     </p>
                     <p>QQ：1561515308</p>
                     <p>{{lang.abouttext}}</p>
-
                     <p id="Copyright">Copyright © 2018 - 2023 MoYan Corporation, All Rights Reserved</p>
                 </div>
                 <div class="modal-footer">
