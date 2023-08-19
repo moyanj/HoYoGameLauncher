@@ -54,14 +54,15 @@ def before_request():
     """
     验证请求
     """
-    plu.run_funcion(plugin, "hello")
+    plugin_return = plu.run_funcion(plugin, "before_request", request)
     UA = request.headers.get("User-Agent")
     ip = request.remote_addr
     allowed_ua = conf.get_allowed_ua()
     allowed_ip = conf.get_allowed_ip()
-    if ip not in allowed_ip or UA not in allowed_ua:
-        log.warning("接收到一个不正常的请求：")
-        return "This is not a request from HoYoGameLauncher", 403
+    for i in plugin_return:
+        if not i or ip not in allowed_ip or UA not in allowed_ua:
+            log.warning("接收到一个不正常的请求：")
+            return "This is not a request from HoYoGameLauncher", 403
     log.info(f"method:{request.method}  path:{request.path}  IP:{request.remote_addr}")
 
 
@@ -228,6 +229,11 @@ def get_language():
 def bg_ys():
     return api.get_ysbg()
 
-
+@app.route("/<path:url>")
+def pluurl(url):
+    url = str(url)
+    plu_name = url.split("/")[0]
+    data = plu.run_one_funcion(plugin, plu_name,"main_route",request)
+    return data
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6553, debug=True)
