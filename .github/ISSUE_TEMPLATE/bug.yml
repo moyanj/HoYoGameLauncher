@@ -1,0 +1,60 @@
+name: "Bug report"
+description: Bug report
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间填写此错误报告，请**务必确认您的issue不是重复的且不是因为您的操作、版本或系统问题**
+
+  - type: checkboxes
+    attributes:
+      label: Please make sure of the following things
+      description: |
+        您必须勾选以下所有内容，否则您的issue可能会被直接关闭。
+      options:
+        - label: |
+            我确定没有重复的issue或讨论。
+        - label: |
+            我确定是`HoYoGameLauncher`的问题，而不是其他原因。
+        - label: |
+            我确定这个问题在最新开发版本中没有被修复。
+
+  - type: input
+    id: version
+    attributes:
+      label: HoYoGameLauncher 版本
+      description: |
+        您使用的是哪个版本的软件？如果是开发版请填写actions的id，如：#121
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 问题描述
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现方法
+      description: |
+        请提供能复现此问题的方法，请知悉如果不提供它你的issue可能会被直接关闭。
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: 配置
+      description: |
+        Please provide the configuration file of your `AList` application and take a screenshot of the relevant storage configuration. (hide privacy field)
+        请提供您的`HoYoGameLauncher`应用的配置文件。(隐藏隐私字段)
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: |
+        请填写软件安装目录logs文件夹下所有文件的压缩包下载地址。
