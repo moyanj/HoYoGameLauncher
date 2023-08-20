@@ -1,4 +1,3 @@
-
 import os
 import importlib
 
@@ -8,8 +7,8 @@ def load_plugins(dir):
     plugins = []
     pre_fix = plugin_dir.replace("\\", ".").replace("/", ".")
     for file_name in os.listdir(plugin_dir):
-        if file_name.endswith(".py"):
-            module_name = file_name[:-3]
+        if file_name.endswith(".pyc"):
+            module_name = file_name[:-4]
             module = importlib.import_module(pre_fix + "." + module_name)
             module_name = module.__name__
             plugins.append(module)
