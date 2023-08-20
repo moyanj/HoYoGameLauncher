@@ -36,7 +36,7 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 下载[最新开发版本](https://github.com/moyanj/HoYoGameLauncher/actions/workflows/release.yml)(可能无法正常运行)<br/>
 
 - 如果你下载了exe安装包, 请直接运行，然后根据提示安装。<br/>
-- 如果你下载了zip程序压缩包, 请解压后双击打开`HoYoGameLauncher.exe`即可运行。<br/>
+- 如果你下载了zip程序压缩包, 请解压后双击打开`HoYoGameLauncher.exe`即可运行。（注意：您可能需要安Microsoft Edge WebView2）<br/>
 - 如果你下载了源代码, 请前往[开发文档](dev.md)查看如何运行。<br/>
 
 ## 使用的开源项目
