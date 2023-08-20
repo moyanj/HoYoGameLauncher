@@ -13,3 +13,7 @@ Pipfile.lock
 .vscode
 Pipfile
 *.exe
+*.zip
+static\images\avatar.png
+static\images\ys_bg.png
+static\images\sr_bg.png

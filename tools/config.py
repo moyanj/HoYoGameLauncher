@@ -35,8 +35,16 @@ class Config:
         self.load_config()
         return self.config["player"]["init"] == "true"
 
+    def is_conf_initialized(self):
+        self.load_config()
+        return self.config["conf_init"] == "true"
+
     def set_player_initialized(self, initialized):
         self.config["player"]["init"] = str(initialized).lower()
+        self.save_config()
+
+    def set_conf_initialized(self, initialized):
+        self.config["conf_init"] = str(initialized).lower()
         self.save_config()
 
     def is_debug_enabled(self):
@@ -86,3 +94,8 @@ class Config:
     def set_game_version(self, version, game):
         self.config["game"][game]["version"] = version
         self.save_config()
+        
+    def set_auth_key(self, key):
+        self.config["auth"]["key"] = key
+        self.save_config()
+

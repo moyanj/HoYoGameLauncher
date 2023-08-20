@@ -1,6 +1,15 @@
+'''
+Author: 莫颜JDC 1561515308@qq.com
+Date: 2023-08-16 20:31:22
+LastEditors: 莫颜JDC 1561515308@qq.com
+LastEditTime: 2023-08-20 23:57:42
+FilePath: \HoYoGameLauncher\tools\init.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 from configparser import ConfigParser
 import winreg
 from tools.config import Config
+from tools import tool
 
 conf = Config("config.json")
 
@@ -62,7 +71,10 @@ def main():
     """
     hasc
     """
-
-    ysgamepath, srgamepath = get_game_path()
-    conf.set_game_path(ysgamepath, "ys")
-    conf.set_game_path(srgamepath, "sr")
+    if not conf.is_conf_initialized():
+        ysgamepath, srgamepath = get_game_path()
+        conf.set_game_path(ysgamepath, "ys")
+        conf.set_game_path(srgamepath, "sr")
+        key = tool.generate_random_key(32)
+        conf.set_auth_key(key)
+        conf.set_conf_initialized(True)

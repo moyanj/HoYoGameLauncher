@@ -76,6 +76,9 @@ def index():
     plugins_info = plu.get_plugin_info(plugin)
     return render_template("index.html", lang=data,plugins=plugins_info)
 
+@app.route("/favicon.ico", methods=["GET"])
+def favicon():
+    return "1"
 
 @app.route("/init", methods=["GET"])
 def info_init():

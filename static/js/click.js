@@ -105,6 +105,7 @@ $(document).ready(function () {
             // 显示运行成功模态框
             $("#APPinit").modal("hide")
             $("#ok").modal("show")
+            location.reload()
 
 
         })

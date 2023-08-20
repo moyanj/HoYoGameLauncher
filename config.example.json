@@ -5,6 +5,12 @@
         "username": "unknown",
         "init": "false"
     },
+    "auth":{
+        "key":"",
+        "ck":"",
+        "stoken":"",
+        "sid":""
+    },
     "settings": {
         "debug": "false",
         "language": "zh-cn",
@@ -23,11 +29,11 @@
     "game": {
         "ys": {
             "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
-            "version":"null"
+            "version":0
         },
         "sr": {
             "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
-            "version":"null"
+            "version":0
         }
     }
 }
