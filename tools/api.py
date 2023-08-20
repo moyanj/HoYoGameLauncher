@@ -29,3 +29,23 @@ def get_ysbg():
         return redirect("/files/images/ys_bg.png")
     else:
         return redirect("/files/images/ys_bg.png")
+
+def get_srbg():
+    req = r.get(
+        "https://api-launcher.mihoyo.com/hkrpg_cn/mdk/launcher/api/content?filter_adv=true&key=6KcVuOkbcqjJomjZ&language=zh-cn&launcher_id=33"
+    )
+    datas = json.loads(req.text)
+    all_data = datas["data"]
+    adv = all_data["adv"]
+    bg = adv["background"]
+    req = r.get(bg)
+    bg_content = req.content
+    bg_md5 = calculate_md5(bg_content)
+    print(bg_md5)
+    if bg_md5 != adv["bg_checksum"]:
+        with open("static/images/sr_bg.png", "wb") as f:
+            f.write(bg_content)
+            f.close()
+        return redirect("/files/images/sr_bg.png")
+    else:
+        return redirect("/files/images/sr_bg.png")

@@ -230,6 +230,10 @@ def get_language():
 def bg_ys():
     return api.get_ysbg()
 
+@app.route("/bg/sr")
+def bg_srr():
+    return api.get_srbg()
+
 @app.route("/<path:url>")
 def pluurl(url):
     url = str(url)
