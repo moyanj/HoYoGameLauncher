@@ -1,0 +1,26 @@
+{
+  "info": {
+      "uid": "{{ uid }}",
+      "lang": "zh-CN",
+      "export_timestamp": {{ timestamp}},
+      "export_time": "{{ time }}",
+      "export_app": "HoYoGameLauncher",
+      "export_app_version": "1.0",
+      "uigf_version": "v2.3"
+    },
+    "list": [
+        {% for item in lists %}
+      {
+        "uigf_gacha_type": "{{ item.uigf_gacha_type }}",
+        "gacha_type": "{{ item.gacha_type }}",
+        "item_id": "{{ item.item_id }}",
+        "count": "1",
+        "time": "{{ item.time }}",
+        "name": "{{ item.name }}",
+        "item_type": "{{ item.item_type }}",
+        "rank_type": "{{ item.rank_type }}",
+        "id": "{{ item.id }}"
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+  ]
+}
