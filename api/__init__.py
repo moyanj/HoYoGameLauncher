@@ -8,12 +8,6 @@ from api import endpoint as ep
 conf = Config("config.json")
 
 
-def calculate_md5(data):
-    md5_hash = hashlib.md5()
-    md5_hash.update(data)
-    return md5_hash.hexdigest()
-
-
 def get_ysbg():
     req = r.get(ep.LauncherContent("ys"))
     datas = json.loads(req.text)
