@@ -61,10 +61,18 @@ class uid:
     def __str__(self):
         return str(self.uid)
 
+MoYanApi = "https://alist.moyanjdc.top/pan/lanzuo/hoyo"
+MoYanUpdateApi = f"{MoYanApi}/update.json"
+MoYanApi = f"{MoYanApi}/"
 
-LauncherApi = "https://api-launcher.mihoyo.com/hkrpg_cn/mdk/launcher/api"
+
+LauncherApi = "https://sdk-static.mihoyo.com/hk4e_cn/mdk/launcher/api"
 LauncherContentApi = f"{LauncherApi}/content"
 LauncherResourceApi = f"{LauncherApi}/resource"
+
+LauncherApi_sr = "https://api-launcher.mihoyo.com/hkrpg_cn/mdk/launcher/api"
+LauncherContentApi_sr = f"{LauncherApi_sr}/content"
+LauncherResourceApi_sr = f"{LauncherApi_sr}/resource"
 
 LauncherID = {"ys": "18", "sr": "33"}
 LauncherKey = {"ys": "eYd89JmJ", "sr": "6KcVuOkbcqjJomjZ"}

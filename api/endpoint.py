@@ -22,6 +22,13 @@ def GameRecordDailyNote(uid: uid):
 
 
 def LauncherContent(game):
-    return (
-        f"{LauncherContentApi}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}"
-    )
+    if game == "ys":
+        print("ys")
+        return (
+            f"{LauncherContentApi}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}&language=zh-cn"
+        )
+    else:
+        print("other")
+        return (
+            f"{LauncherContentApi_sr}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}&language=zh-cn"
+        )

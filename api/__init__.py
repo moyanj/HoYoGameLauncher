@@ -1,7 +1,6 @@
 import requests as r
 from flask import redirect
 import json
-import hashlib
 from tools.config import Config
 from api import endpoint as ep
 
@@ -9,6 +8,7 @@ conf = Config("config.json")
 
 
 def get_ysbg():
+    print(ep.LauncherContent("ys"))
     req = r.get(ep.LauncherContent("ys"))
     datas = json.loads(req.text)
     all_data = datas["data"]
@@ -28,6 +28,7 @@ def get_ysbg():
 
 def get_srbg():
     req = r.get(ep.LauncherContent("sr"))
+    print(ep.LauncherContent("sr"))
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]
