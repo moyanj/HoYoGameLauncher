@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/files/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/files/css/bootstrap-icons.min.css">
+    <title>设置页面</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="bi bi-arrow-return-left"></i>返回</a>
+        </div>
+        <hr>
+    </nav>
+    <div class="container">
+
+        <h1>设置</h1>
+        <form>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">{{ lang.yspath }}：</label>
+                <input type="text" class="form-control" id="YSPath" placeholder="{{lang.entergamepath}}">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">{{ lang.srpath }}:</label>
+                <input type="email" class="form-control" id="SRPath" placeholder="{{lang.entergamepath}}">
+            </div>
+            <div class="mb-3">
+                <label for="gamePathInput">{{ lang.lang }}：</label>
+                <select id="LangSelect" class="form-select"></select>
+            </div>
+            <!-- 切换暗色模式按钮 -->
+            <div class="dark-mode-switch form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                <label class="form-check-label" for="darkModeToggle">{{ lang.darkmode }}</label>
+            </div>
+            <button type="button" class="btn btn-primary" id="settingsForm">保存</button>
+            <button type="button" class="btn btn-secondary"><i class="bi bi-arrow-repeat"></i> 重置</button>
+        </form>
+    </div>
+
+    <script src="/files/js/jquery.min.js"></script>
+    <script src="/files/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#settingsForm').click(function () {
+                var dark = "0"
+                if ($('#darkModeToggle').checked) {
+                    var dark = "1"
+                } else {
+                    var dark = "0"
+                }
+            })
+            // 使用 AJAX 发送 POST 请求
+            $.ajax({
+                url: '/setting', // 替换为你的 API 接口地址
+                method: 'POST',
+                data: {
+                    YSPath: $('#YSPath').val(),
+                    SRPath: $('#SRPath').val(),
+                    dark: dark,
+                    lang: $('#lang').val()
+                },
+                success: function (response) {
+                    // 处理成功响应
+                    console.log(response);
+                },
+                error: function (error) {
+                    // 处理错误响应
+                    console.log(error);
+                }
+            });
+        });
+        $.ajax({
+            type: "GET",
+            url: "/get/gamepath",
+            dataType: 'json',
+            success: function (data) {
+
+                // 获取原神和崩铁的路径
+                let yspath = data.ys;
+                let srpath = data.sr;
+                console.log("原神路径：" + yspath);
+                console.log("崩铁路径：" + srpath);
+                //写入输入框
+                $("#YSPath").val(yspath);
+                $("#SRPath").val(srpath);
+            }
+        });
+        $.ajax({
+            url: "/get/lang",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                // 在成功回调函数中处理返回的数据
+                var selectElement = $("#LangSelect");
+
+                // 遍历数据并添加选项
+                for (var i = 0; i < data.length; i++) {
+                    selectElement.append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "/get/language",
+                    success: function (data) {
+                        let defaultOption = data;
+                        $("#LangSelect").val(defaultOption);
+                        console.log("默认语言：" + $("#LangSelect").val());
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                // 处理请求错误
+                console.log("请求错误：" + error);
+            }
+        });
+    </script>
+</body>
+
+</html>

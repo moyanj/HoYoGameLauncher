@@ -94,8 +94,7 @@ class Config:
     def set_game_version(self, version, game):
         self.config["game"][game]["version"] = version
         self.save_config()
-        
+
     def set_auth_key(self, key):
         self.config["auth"]["key"] = key
         self.save_config()
-

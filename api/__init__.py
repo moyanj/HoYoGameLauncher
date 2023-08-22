@@ -1,11 +1,13 @@
-
 import requests as r
 from flask import redirect
 import json
 import hashlib
 from tools.config import Config
+from api.env import *
 
 conf = Config("config.json")
+
+
 def calculate_md5(data):
     md5_hash = hashlib.md5()
     md5_hash.update(data)
@@ -26,10 +28,11 @@ def get_ysbg():
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
-            conf.set_game_version(int(adv["version"]),"ys")
+            conf.set_game_version(int(adv["version"]), "ys")
         return redirect("/files/images/ys_bg.png")
     else:
         return redirect("/files/images/ys_bg.png")
+
 
 def get_srbg():
     req = r.get(
@@ -45,7 +48,7 @@ def get_srbg():
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
-            conf.set_game_version(int(adv["version"]),"sr")
+            conf.set_game_version(int(adv["version"]), "sr")
         return redirect("/files/images/sr_bg.png")
     else:
         return redirect("/files/images/sr_bg.png")

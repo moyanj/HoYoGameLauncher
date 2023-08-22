@@ -12,10 +12,9 @@ import requests as r  # 网络请求
 import json  # json解析
 import sys  # 我也不知道
 from tools.config import Config  # 配置
-import tools.api as api
+import api
 from loguru import logger as log
 from tools import plugin as plu
-
 
 
 # 初始化一些文件夹
@@ -49,6 +48,7 @@ plugin = plu.load_plugins("plugins")
 # 创建配置对象
 conf = Config("config.json")
 
+
 @app.before_request
 def before_request():
     """
@@ -74,11 +74,28 @@ def index():
     except:
         data = json.load(open("language\zh-cn.json", encoding="utf-8"))
     plugins_info = plu.get_plugin_info(plugin)
-    return render_template("index.html", lang=data,plugins=plugins_info)
+    return render_template("index.html", lang=data, plugins=plugins_info)
+
+
+@app.route("/setting/html")
+def setting_html():
+    lang = conf.get_language()
+    try:
+        data = json.load(open("language\{}.json".format(lang), encoding="utf-8"))
+    except:
+        data = json.load(open("language\zh-cn.json", encoding="utf-8"))
+    return render_template("setting.html", lang=data)
+
+
+@app.route("/setting", methods=["POST"])
+def setting():
+    return request.form
+
 
 @app.route("/favicon.ico", methods=["GET"])
 def favicon():
     return "1"
+
 
 @app.route("/init", methods=["GET"])
 def info_init():
@@ -233,15 +250,19 @@ def get_language():
 def bg_ys():
     return api.get_ysbg()
 
+
 @app.route("/bg/sr")
 def bg_srr():
     return api.get_srbg()
+
 
 @app.route("/<path:url>")
 def pluurl(url):
     url = str(url)
     plu_name = url.split("/")[0]
-    data = plu.run_one_funcion(plugin, plu_name,"main_route",request)
+    data = plu.run_one_funcion(plugin, plu_name, "main_route", request)
     return data
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6553, debug=True)

@@ -60,9 +60,9 @@
             <!-- 原神 -->
             <div id="settings">
                 <!-- 设置按钮 -->
-                <button type="button" title="设置" id="settingysBtn" class="btn btn-primary">
+                <a href="/setting/html"><button type="button" title="设置" class="btn btn-primary" id="settingysBtn">
                     <i class="bi bi-gear"></i>
-                </button>
+                </button></a>
             </div>
             <!-- 启动按钮 -->
             <button id="startYSGameBtn" class="btn btn-primary btn-lg">{{ lang.start }}</button>
@@ -70,63 +70,15 @@
         <div id="srContent" class="srbg content-area">
             <div id="settings">
                 <!-- 设置按钮 -->
-                <button type="button" title="设置" id="settingsrBtn" class="btn btn-primary">
-                    <i class="bi bi-gear"></i>
-                </button>
+                <a href="/setting/html"><button type="button" title="设置" class="btn btn-primary" id="settingysBtn">
+                        <i class="bi bi-gear"></i>
+                    </button></a>
             </div>
             <!-- 启动按钮 -->
             <button id="startSRGameBtn" class="btn btn-primary btn-lg">{{ lang.start }}</button>
         </div>
     </div>
     <!-- 模态框 -->
-    <!-- 设置 -->
-    <div class="modal" id="APPset">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="gamePathInput">{{ lang.yspath }}：</label>
-                        <input type="text" class="form-control" id="YSPath" placeholder="{{lang.entergamepath}}">
-                        <br>
-                        <label for="gamePathInput">{{ lang.srpath }}：</label>
-                        <input type="text" class="form-control" id="SRPath" placeholder="{{lang.entergamepath}}">
-                        <br>
-                        <!-- 切换暗色模式按钮 -->
-                        <div class="dark-mode-switch form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
-                            <label class="form-check-label" for="darkModeToggle">{{ lang.darkmode }}</label>
-                        </div>
-                        <br>
-                        <label for="gamePathInput">{{ lang.plugin }}：</label>
-                        <ul id="navigation">
-                        {% for item in plugins %}
-                            <li>
-                                <div>
-                                    <label for="gamePathInput">插件名：</label>
-                                    <a>{{ item.name }}</a>
-                                    <br>
-                                    <label for="gamePathInput"><a href="{{ item.name }}">进入插件主页</a></label>
-                                </div>
-                                <hr>
-                            </li>
-                        {% endfor %}
-                        </ul>
-                        <br>
-                        <label for="gamePathInput">{{ lang.lang }}：</label>
-                        <select id="LangSelect" class="form-select"></select>
-                        <br>
-                        
-                        <button type="button" class="btn btn-primary" id="aboutBtn">{{lang.about}}</button>
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{lang.exit}}</button>
-                    <button type="button" class="btn btn-primary" id="SetSave">{{lang.save}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- 游戏启动失败 -->
     <div class="modal" id="RunError">
         <div class="modal-dialog modal-dialog-centered">

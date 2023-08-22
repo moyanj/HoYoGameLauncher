@@ -27,7 +27,8 @@ def run_funcion(plugins, funcion, *args, **kwargs):
             pass
     return ret_data
 
-def run_one_funcion(plugins,name, funcion, *args, **kwargs):
+
+def run_one_funcion(plugins, name, funcion, *args, **kwargs):
     try:
         for plugin in plugins:
             if plugin.info["name"] == name:
@@ -40,6 +41,7 @@ def run_one_funcion(plugins,name, funcion, *args, **kwargs):
         return "None"
     else:
         return ret
+
 
 def get_plugin_info(plugins):
     ret_data = []

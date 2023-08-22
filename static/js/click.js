@@ -73,21 +73,10 @@ $(document).ready(function () {
         });
     });
     // 设置按钮逻辑
-    $("#settingysBtn").on("click", function () {
-        $("#APPset").modal("show")
 
-    });
-    $("#settingsrBtn").on("click", function () {
-        $("#APPset").modal("show")
-
-    });
     $("#aboutBtn").on("click", function () {
         $("#APPset").modal("hide")
         $("#APPabout").modal("show")
-
-    });
-    $("#testupdata").on("click", function updata() {
-        alert("hello")
 
     });
     $("#okHide").on("click", function updata() {
@@ -112,18 +101,6 @@ $(document).ready(function () {
         $("#APPinit").modal("hide")
         $("#ok").modal("show")
     });
-    // 添加下拉列表变化事件监听
-    $("#LangSelect").change(function () {
-        // 在下拉列表发生变化时执行的代码
-        var selectedValue = $(this).val();
-        console.log("选中的值为：" + selectedValue);
-        $.ajax({
-            url: "/settings/language/"+selectedValue,
-            type: "GET",
-            success: function () {
-                location.reload()
-            }
-        })
-    });
+
 
 })
