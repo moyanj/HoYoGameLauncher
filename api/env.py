@@ -60,3 +60,19 @@ class uid:
 
     def __str__(self):
         return str(self.uid)
+
+LauncherApi  = "https://api-launcher.mihoyo.com/hkrpg_cn/mdk/launcher/api"
+LauncherContentApi = f"{LauncherApi}/content" 
+LauncherResourceApi = f"{LauncherApi}/resource" 
+
+LauncherID = {
+    "ys":"18",
+    "sr":"33"
+}
+LauncherKey = {
+    "ys":"eYd89JmJ",
+    "sr":"6KcVuOkbcqjJomjZ"
+}
+
+
+

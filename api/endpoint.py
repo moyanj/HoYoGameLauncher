@@ -8,7 +8,6 @@ def GameRecordRoleBasicInfo(uid: uid):
 def GameRecordSpiralAbyss(scheduleType, uid: uid):
     return f"{ApiTakumiRecordApi}/spiralAbyss?schedule_type={scheduleType}&role_id={uid.uid}&server={uid.region}"
 
-
 def AnnouncementsList():
     return f"{Hk4eApiAnnouncementApi}/getAnnList?{AnnouncementQuery}"
 
@@ -17,4 +16,7 @@ def AnnouncementContent():
 
 def GameRecordDailyNote(uid:uid):
     return f"{ApiTakumiRecordApi}/dailyNote?server={uid.region}&role_id={uid.uid}"
+
+def LauncherContent(game):
+    return f"{LauncherContentApi}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}"
 

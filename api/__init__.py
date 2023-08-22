@@ -3,7 +3,7 @@ from flask import redirect
 import json
 import hashlib
 from tools.config import Config
-from api.env import *
+from api import endpoint as ep
 
 conf = Config("config.json")
 
@@ -15,9 +15,7 @@ def calculate_md5(data):
 
 
 def get_ysbg():
-    req = r.get(
-        "https://sdk-static.mihoyo.com/hk4e_cn/mdk/launcher/api/content?filter_adv=true&key=eYd89JmJ&language=zh-cn&launcher_id=18"
-    )
+    req = r.get(ep.LauncherContent("ys"))
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]
@@ -35,9 +33,7 @@ def get_ysbg():
 
 
 def get_srbg():
-    req = r.get(
-        "https://api-launcher.mihoyo.com/hkrpg_cn/mdk/launcher/api/content?filter_adv=true&key=6KcVuOkbcqjJomjZ&language=zh-cn&launcher_id=33"
-    )
+    req = r.get(ep.LauncherContent("sr"))
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]
