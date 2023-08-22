@@ -29,17 +29,20 @@ def run_funcion(plugins, funcion, *args, **kwargs):
 
 
 def run_one_funcion(plugins, name, funcion, *args, **kwargs):
+    ret  = "None"
     try:
         for plugin in plugins:
             if plugin.info["name"] == name:
                 plu = getattr(plugin, funcion)
                 ret = plu(*args, **kwargs)
                 break
-            ret = "None"
+            else:
+                ret = "None"
     except Exception as e:
         print(e)
         return "None"
     else:
+        print(ret)
         return ret
 
 

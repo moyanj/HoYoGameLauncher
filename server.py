@@ -15,6 +15,8 @@ from tools.config import Config  # 配置
 import api
 from loguru import logger as log
 from tools import plugin as plu
+import traceback
+from tools import debug as dbg
 
 
 # 初始化一些文件夹
@@ -26,10 +28,7 @@ except:
 
 log.add(
     "log/flask.log",
-    rotation="1 days",
-    retention="7 days",
     level="DEBUG",
-    compression="zip",
 )
 
 
@@ -48,6 +47,11 @@ plugin = plu.load_plugins("plugins")
 # 创建配置对象
 conf = Config("config.json")
 
+@app.errorhandler(Exception)
+def error_500(e):
+    stack_trace = traceback.format_exc()
+    dbg.crash(stack_trace)
+    return f"未知错误，错误日志位于{save_path}\debug.txt",500
 
 @app.before_request
 def before_request():
@@ -255,8 +259,12 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
+@app.route("/bg/hsr")
+def bg_srrs():
+    return api
 
-@app.route("/<path:url>")
+
+@app.route("/plu/<path:url>")
 def pluurl(url):
     url = str(url)
     plu_name = url.split("/")[0]
@@ -264,5 +272,7 @@ def pluurl(url):
     return data
 
 
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6553, debug=True)
+    app.run(host="0.0.0.0", port=6553)
