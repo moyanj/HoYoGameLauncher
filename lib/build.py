@@ -48,10 +48,10 @@ def pack():
     os.rename("./HoYoGameLauncher/main.exe", "./HoYoGameLauncher/HoYoGameLauncher.exe")
     shutil.copytree("html", "HoYoGameLauncher/html")
     shutil.copytree("data", "HoYoGameLauncher/data")
+    shutil.copytree("plugins", "HoYoGameLauncher/plugins")
     shutil.copy("config.example.json", "HoYoGameLauncher/config.json")
     try:
         os.mkdir("./HoYoGameLauncher/log")
-        os.mkdir("./HoYoGameLauncher/plugins")
     except:
         pass
 

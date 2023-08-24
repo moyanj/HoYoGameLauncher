@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run build script
         run: |
-          python tools/build.py pack
+          python build/build.py pack
 
       - name: Archive Main build
         uses: actions/upload-artifact@v2
