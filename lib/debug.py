@@ -1,7 +1,6 @@
 import platform as pf
 import sys
 import time
-import os
 
 
 def crash(error, app):
@@ -13,10 +12,6 @@ def crash(error, app):
     recurdion = sys.getrecursionlimit()
     date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     time_stamp = int(time.time())
-    try:
-        os.mkdir("debug")
-    except:
-        pass
     f = open("debug.txt", "w", encoding="utf-8")
     f.write("Info: \n")
     f.write("System Name:" + system_name + "\n")
@@ -30,7 +25,7 @@ def crash(error, app):
     f.write("\nStack Trace: \n")
     f.write(str(error))
     f.write("\nFlask Log: \n")
-    with open("log/flask.log", "r") as file:
+    with open("log/flask.log", "r",encoding="utf-8") as file:
         lines = file.readlines()[-20:]
     f.writelines(lines)
     f.write("\nApplication Variables: \n")

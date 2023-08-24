@@ -1,18 +1,28 @@
 import os
 import importlib
+import inspect
+from flask import abort
 
+class Plugin:
+    def __init__(self):
+        self.info = {}
+    def route_main(self,req):
+        return "sdsd"
+    def before_request(self,req):
+        return True
+    
 
 def load_plugins(dir):
-    plugin_dir = dir  # 替换为你的插件目录的路径
+    plugin_dir = dir
     plugins = []
     pre_fix = plugin_dir.replace("\\", ".").replace("/", ".")
     for file_name in os.listdir(plugin_dir):
-        if file_name.endswith(".pyc"):
-            module_name = file_name[:-4]
+        if file_name.endswith(".pyc") or file_name.endswith(".py"):
+            module_name = file_name.split(".")[0]
             module = importlib.import_module(pre_fix + "." + module_name)
-            module_name = module.__name__
-            plugins.append(module)
-
+            for name, obj in inspect.getmembers(module):
+                if inspect.isclass(obj) and issubclass(obj, Plugin) and obj != Plugin:
+                    plugins.append(obj())
     return plugins
 
 
@@ -29,21 +39,19 @@ def run_funcion(plugins, funcion, *args, **kwargs):
 
 
 def run_one_funcion(plugins, name, funcion, *args, **kwargs):
-    ret = "None"
-    try:
-        for plugin in plugins:
-            if plugin.info["name"] == name:
-                plu = getattr(plugin, funcion)
-                ret = plu(*args, **kwargs)
-                break
-            else:
-                ret = "None"
-    except Exception as e:
-        print(e)
-        return "None"
+    ret = None
+    for plugin in plugins:
+        if plugin.info["name"] == name:
+            plu = getattr(plugin, funcion)
+            ret = plu(*args, **kwargs)
+            break
+        else:
+            ret = "None"
     else:
-        print(ret)
-        return ret
+        if ret == "None":
+            return abort(404)
+        else:
+            return ret
 
 
 def get_plugin_info(plugins):

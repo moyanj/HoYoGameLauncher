@@ -16,24 +16,11 @@ try:
 except:
     pass
 
-log.add(
-    "log/flask.log",
-    level="DEBUG",
-)
-
-
-# 初始化一些全局变量
-avatarID = json.load(open("data/avatar.json", "r", encoding="utf-8"))  # 角色头像表
-save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
-# print = log.debug
-
 
 # 初始化Flask
 app = Flask(__name__, template_folder=save_path + "/html/")
 inits.main()
-plugin = plu.load_plugins("plugins")
 # 创建配置对象
-conf = Config("config.json")
 app.register_blueprint(data.app)
 app.register_blueprint(settings.app)
 app.register_blueprint(init.app)
@@ -41,6 +28,10 @@ app.register_blueprint(init.app)
 @app.errorhandler(404)
 def error_404(e):
     return f"该页面不存在", 404
+
+@app.errorhandler(500)
+def error_404(e):
+    return f"服务器错误", 500
 
 @app.errorhandler(Exception)
 def error_500(e):
@@ -130,18 +121,24 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
-# 此函数会引发TypeError
-@app.route("/test/hsr")
-def bg_srrs():
-    return api
-
-
-@app.route("/plu/<path:url>")
+@app.route("/<path:url>")
 def pluurl(url):
     url = str(url)
-    plu_name = url.split("/")[0]
-    data = plu.run_one_funcion(plugin, plu_name, "main_route", request)
-    return data
+    plu_name = url.split("/")
+    plu_len = len(plu_name)
+    if plu_len == 1:
+        print(plu_name)
+        data = plu.run_one_funcion(plugin, plu_name[0], "route_main", request)
+        return data
+    else:
+        plu_path = plu_name[1:]
+        function_name = "route"
+        for i in plu_path:
+            print(i)
+            function_name = function_name + "_" + i
+        data = plu.run_one_funcion(plugin, plu_name[0], function_name, request)
+        return data
+
 
 
 if __name__ == "__main__":
