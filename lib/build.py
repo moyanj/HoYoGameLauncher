@@ -27,7 +27,7 @@ def cli():
 @cli.command(help="Package a separate server")
 def pack_server():
     os.system(
-        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./pack --icon ../images/icon.ico -F server.py"
+        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./pack --icon ../images/icon.ico -F --uac-admin server.py"
     )
 
 
@@ -41,7 +41,7 @@ def pack():
     except:
         pass
     os.system(
-        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./ -w --icon ../images/icon.ico main.py"
+        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./ -w --icon ../images/icon.ico --uac-admin main.py"
     )
 
     os.rename("./main", "./HoYoGameLauncher")
