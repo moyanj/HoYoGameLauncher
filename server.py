@@ -7,16 +7,16 @@ from flask import (
     jsonify,
 )  # flask
 import os  # 系统操作
-import tools.init as init  # 函数
+import lib.init as init  # 函数
 import requests as r  # 网络请求
 import json  # json解析
 import sys  # 我也不知道
-from tools.config import Config  # 配置
+from lib.config import Config  # 配置
 import api
 from loguru import logger as log
-from tools import plugin as plu
+from lib import plugin as plu
 import traceback
-from tools import debug as dbg
+from lib import debug as dbg
 
 
 # 初始化一些文件夹
@@ -33,7 +33,7 @@ log.add(
 
 
 # 初始化一些全局变量
-avatarID = json.load(open("static/avatar.json", "r", encoding="utf-8"))  # 角色头像表
+avatarID = json.load(open("data/avatar.json", "r", encoding="utf-8"))  # 角色头像表
 save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
 print = log.debug
 
@@ -74,9 +74,9 @@ def before_request():
 def index():
     lang = conf.get_language()
     try:
-        data = json.load(open("language\{}.json".format(lang), encoding="utf-8"))
+        data = json.load(open("data\language\{}.json".format(lang), encoding="utf-8"))
     except:
-        data = json.load(open("language\zh-cn.json", encoding="utf-8"))
+        data = json.load(open("data\language\zh-cn.json", encoding="utf-8"))
     plugins_info = plu.get_plugin_info(plugin)
     return render_template("index.html", lang=data, plugins=plugins_info)
 

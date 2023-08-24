@@ -1,7 +1,7 @@
 import requests as r
 from flask import redirect
 import json
-from tools.config import Config
+from lib.config import Config
 from api import endpoint as ep
 
 conf = Config("config.json")

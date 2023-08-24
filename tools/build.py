@@ -1,11 +1,3 @@
-"""
-Author: 莫颜JDC 1561515308@qq.com
-Date: 2023-08-16 20:31:22
-LastEditors: 莫颜JDC 1561515308@qq.com
-LastEditTime: 2023-08-20 17:22:12
-FilePath: \HoYoGameLauncher\tools\build.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
-"""
 import click
 import os
 import shutil
@@ -35,7 +27,7 @@ def cli():
 @cli.command(help="Package a separate server")
 def pack_server():
     os.system(
-        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./pack --icon ../config/icon_server.ico -F server.py"
+        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./pack --icon ../images/icon.ico -F server.py"
     )
 
 
@@ -49,7 +41,7 @@ def pack():
     except:
         pass
     os.system(
-        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./ -w --icon ../config/icon.ico main.py"
+        "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./ -w --icon ../images/icon.ico main.py"
     )
 
     os.rename("./main", "./HoYoGameLauncher")

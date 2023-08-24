@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import winreg
-from tools.config import Config
-from tools import tool
+from lib.config import Config
+from lib import tool
 import requests as r
 conf = Config("config.json")
 

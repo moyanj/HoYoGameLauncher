@@ -1,5 +1,6 @@
 from jinja2 import Template
 import time
+from api.env import uid
 
 """
 lists = [
@@ -18,11 +19,11 @@ lists = [
 """
 
 
-def out_uigf(lists: list, out_path: str):
-    f = open("static/uigf.txt", encoding="utf-8")
+def out_uigf(uid:uid,lists: list, out_path: str):
+    f = open("data\template\uigf.txt", encoding="utf-8")
     template = Template(f.read())
     text = template.render(
-        uid="243997737",
+        uid=uid.uid,
         timestamp=int(time.time()),
         time=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
         lists=lists,

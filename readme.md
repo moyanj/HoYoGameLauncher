@@ -50,6 +50,7 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 
 
 ## 致谢
+- 由 [UIGF]的[米哈游 API 合集](https://github.com/UIGF-org/mihoyo-api-collect)项目提供了其使用的API
 - 由 [Microsoft](https://www.microsoft.com/) 的 [NewBing](https://www.bing.com/new) 为我们提供了图标。
 - 由 [Microsoft](https://code.visualstudio.com/) 的 Visual Studio Code 提供 IDE 支持。
 - 由 [GitHub](https://github.com/) 为我们提供了代码托管服务。
