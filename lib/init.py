@@ -3,6 +3,7 @@ import winreg
 from lib.config import Config
 from lib import tool
 import requests as r
+
 conf = Config("config.json")
 
 

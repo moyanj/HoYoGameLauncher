@@ -1,4 +1,7 @@
 import re
+import pickle as p
+import base64 as b64
+import json as j
 
 # Copyright (c) DGP Studio. All rights reserved.
 ApiGeetest = "https://api.geetest.com"
@@ -34,7 +37,9 @@ class uid:
     uid 类
     """
 
-    def __init__(self, str_uid):
+    def __init__(
+        self, str_uid, ck: str = "", stoken: str = "", sid: str = "", name: str = ""
+    ):
         uid = int(str_uid)
         prefix = int(str_uid[0])
         if 1 <= prefix and prefix <= 4:
@@ -52,14 +57,49 @@ class uid:
         else:
             result = "unknown"  # 未知
         self.uid = uid
-        self.ok = re.match("^[^34]\d{8}$", uid) != None
+        self.ok = re.match("^[^34]\d{8}$", str_uid) != None
         self.region = result
         self.str_uid = str_uid
         self.os = result != "cn_gf01" or result != "cn_qd01"
+        self.cookie = ck
+        self.stoken = stoken
+        self.sid = sid
+        self.name = name
         # self.server = 1
 
     def __str__(self):
         return str(self.uid)
+
+    def dump(self, name):
+        data = {
+            "uid": self.uid,
+            "region": self.region,
+            "ok": self.ok,
+            "os": self.os,
+            "ck": b64.b64encode(self.cookie.encode("utf-16le")),
+            "stoken": b64.b64encode(self.stoken.encode("utf-16le")),
+            "sid": self.sid,
+            "name": self.name,
+        }
+        bit_data = p.dumps(data)
+        file = open(f"{name}.uid", "wb")
+        file.write(bit_data)
+
+    def load(self, name):
+        file = open(f"{name}.uid", "rb")
+        bit_data = file.read()
+        data = p.loads(bit_data)
+        self.uid = data["uid"]
+        self.region = data["region"]
+        self.ok = data["ok"]
+        self.os = data["os"]
+        self.str_uid = str(data["uid"])
+        self.stoken = b64.b64decode(data["stoken"]).decode("utf-16le")
+        self.sid = data["sid"]
+        self.cookie = b64.b64decode(data["ck"]).decode("utf-16le")
+        self.name = data["name"]
+        return self
+
 
 MoYanApi = "https://alist.moyanjdc.top/pan/lanzuo/hoyo"
 MoYanUpdateApi = f"{MoYanApi}/update.json"

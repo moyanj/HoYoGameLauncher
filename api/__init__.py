@@ -16,7 +16,7 @@ def get_ysbg():
     bg = adv["background"]
     bd_ver = conf.get_game_version("ys")
     if bd_ver < int(adv["version"]):
-        with open("static/images/ys_bg.png", "wb") as f:
+        with open("html/static/images/ys_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
@@ -35,7 +35,7 @@ def get_srbg():
     bg = adv["background"]
     bd_ver = conf.get_game_version("sr")
     if bd_ver < int(adv["version"]):
-        with open("static/images/sr_bg.png", "wb") as f:
+        with open("html/static/images/sr_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()

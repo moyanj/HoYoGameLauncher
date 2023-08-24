@@ -19,8 +19,8 @@ lists = [
 """
 
 
-def out_uigf(uid:uid,lists: list, out_path: str):
-    f = open("data\template\uigf.txt", encoding="utf-8")
+def out_uigf(uid: uid, lists: list, out_path: str):
+    f = open("data/template/uigf.txt", encoding="utf-8")
     template = Template(f.read())
     text = template.render(
         uid=uid.uid,

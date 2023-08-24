@@ -12,7 +12,7 @@ $(document).ready(function () {
     // 获取游戏名
     $.ajax({
         type: "GET",
-        url: "/username",
+        url: "/get/username",
         success: function (data) {
             console.log("玩家名称：" + data);
             //写入输入框

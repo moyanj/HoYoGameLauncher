@@ -29,7 +29,7 @@ def run_funcion(plugins, funcion, *args, **kwargs):
 
 
 def run_one_funcion(plugins, name, funcion, *args, **kwargs):
-    ret  = "None"
+    ret = "None"
     try:
         for plugin in plugins:
             if plugin.info["name"] == name:

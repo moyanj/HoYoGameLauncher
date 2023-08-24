@@ -98,7 +98,6 @@
             success: function (data) {
                 // 在成功回调函数中处理返回的数据
                 var selectElement = $("#LangSelect");
-
                 // 遍历数据并添加选项
                 for (var i = 0; i < data.length; i++) {
                     selectElement.append("<option value='" + data[i] + "'>" + data[i] + "</option>");
@@ -108,7 +107,7 @@
                     url: "/get/language",
                     success: function (data) {
                         let defaultOption = data;
-                        $("#LangSelect").val(defaultOption);
+                        $("#LangSelect").val(data);
                         console.log("默认语言：" + $("#LangSelect").val());
                     }
                 });

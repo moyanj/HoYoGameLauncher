@@ -1,23 +1,13 @@
-from flask import (
-    Flask,
-    request,
-    send_from_directory,
-    redirect,
-    render_template,
-    jsonify,
-)  # flask
+from flask import Flask, request, send_from_directory, render_template  # flask
 import os  # 系统操作
-import lib.init as init  # 函数
-import requests as r  # 网络请求
+import lib.init as inits  # 函数
 import json  # json解析
-import sys  # 我也不知道
-from lib.config import Config  # 配置
 import api
-from loguru import logger as log
-from lib import plugin as plu
 import traceback
 from lib import debug as dbg
-
+from api.env import *
+from env import *
+from views import data,settings,init
 
 # 初始化一些文件夹
 try:
@@ -35,29 +25,37 @@ log.add(
 # 初始化一些全局变量
 avatarID = json.load(open("data/avatar.json", "r", encoding="utf-8"))  # 角色头像表
 save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
-print = log.debug
+# print = log.debug
 
 
 # 初始化Flask
 app = Flask(__name__, template_folder=save_path + "/html/")
-
-# 配置文件初始化
-init.main()
+inits.main()
 plugin = plu.load_plugins("plugins")
 # 创建配置对象
 conf = Config("config.json")
+app.register_blueprint(data.app)
+app.register_blueprint(settings.app)
+app.register_blueprint(init.app)
+
+@app.errorhandler(404)
+def error_404(e):
+    return f"该页面不存在", 404
 
 @app.errorhandler(Exception)
 def error_500(e):
+    print(e)
     stack_trace = traceback.format_exc()
-    dbg.crash(stack_trace)
-    return f"未知错误，错误日志位于{save_path}\debug.txt",500
+    dbg.crash(stack_trace, app)
+    return f"未知错误，错误日志位于{save_path}\debug.txt", 500
+
 
 @app.before_request
 def before_request():
     """
     验证请求
     """
+
     plugin_return = plu.run_funcion(plugin, "before_request", request)
     UA = request.headers.get("User-Agent")
     ip = request.remote_addr
@@ -79,52 +77,6 @@ def index():
         data = json.load(open("data\language\zh-cn.json", encoding="utf-8"))
     plugins_info = plu.get_plugin_info(plugin)
     return render_template("index.html", lang=data, plugins=plugins_info)
-
-
-@app.route("/setting/html")
-def setting_html():
-    lang = conf.get_language()
-    try:
-        data = json.load(open("language\{}.json".format(lang), encoding="utf-8"))
-    except:
-        data = json.load(open("language\zh-cn.json", encoding="utf-8"))
-    return render_template("setting.html", lang=data)
-
-
-@app.route("/setting", methods=["POST"])
-def setting():
-    return request.form
-
-
-@app.route("/favicon.ico", methods=["GET"])
-def favicon():
-    return "1"
-
-
-@app.route("/init", methods=["GET"])
-def info_init():
-    """
-    初始化信息
-    """
-    uid = request.args.get("uid", "unknown")
-    conf.set_player_uid(uid)
-    conf.set_player_initialized(True)
-    try:
-        os.remove("static/images/avatar.png")
-    except:
-        pass
-    return "ok"
-
-
-@app.route("/ifinit")
-def ifinit():
-    """
-    判断是否初始化
-    """
-    if conf.is_player_initialized():
-        return "ok"
-    else:
-        return "not ok"
 
 
 @app.route("/run/<game>")
@@ -154,88 +106,12 @@ def postgamepath():
     return "OK"
 
 
-@app.route("/get/gamepath/<game>")
-def getonegamepath(game):
-    """
-    获取一个游戏的路径
-    """
-    i = conf.get_game_path(game)
-    return i
-
-
-@app.route("/get/gamepath")
-def getgamepath():
-    """
-    获取所有游戏的路径
-    """
-    data = {
-        "ys": conf.get_game_path("ys"),
-        "sr": conf.get_game_path("sr"),
-    }
-    return data
-
-
 @app.route("/files/<path:filename>")
 def getfile(filename):
     """
     静态文件
     """
-    return (send_from_directory(save_path + "/static/", filename), 200)
-
-
-@app.route("/avatar")
-def getavatar():
-    """
-    获取头像
-    """
-    if os.path.exists("static/images/avatar.png"):
-        return redirect("/files/images/avatar.png")
-    else:
-        global avatarID
-        uid = conf.get_player_uid()
-        if uid == "unknown":
-            return redirect("https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png")
-        else:
-            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
-            data = json.loads(data.text)
-            # print(data)
-            avatar = data["playerInfo"]["profilePicture"]["avatarId"]
-            url = avatarID[str(avatar)]
-            data = r.get(url)
-            with open("static/images/avatar.png", "wb") as f:
-                f.write(data.content)
-            return redirect("static/images/avatar.png")
-
-
-@app.route("/username")
-def username():
-    """
-    获取用户名
-    """
-    user = conf.get_player_username()
-    if user == "unknown":
-        uid = conf.get_player_uid()
-        if uid == "unknown":
-            return "旅行者"
-        else:
-            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
-            data = json.loads(data.text)
-            # print(data)
-            name = data["playerInfo"]["nickname"]
-            conf.set_player_username(name)
-            return name
-    else:
-        return user
-
-
-@app.route("/get/lang")
-def langs():
-    filenamelist = os.listdir("language")
-    outlist = []
-    for file in filenamelist:
-        d = file.split(".")
-        outlist.append(d[0])
-    return jsonify(outlist)
+    return (send_from_directory(save_path + "/html/static/", filename), 200)
 
 
 @app.route("/settings/<key>/<val>")
@@ -243,11 +119,6 @@ def settings(key, val):
     if key == "language":
         conf.set_language(val)
     return "success"
-
-
-@app.route("/get/language")
-def get_language():
-    return conf.get_language()
 
 
 @app.route("/bg/ys")
@@ -259,7 +130,8 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
-@app.route("/bg/hsr")
+# 此函数会引发TypeError
+@app.route("/test/hsr")
 def bg_srrs():
     return api
 
@@ -272,7 +144,5 @@ def pluurl(url):
     return data
 
 
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6553)
+    app.run(host="0.0.0.0", port=6553, debug=False)

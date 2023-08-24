@@ -4,7 +4,7 @@ from server import app as flask
 from loguru import logger as log
 import faulthandler as f
 
-f.dump_traceback(open("./1.txt","w"),True)
+f.dump_traceback(open("./1.txt", "w"), True)
 log.add(
     "log/main.log",
     rotation="1 days",
