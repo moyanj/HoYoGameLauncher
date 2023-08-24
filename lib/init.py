@@ -24,6 +24,7 @@ def raedini(path):
 
 
 def get_game_path():
+    ysgamepath = "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
     try:
         yslunpath = get_Reg_key(
             "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\原神", "InstallPath"
@@ -41,7 +42,7 @@ def get_game_path():
         )
     except:
         sr = False
-        ysgamepath = "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+        srgamepath = "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
     else:
         sr = True
 

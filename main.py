@@ -1,18 +1,20 @@
 import webview
 import click
 from server import app as flask
+import ctypes, sys
+
+def is_admin():
+    try:
+            
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        print("not admin")
+        return False
 
 # 创建WebView窗口
 @click.command()
 @click.option("-d", "--debug", type=str, default="no", help="是否开启调试模式（yes/no）")
 def main(debug):
-    import ctypes, sys
-
-    def is_admin():
-        try:
-            return ctypes.windll.shell32.IsUserAnAdmin()
-        except:
-            return False
     if is_admin():
         # 将要运行的代码加到这里
         if debug == "yes":
@@ -30,6 +32,7 @@ def main(debug):
             )
             webview.start(user_agent="HoYoGameLauncher-WebView/1.0.0")
     else:
+        print("get admining...")
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
         
     
