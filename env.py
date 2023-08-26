@@ -13,5 +13,8 @@ log.add(
 avatarID = json.load(open("data/avatar.json", "r", encoding="utf-8"))  # 角色头像表
 save_path = os.path.dirname(os.path.realpath(sys.argv[0]))  # 程序文件路径
 plugin = plu.load_plugins("plugins")
+
+for i in plugin:
+    print(i)
 # 创建配置对象
 conf = Config("config.json")

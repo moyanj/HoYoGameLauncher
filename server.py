@@ -54,10 +54,12 @@ def before_request():
     ip = request.remote_addr
     allowed_ua = conf.get_allowed_ua()
     allowed_ip = conf.get_allowed_ip()
+    '''
     for i in plugin_return:
         if not i or ip not in allowed_ip or UA not in allowed_ua:
             log.warning("接收到一个不正常的请求：")
             return "This is not a request from HoYoGameLauncher", 403
+    '''
     log.info(f"method:{request.method}  path:{request.path}  IP:{request.remote_addr}")
 
 
@@ -139,6 +141,7 @@ def pluurl(url):
         for i in plu_path:
             print(i)
             function_name = function_name + "_" + i
+            print(function_name)
         data = plu.run_one_funcion(plugin, plu_name[0], function_name, request)
         return data
 

@@ -131,5 +131,35 @@ get_Reg_key(
         )
 ```
 
-# 插件卡法
+# 插件开发
+
+## 可以调用的库
+
+- os
+- re
+- flask
+- jinja2
+- click
+- pickle
+- base64
+- json
+- traceback
+- requests
+- winreg
+- sys
+- PyWebView
+- loguru
+- secrets
+- http
+- pycryptodome
+- shutil
+- zipfile
+- platform
+- time
+- configparser
+- importlib
+- inspect
+- hashlib 
+- uuid
+- random
 

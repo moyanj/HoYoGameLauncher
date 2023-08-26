@@ -9,7 +9,7 @@ class Plugin:
         self.info = {}
 
     def route_main(self, req):
-        return "sdsd"
+        return "Plugin Index"
 
     def before_request(self, req):
         return True
@@ -20,9 +20,15 @@ def load_plugins(dir):
     plugins = []
     pre_fix = plugin_dir.replace("\\", ".").replace("/", ".")
     for file_name in os.listdir(plugin_dir):
-        if file_name.endswith(".pyc") or file_name.endswith(".py"):
+        if not os.path.isdir(dir +"/" + file_name):
+
             module_name = file_name.split(".")[0]
             module = importlib.import_module(pre_fix + "." + module_name)
+            for name, obj in inspect.getmembers(module):
+                if inspect.isclass(obj) and issubclass(obj, Plugin) and obj != Plugin:
+                    plugins.append(obj())
+        else:
+            module = importlib.import_module(pre_fix + "." + file_name)
             for name, obj in inspect.getmembers(module):
                 if inspect.isclass(obj) and issubclass(obj, Plugin) and obj != Plugin:
                     plugins.append(obj())

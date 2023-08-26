@@ -1,3 +1,4 @@
+console.log(location.href)
 $(document).ready(function () {
     // 显示默认页面
     $("#ysContent").show();

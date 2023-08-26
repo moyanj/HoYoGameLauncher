@@ -1,23 +1,12 @@
 {
-    "conf_init": "fasle",
-    "player": {
-        "uid": "unknown",
-        "username": "unknown",
-        "init": "false"
-    },
-    "auth":{
-        "key":"",
-        "ck":"",
-        "stoken":"",
-        "sid":""
-    },
+    "conf_init": "False",
+    "player_init": "False",
     "settings": {
-        "debug": "false",
         "language": "zh-cn",
-        "theme": "default"
+        "theme": "default",
+        "plugin":"Ture"
     },
     "server": {
-        "port": "6553",
         "Allowed UA": [
             "HoYoGameLauncher-WebView/1.0.0",
             "HoYoGameLauncher-Server/1.0.0"
@@ -29,14 +18,11 @@
     "game": {
         "ys": {
             "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
-            "version":0
+            "bg_version":0
         },
         "sr": {
             "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
-            "version":0
+            "bg_version":0
         }
-    },
-    "data": {
-        "prayer":{}
     }
 }
