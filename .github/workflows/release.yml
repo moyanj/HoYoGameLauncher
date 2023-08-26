@@ -19,6 +19,7 @@ jobs:
         with:
           path: |
             ./build
+          key: ${{ runner.os }}-gradle-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
