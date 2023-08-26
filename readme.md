@@ -44,13 +44,13 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 - [pywebview](https://github.com/r0x0r/pywebview)（显示页面）
 - [pyinstaller](https://github.com/pyinstaller/pyinstaller)（打包EXE）
 - [requests](https://github.com/psf/requests)（请求API）
-- [bootstrap](https://github.com/twbs/bootstrap)（前端CSS）
-- [NSIS](https://sourceforge.net/projects/nsis/)（打包EXE安装包）
+- [bootstrap](https://github.com/twbs/bootstrap)（前端CSS框架）
+- [jQuery](https://github.com/jquery/jquery)（前端JS框架）
 
 
 
 ## 致谢
-- 由 [UIGF]的[米哈游 API 合集](https://github.com/UIGF-org/mihoyo-api-collect)项目提供了其使用的API
+- 由 [UIGF](https://uigf.org/) 的[米哈游 API 合集](https://github.com/UIGF-org/mihoyo-api-collect)项目提供了其使用的API
 - 由 [Microsoft](https://www.microsoft.com/) 的 [NewBing](https://www.bing.com/new) 为我们提供了图标。
 - 由 [Microsoft](https://code.visualstudio.com/) 的 Visual Studio Code 提供 IDE 支持。
 - 由 [GitHub](https://github.com/) 为我们提供了代码托管服务。

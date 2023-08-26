@@ -1,8 +1,8 @@
 from configparser import ConfigParser
 import winreg
 from lib.config import Config
-from lib import tool
-import requests as r
+import lib
+import os
 
 conf = Config("config.json")
 
@@ -65,10 +65,16 @@ def main():
     """
     hasc
     """
+    try:
+        os.mkdir("log")  # 日志文件夹
+        os.mkdir("plugins")  # 日志文件夹
+    except:
+        pass
+
     if not conf.is_conf_initialized():
         ysgamepath, srgamepath = get_game_path()
         conf.set_game_path(ysgamepath, "ys")
         conf.set_game_path(srgamepath, "sr")
-        key = tool.generate_random_key(32)
+        key = lib.generate_random_key(32)
         conf.set_auth_key(key)
         conf.set_conf_initialized(True)

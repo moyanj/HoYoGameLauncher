@@ -20,3 +20,4 @@ html/static/images/sr_bg.png
 *.uid
 debug.txt
 1.txt
+test.py

@@ -3,6 +3,7 @@ from env import *
 
 app = Blueprint("settings", __name__, url_prefix="/setting")
 
+
 @app.route("/html")
 def setting_html():
     lang = conf.get_language()

@@ -32,13 +32,19 @@ WebStaticMihoyoReferer = "https://webstatic.mihoyo.com"
 AnnouncementQuery = "game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000"
 
 
-class uid:
+class Player:
     """
-    uid 类
+    Player 类
     """
 
     def __init__(
-        self, str_uid, ck: str = "", stoken: str = "", sid: str = "", name: str = ""
+        self,
+        str_uid,
+        ck: str = "",
+        stoken: str = "",
+        id: str = "",
+        name: str = "",
+        ltoken: str = "",
     ):
         uid = int(str_uid)
         prefix = int(str_uid[0])
@@ -63,7 +69,8 @@ class uid:
         self.os = result != "cn_gf01" or result != "cn_qd01"
         self.cookie = ck
         self.stoken = stoken
-        self.sid = sid
+        self.ltoken = ltoken
+        self.id = id
         self.name = name
         # self.server = 1
 
@@ -78,7 +85,8 @@ class uid:
             "os": self.os,
             "ck": b64.b64encode(self.cookie.encode("utf-16le")),
             "stoken": b64.b64encode(self.stoken.encode("utf-16le")),
-            "sid": self.sid,
+            "ltoken": b64.b64encode(self.ltoken.encode("utf-16le")),
+            "id": self.id,
             "name": self.name,
         }
         bit_data = p.dumps(data)
@@ -86,7 +94,7 @@ class uid:
         file.write(bit_data)
 
     def load(self, name):
-        file = open(f"{name}.uid", "rb")
+        file = open(f"{name}", "rb")
         bit_data = file.read()
         data = p.loads(bit_data)
         self.uid = data["uid"]
@@ -95,15 +103,19 @@ class uid:
         self.os = data["os"]
         self.str_uid = str(data["uid"])
         self.stoken = b64.b64decode(data["stoken"]).decode("utf-16le")
-        self.sid = data["sid"]
+        self.id = data["id"]
         self.cookie = b64.b64decode(data["ck"]).decode("utf-16le")
         self.name = data["name"]
+        self.ltoken = b64.b64decode(data["ltoken"]).decode("utf-16le")
         return self
 
 
-MoYanApi = "https://alist.moyanjdc.top/pan/lanzuo/hoyo"
-MoYanUpdateApi = f"{MoYanApi}/update.json"
-MoYanApi = f"{MoYanApi}/"
+HuTaoApi = "https://homa.snapgenshin.com"
+HuTaoRecordApi = f"{HuTaoApi}/Record"
+HuTaoStatisticsApi = f"{HuTaoApi}/Statistics"
+HuTaoStatisticsWeaponApi = f"{HuTaoStatisticsApi}/Weapon"
+HuTaoStatisticsTeamApi = f"{HuTaoStatisticsApi}/Team"
+HuTaoStatisticsAvatarApi = f"{HuTaoStatisticsApi}/Avatar"
 
 
 LauncherApi = "https://sdk-static.mihoyo.com/hk4e_cn/mdk/launcher/api"

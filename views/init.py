@@ -1,8 +1,10 @@
-from flask import Blueprint, redirect, jsonify,request
+from flask import Blueprint, redirect, jsonify, request
 from env import *
 import requests as r  # 网络请求
 
 app = Blueprint("init", __name__)
+
+
 @app.route("/init", methods=["GET"])
 def info_init():
     """
@@ -10,7 +12,7 @@ def info_init():
     """
     str_uid = request.args.get("uid", "unknown")
     conf.set_player_uid(str_uid)
-    player = uid(str_uid)
+    player = Player(str_uid)
     player.dump(f"data\player\{str_uid}")
     conf.set_player_initialized(True)
     try:

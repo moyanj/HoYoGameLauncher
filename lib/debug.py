@@ -25,7 +25,7 @@ def crash(error, app):
     f.write("\nStack Trace: \n")
     f.write(str(error))
     f.write("\nFlask Log: \n")
-    with open("log/flask.log", "r",encoding="utf-8") as file:
+    with open("log/flask.log", "r", encoding="utf-8") as file:
         lines = file.readlines()[-20:]
     f.writelines(lines)
     f.write("\nApplication Variables: \n")

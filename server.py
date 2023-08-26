@@ -3,35 +3,27 @@ import os  # 系统操作
 import lib.init as inits  # 函数
 import json  # json解析
 import api
-import traceback
-from lib import debug as dbg
 from api.env import *
 from env import *
-from views import data,settings,init
-
-# 初始化一些文件夹
-try:
-    os.mkdir("log")  # 日志文件夹
-    os.mkdir("plugins")  # 日志文件夹
-except:
-    pass
-
+from views import data, settings, init
+import traceback
+from lib import debug as dbg
 
 # 初始化Flask
 app = Flask(__name__, template_folder=save_path + "/html/")
+# 初始化程序
 inits.main()
-# 创建配置对象
+# 注册蓝图
 app.register_blueprint(data.app)
 app.register_blueprint(settings.app)
 app.register_blueprint(init.app)
 
+
+# 一大堆错误处理
 @app.errorhandler(404)
 def error_404(e):
     return f"该页面不存在", 404
 
-@app.errorhandler(500)
-def error_404(e):
-    return f"服务器错误", 500
 
 @app.errorhandler(Exception)
 def error_500(e):
@@ -39,6 +31,16 @@ def error_500(e):
     stack_trace = traceback.format_exc()
     dbg.crash(stack_trace, app)
     return f"未知错误，错误日志位于{save_path}\debug.txt", 500
+
+
+# 加载玩家列表
+PlayerList = []
+for filename in os.listdir("data/player"):
+    print("data/player/" + filename)
+    play = Player("111111")
+    name = "data/player/" + filename
+    PlayerList.append(play.load(name=name))
+
 
 
 @app.before_request
@@ -121,6 +123,7 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
+
 @app.route("/<path:url>")
 def pluurl(url):
     url = str(url)
@@ -138,7 +141,6 @@ def pluurl(url):
             function_name = function_name + "_" + i
         data = plu.run_one_funcion(plugin, plu_name[0], function_name, request)
         return data
-
 
 
 if __name__ == "__main__":

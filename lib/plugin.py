@@ -3,14 +3,17 @@ import importlib
 import inspect
 from flask import abort
 
+
 class Plugin:
     def __init__(self):
         self.info = {}
-    def route_main(self,req):
+
+    def route_main(self, req):
         return "sdsd"
-    def before_request(self,req):
+
+    def before_request(self, req):
         return True
-    
+
 
 def load_plugins(dir):
     plugin_dir = dir

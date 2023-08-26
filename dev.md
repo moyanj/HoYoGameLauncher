@@ -130,5 +130,6 @@ get_Reg_key(
             "InstallPath",
         )
 ```
-#### 
+
+# 插件卡法
 
