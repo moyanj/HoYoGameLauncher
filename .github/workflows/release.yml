@@ -15,8 +15,8 @@ jobs:
         with:
           python-version: "3.10.8"
           cache: 'pip'
-        run: |
-          pip install -r requirements.txt
+      - run: |
+            pip install -r requirements.txt
         
       - name: Run build script
         run: |
