@@ -7,10 +7,10 @@ from server import app as flask
 @click.command()
 @click.option("-d","--debug", is_flag=True)
 @click.option("--width", default=1280, help="宽度")
-@click.option("--height", default=720, help="宽度")
+@click.option("--height", default=720, help="高度")
 @click.option("--minimized", is_flag=True, help="最小化")
 @click.option("--engine", default="edgechromium", help="webview引擎")
-@click.option("--server", is_flag=False, help="端口")
+@click.option("--server", is_flag=False, help="是否单独启动服务端")
 def main(debug, width,height,minimized,engine,server):
     if engine not in ["edgechromium", "mshtml", "gtk"]:
         print("请输入正确的引擎")
