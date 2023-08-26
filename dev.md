@@ -1,135 +1,40 @@
 # 开发
-## 打包
+
+# 打包
 运行以下命令，即可在pack文件夹中找到打包好的可执行文件。
 
 ```shell
 python build.py pack
 ```
-## 从源代码运行
-### 配置环境
+# 从源代码运行
+
+## 配置环境
 
 ```shell
 pip install pipenv
 python -m pipenv shell
 ```
 
-## 运行
+# 运行
+
 请先进入 pipenv 虚拟环境，再运行以下命令：
 ```shell
-python main.py -d yes
+python main.py
 ```
 main.py的具体参数说明见[#Main.py](#Main.py)
 ```shell
 python server.py
 ```
 
-该条命令如果你在运行main.py时使用了-d yes参数，则无需手动运行server.py。
-## 配置项
-```json
-{
-    "conf_init": "fasle", // 是否已经配置过
-    "player": {
-        "uid": "unknown",// 玩家UID（原神）
-        "username": "unknown",// 玩家昵称（原神）
-        "init": "false" // 是否初始化个人信息
-    },
-    "settings": {
-        "debug": "false", // 是否使用Debug模式
-        "language": "zh-cn", // 语言
-        "theme": "default"// 主题（将在v99.99.99上线）
-    },
-    "server": {
-        "port": "6553", //端口（没啥用）
-        "Allowed UA": [ // 允许的UA
-            "HoYoGameLauncher-WebView/1.0.0",
-            "HoYoGameLauncher-Server/1.0.0"
-        ],
-        "Allowed IP": [ // 允许的IP
-            "127.0.0.1"
-        ]
-    },
-    "game": {
-        "ys": {
-            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"// 原神路径
-        },
-        "sr": {
-            "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"// 崩铁路径
-        }
-    }
-}
-```
-# 代码解析
-## Main.py
-### main
-该函数用于主程序的运行，包括初始化，主循环，以及退出程序。
+# 参数
 
-#### 函数功能
-- 初始化
-<br>
-其采用了<code>pywebview</code>库，用于创建一个浏览器窗口。然后，其去获取Flask后端([代码解析](#Server.py))渲染的HTML文件，并将其显示在浏览器窗口中。由于网页大量使用HTML5,CSS3,JavaScript ES6因此，其用户计算机上必须要安装有<code>Edge Runtime</code>才能达到最好的渲染效果。
-- 主循环
-  <br>
-  略
-- 退出程序
-  <br>
-  略
-#### 调用方式
+- `-d`或`--debug` : 启动开发模式（不启动服务端），默认不加。
+- `--width <width>` : 窗口宽度，默认1280。
+- `--height <height>` : 窗口高度，默认720。
+- `--minimized` : 启动时最小化，默认不加。
+- `--engine` : 启动时使用的HTML渲染引擎。支持：`edgechromium`（Microsoft Edge WebView2）、`gtk`、`mshtml`(不建议)，默认`edgechromium`。
+- `--server` : 启动服务端在6553端口上，默认不加。
 
-不建议导入其他文件内使用。
-```python
-from main import main
-main()
-```
-### 其他
-本文件有命令行选项：
-```
--d, --debug TEXT  是否开启调试模式（yes/no）
-```
-如：
-```
-python main.py -d yes
-```
-即会开启调试模式，但是您也必须手动在6553端口上开发服务器。
-## Server.py
-这个几乎是整个项目的Core，其负责渲染HTML文件，操作本地计算机等等重要功能。
-### 原理
-其会创建一个Flask服务器，如果你直接运行文件的话（<code>python server.py</code>）他将会在6553端口上以Debug模式运行。
-### 函数功能
-#### before_request
-该函数将在每次请求之前运行，其用于验证请求的来源，以防止恶意CSRF攻击。
-- 原理
-<br>
-  其将读取Config.json里的 <code>Allowed UA</code> 字段，并将其与请求头里的<code>User-Agent</code>字段进行比较，然后也还会对IP进行验证。如果没有问题，则正常返回，如果有问题，则返回403错误。
-- 调用方式
-<br>
-  不建议导入其他文件内使用。
-```python
-from server import before_request
-before_request()
-```
-
-#### app.route(*)系
-略
-
-## tools/init.py
-其用于初始化设置。
-### 原理
-其用于初始化设置，其会修改Config.json文件。
-### 函数功能
-#### get_Reg_key
-其用于读取注册表，并返回其值。以获取原神或者崩铁官方启动器安装路径
-- 原理
-<br>
-  其会调用<code>winreg</code>模块，并使用<code>winreg.OpenKey</code>打开注册表，然后使用<code>winreg.QueryValueEx</code>获取其值。
-
-- 调用方式
-```python
-from tools.init import get_Reg_key
-get_Reg_key(
-            "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\崩坏：星穹铁道",
-            "InstallPath",
-        )
-```
 
 # 插件开发
 
@@ -162,4 +67,75 @@ get_Reg_key(
 - hashlib 
 - uuid
 - random
+
+## 文件结构
+
+```
+plugins/<插件名>/─┐
+                  ├── __init__.py
+                  ├─┐static
+                  │ ├── css
+                  │ ├── images
+                  │ └── js
+                  ├─┬ templates
+                    └── index.html
+```
+
+### `__init__.py`
+
+主文件，必须包含有，其需要继承`lib.plugin.Plugin`这个类。
+<br>
+其只能调用[该表](#可以调用的库)内的函数，当然，您也可以将库放在`plugins/<插件名>`内，您就可以调用了。（需在import 时加点，如：有一个名为`c`的库,你可以这样导入：`import .c`）
+route函数命名规则：
+1. 必须以route开头
+2. 其以`_`代替url里的`/`
+如route_test_1,就可以在`<插件名>/test/1/`处访问到其返回值
+
+
+```python
+from lib.plugin import Plugin
+class Plugin(Plugin):
+    def __init__(self):
+        super().__init__()
+        self.info["name"] = "<插件名>"
+        self.info["version"] = "<插件版本>"
+    def route_<路径>(self, request):
+        return "<返回值>"
+    def before_reques(self, request):
+        # 用于验证请求，True为通过，False为不通过。
+        return True
+```
+
+### `static`
+
+静态文件夹，其下的文件可以在`/<插件名>/files/<文件路径>`访问得到。（文件路径相对于`plugins/<插件名>/static`）
+
+### `templates`
+
+模板文件夹，其下的文件会被加载进主页面中，其命名规则[见此](#模板命名规则)
+
+## 模板命名规则
+
+- header.html
+    <br>
+    其会被加载进header中（`head`）。
+- sidebar.html
+    <br>
+    其会被加载进主页面的sidebar中（`.nav`）。
+- content.html
+    <br>
+    其会被加载进主页面的内容区域中（`.container-fluid`）。
+- modal.html
+    <br>
+    其会被加载进模态框中。
+- settings.html
+    <br>
+    其会被加载进设置页面的内容区域中（`.container`）。
+
+
+
+
+
+
+
 

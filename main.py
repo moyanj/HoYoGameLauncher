@@ -10,11 +10,14 @@ from server import app as flask
 @click.option("--height", default=720, help="宽度")
 @click.option("--minimized", is_flag=True, help="最小化")
 @click.option("--engine", default="edgechromium", help="webview引擎")
-def main(debug, width,height,minimized,engine):
+@click.option("--server", is_flag=False, help="端口")
+def main(debug, width,height,minimized,engine,server):
     if engine not in ["edgechromium", "mshtml", "gtk"]:
         print("请输入正确的引擎")
         exit()
     # 将要运行的代码加到这里
+    if server:
+        flask.run(host="0.0.0.0", port=6553, debug=True)
     if debug:
         webview.create_window(
             "HoYoGameLauncher",
