@@ -39,34 +39,144 @@ python server.py
 # 插件开发
 
 ## 可以调用的库
+此为在import后的名字
 
-- os
-- re
-- flask
-- jinja2
-- click
-- pickle
-- base64
-- json
-- traceback
-- requests
-- winreg
 - sys
-- PyWebView
-- loguru
-- secrets
-- http
-- pycryptodome
-- shutil
-- zipfile
-- platform
+- builtins
+- marshal
+- nt
+- winreg
 - time
+- zipimport
+- codecs
+- encodings
+- abc
+- io
+- stat
+- genericpath
+- ntpath
+- os
+- site
+- math
+- operator
+- datetime
+- types
+- enum
+- itertools
+- keyword
+- reprlib
+- collections
+- functools
+- copyreg
+- re
+- token
+- tokenize
+- linecache
+- traceback
+- warnings
+- weakref
+- string
+- threading
+- atexit
+- logging
+- posixpath
+- fnmatch
+- errno
+- zlib
+- bz2
+- lzma
+- shutil
+- bisect
+- random
+- tempfile
+- contextlib
+- typing
+- uuid
+- json
+- select
+- selectors
+- socket
+- struct
+- binascii
+- base64
+- ssl
+- socketserver
+- wsgiref
+- http
+- copy
+- email
+- urllib
+- locale
+- calendar
+- quopri
+- html
+- uu
+- mimetypes
+- signal
+- msvcrt
+- subprocess
+- platform
+- cgi
+- hashlib
+- hmac
+- unicodedata
+- pickle
 - configparser
+- ast
+- opcode
+- dis
 - importlib
 - inspect
-- hashlib 
-- uuid
-- random
+- bottle
+- webview
+- gettext
+- ctypes
+- click
+- contextvars
+- markupsafe
+- nturl2path
+- colorama
+- dataclasses
+- pkgutil
+- secrets
+- werkzeug
+- numbers
+- decimal
+- heapq
+- difflib
+- pprint
+- concurrent
+- asyncio
+- blinker
+- pathlib
+- jinja2
+- itsdangerous
+- flask
+- Crypto
+- cffi
+- pycparser
+- lib
+- queue
+- ipaddress
+- urllib3
+- idna
+- zipfile
+- certifi
+- stringprep
+- requests
+- api
+- multiprocessing
+- sysconfig
+- glob
+- loguru
+- plugins
+- env
+- views
+- server
+- main
+
+## 不可使用的函数名
+- route_files
 
 ## 文件结构
 
@@ -89,16 +199,19 @@ plugins/<插件名>/─┐
 route函数命名规则：
 1. 必须以route开头
 2. 其以`_`代替url里的`/`
+3. 不得使用[此表](#可以调用的库)内的函数名
 如route_test_1,就可以在`<插件名>/test/1/`处访问到其返回值
 
 
 ```python
 from lib.plugin import Plugin
 class Plugin(Plugin):
+    __name__ = "插件名"
+    __version__ = "插件版本"
+    __description__ = "插件描述"
+    __author__ = "插件作者"
     def __init__(self):
         super().__init__()
-        self.info["name"] = "<插件名>"
-        self.info["version"] = "<插件版本>"
     def route_<路径>(self, request):
         return "<返回值>"
     def before_reques(self, request):

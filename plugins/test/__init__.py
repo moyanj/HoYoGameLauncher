@@ -3,10 +3,9 @@ from flask import abort
 
 
 class Plugin(Plugin):
+    __name__ = "test"
     def __init__(self):
         super().__init__()
-        self.info["name"] = "test"
-        self.info["version"] = "1.0"
 
     def route_main(self, req):
         return "ok"

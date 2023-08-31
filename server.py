@@ -132,19 +132,26 @@ def pluurl(url):
     plu_name = url.split("/")
     plu_len = len(plu_name)
     if plu_len == 1:
-        print(plu_name)
-        data = plu.run_one_funcion(plugin, plu_name[0], "route_main", request)
+        print(0)
+        print(plu_name[0])
+        data = plu.run_one_funcion(plugin, str(plu_name[0]), "route_main", request)
+        print(data)
+        return data
+    elif plu_name[1] == "files":
+        print(2)
+        data = plu.run_one_funcion(plugin, str(plu_name[0]), "route_files", request)
         return data
     else:
+        print(1)
         plu_path = plu_name[1:]
         function_name = "route"
         for i in plu_path:
             print(i)
             function_name = function_name + "_" + i
             print(function_name)
-        data = plu.run_one_funcion(plugin, plu_name[0], function_name, request)
+        data = plu.run_one_funcion(plugin, str(plu_name[0]), function_name, request)
         return data
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6553, debug=False)
+    app.run(host="0.0.0.0", port=6553, debug=True)
