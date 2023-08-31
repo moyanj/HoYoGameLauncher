@@ -76,14 +76,10 @@ def run_one_funcion(plugins, name, funcion, *args, **kwargs):
     ret = "Nones"
     for plugin in plugins:
         if plugin.__name__ == name:
-            print("有")
             plu = getattr(plugin, funcion)
-            #print(plu)
             ret = plu(*args, **kwargs)
-            print(ret)
             break
         else:
-            print("没有")
             ret = "Nones"
     
     if ret == "Nones":

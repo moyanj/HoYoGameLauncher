@@ -36,7 +36,6 @@ def error_500(e):
 # 加载玩家列表
 PlayerList = []
 for filename in os.listdir("data/player"):
-    print("data/player/" + filename)
     play = Player("111111")
     name = "data/player/" + filename
     PlayerList.append(play.load(name=name))
@@ -132,23 +131,16 @@ def pluurl(url):
     plu_name = url.split("/")
     plu_len = len(plu_name)
     if plu_len == 1:
-        print(0)
-        print(plu_name[0])
         data = plu.run_one_funcion(plugin, str(plu_name[0]), "route_main", request)
-        print(data)
         return data
     elif plu_name[1] == "files":
-        print(2)
         data = plu.run_one_funcion(plugin, str(plu_name[0]), "route_files", request)
         return data
     else:
-        print(1)
         plu_path = plu_name[1:]
         function_name = "route"
         for i in plu_path:
-            print(i)
             function_name = function_name + "_" + i
-            print(function_name)
         data = plu.run_one_funcion(plugin, str(plu_name[0]), function_name, request)
         return data
 

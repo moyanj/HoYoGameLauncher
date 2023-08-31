@@ -32,14 +32,20 @@ python server.py
 - `--width <width>` : 窗口宽度，默认1280。
 - `--height <height>` : 窗口高度，默认720。
 - `--minimized` : 启动时最小化，默认不加。
-- `--engine` : 启动时使用的HTML渲染引擎。支持：`edgechromium`（Microsoft Edge WebView2）、`gtk`、`mshtml`(不建议)，默认`edgechromium`。
+- `--engine` : 启动时使用的HTML渲染引擎。支持：`Edge`（Microsoft Edge WebView2）、`GTK`、`IE`(不建议)，默认`edgechromium`。
 - `--server` : 启动服务端在6553端口上，默认不加。
+- `--port <port>` : 服务端端口，默认6553。
 
 
 # 插件开发
 
 ## 可以调用的库
 此为在import后的名字
+<details>
+    <summary>
+        查看
+    </summary>
+
 
 - sys
 - builtins
@@ -155,7 +161,7 @@ python server.py
 - Crypto
 - cffi
 - pycparser
-- lib
+- lib（内置杂项函数）
 - queue
 - ipaddress
 - urllib3
@@ -164,16 +170,18 @@ python server.py
 - certifi
 - stringprep
 - requests
-- api
+- api（内置API请求包）
 - multiprocessing
 - sysconfig
 - glob
 - loguru
-- plugins
-- env
-- views
-- server
-- main
+- plugins（插件）
+- env（内置通用变量）
+- views（内置服务端的视图函数）
+- server（内置服务端）
+- main（内置主程序）
+  
+</details>
 
 ## 不可使用的函数名
 - route_files
