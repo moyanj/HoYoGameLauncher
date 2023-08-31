@@ -187,7 +187,7 @@ plugins/<插件名>/─┐
                   │ ├── css
                   │ ├── images
                   │ └── js
-                  ├─┬ templates
+                  └─┬ templates
                     └── index.html
 ```
 
