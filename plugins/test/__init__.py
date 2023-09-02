@@ -2,7 +2,7 @@ from lib.plugin import Plugin
 from flask import abort
 
 
-class Plugin(Plugin):
+class Plugins(Plugin):
     __name__ = "test"
     def __init__(self):
         super().__init__()
@@ -12,6 +12,8 @@ class Plugin(Plugin):
 
     def route_type(self, req):
         return 1
+    def route_name(self, req):
+        raise NameError
 
     def route_404(self, req):
         return abort(404)

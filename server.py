@@ -11,13 +11,6 @@ from lib import debug as dbg
 
 # 初始化Flask
 app = Flask(__name__, template_folder=save_path + "/html/")
-# 初始化程序
-inits.main()
-# 注册蓝图
-app.register_blueprint(data.app)
-app.register_blueprint(settings.app)
-app.register_blueprint(init.app)
-
 
 # 一大堆错误处理
 @app.errorhandler(404)
@@ -27,11 +20,18 @@ def error_404(e):
 
 @app.errorhandler(Exception)
 def error_500(e):
-    print(e)
     stack_trace = traceback.format_exc()
-    dbg.crash(stack_trace, app)
-    return f"未知错误，错误日志位于{save_path}\debug.txt", 500
+    dbg.crash(stack_trace, app, e)
+    return f"未知错误，错误日志位于{save_path}\\debug.txt", 500
 
+# 注册蓝图
+app.register_blueprint(data.app)
+app.register_blueprint(settings.app)
+app.register_blueprint(init.app)
+
+
+# 初始化程序
+inits.main()
 
 # 加载玩家列表
 PlayerList = []
@@ -66,9 +66,9 @@ def before_request():
 def index():
     lang = conf.get_language()
     try:
-        data = json.load(open("data\language\{}.json".format(lang), encoding="utf-8"))
+        data = json.load(open("data\\language\\{}.json".format(lang), encoding="utf-8"))
     except:
-        data = json.load(open("data\language\zh-cn.json", encoding="utf-8"))
+        data = json.load(open("data\\language\\zh-cn.json", encoding="utf-8"))
     plugins_info = plu.get_plugin_info(plugin)
     return render_template("index.html", lang=data, plugins=plugins_info)
 
@@ -109,7 +109,7 @@ def getfile(filename):
 
 
 @app.route("/settings/<key>/<val>")
-def settings(key, val):
+def settin(key, val):
     if key == "language":
         conf.set_language(val)
     return "success"
@@ -146,4 +146,4 @@ def pluurl(url):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6553, debug=True)
+    app.run(host="0.0.0.0", port=6553, debug=False)

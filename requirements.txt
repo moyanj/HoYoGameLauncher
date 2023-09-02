@@ -6,3 +6,4 @@ pywebview==4.2.2
 requests==2.31.0
 pycryptodome==3.18.0
 black==23.7.0
+psutil==5.9.5
