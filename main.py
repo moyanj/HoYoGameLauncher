@@ -17,12 +17,13 @@ engine_dict = {
 @click.option("--server", is_flag=False, help="是否单独启动服务端")
 @click.option("--port", default=6553, help="服务端端口")
 @click.option("--fullscreen", is_flag=False, help="是否全屏")
-def main(debug, width,height,minimized,engine,server,port,fullscreen):
+@click.option("--private", is_flag=False, help="是否为隐私模式。")
+def main(debug, width,height,minimized,engine,server,port,fullscreen,private):
     if engine not in ["Edge", "IE", "GTK"]:
         print("请输入正确的引擎")
         exit()
     # 将要运行的代码加到这里
-    if server:
+    if server and debug:
         flask.run(host="0.0.0.0", port=port, debug=True)
     if debug:
         webview.create_window(
@@ -34,7 +35,7 @@ def main(debug, width,height,minimized,engine,server,port,fullscreen):
             minimized = minimized,
             fullscreen = fullscreen
         )
-        webview.start(debug=True, user_agent="HoYoGameLauncher-WebView/1.0.0",gui=engine_dict[engine])
+        webview.start(debug=True, user_agent="HoYoGameLauncher-WebView/1.0.0",gui=engine_dict[engine],private_mode=private)
     else:
         print("默认模式")
         webview.create_window(
@@ -46,7 +47,7 @@ def main(debug, width,height,minimized,engine,server,port,fullscreen):
             minimized = minimized,
             fullscreen = fullscreen
         )
-        webview.start(user_agent="HoYoGameLauncher-WebView/1.0.0",gui=engine_dict[engine])
+        webview.start(user_agent="HoYoGameLauncher-WebView/1.0.0",gui=engine_dict[engine],private_mode=private)
 
 
 if __name__ == "__main__":
