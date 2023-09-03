@@ -34,7 +34,7 @@ class Plugin:
                 f = open(static_path + "\\" + file_path, "rb")
                 data = f.read()
             except Exception as e:
-                print(e)
+                log.error("File Not Found")
                 return "File Not Found"
             else:
                 return data
@@ -76,8 +76,12 @@ def run_one_funcion(plugins, name, funcion, *args, **kwargs):
     ret = "Nones"
     for plugin in plugins:
         if plugin.__name__ == name:
-            plu = getattr(plugin, funcion)
-            ret = plu(*args, **kwargs)
+            try:
+                plu = getattr(plugin, funcion)
+                ret = plu(*args, **kwargs)
+            except AttributeError as e:
+                #log.error(e)
+                ret = "Nones"
             break
         else:
             ret = "Nones"

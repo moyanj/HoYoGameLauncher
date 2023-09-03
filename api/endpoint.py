@@ -23,10 +23,8 @@ def GameRecordDailyNote(uid: Player):
 
 def LauncherContent(game):
     if game == "ys":
-        print("ys")
         return f"{LauncherContentApi}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}&language=zh-cn"
     else:
-        print("other")
         return f"{LauncherContentApi_sr}?key={LauncherKey[game]}&launcher_id={LauncherID[game]}&language=zh-cn"
 
 
@@ -39,5 +37,6 @@ def HuTaoUpload(Rank: bool = False):
     return url
 
 
-def Ltoken():
+def Ltoken() -> str:
+
     return f"{ApiTakumiAuthApi}/getMultiTokenByLoginTicket"
