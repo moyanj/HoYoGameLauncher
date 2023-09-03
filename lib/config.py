@@ -1,68 +1,95 @@
 import json
+import pickle
+from env import *
+
+_config = json.load(open("config.json", "r"))
+
+def save():
+    global _config
+    json.dump(_config, open("config.json", "w"))
+    _config = json.load(open("config.json", "r"))
 
 
-class Config:
-    def load_config(self):
-        with open(self.config_file_path, "r") as file:
-            self.config = json.load(file)
+# Modes
+def getMode():
+    return _config["mode"]
 
-    def __init__(self, config_file_path):
-        self.config_file_path = config_file_path
-        self.config = {}
-        self.load_config()
+def setMode(mode):
+    if mode not in ["PYINSTALLER","MSIX","DEBUG"]:
+        raise Exception("Invalid mode")
+    else:
+        _config["mode"] = mode
+        save()
 
-    def save_config(self):
-        with open(self.config_file_path, "w") as file:
-            json.dump(self.config, file, indent=4)
+def getInit(obj):
+    if obj not in ["conf","player"]:
+        raise Exception("Invalid object")
+    else:
+        if obj == "conf":
+            return _config["conf_init"] == "False"
+        elif obj == "player":
+            return _config["player_init"] == "False"
 
-    def is_player_initialized(self):
-        self.load_config()
-        return self.config["player_init"] == "True"
+def setInit(obj, value):
+    if obj not in ["conf","player"]:
+        raise Exception("Invalid object")
+    else:
+        if obj == "conf":
+            _config["conf_init"] = value
+        elif obj == "player":
+            _config["player_init"] = value
+        save()  
 
-    def is_conf_initialized(self):
-        self.load_config()
-        return self.config["conf_init"] == "true"
+def getLang():
+    return _config["settings"]["language"]
 
-    def set_player_initialized(self, initialized):
-        self.config["player_init"] = str(initialized)
-        self.save_config()
+def setLang(lang):
+    if lang not in "-":
+        raise Exception("Invalid language")
+    else:
+        _config["settings"]["language"] = lang
+        save()
 
-    def set_conf_initialized(self, initialized):
-        self.config["conf_init"] = str(initialized)
-        self.save_config()
+def addAllowedUA(ua):
+    _config["server"]["Allowed UA"].append(ua)
+    save()
 
-    def get_language(self):
-        self.load_config()
-        return self.config["settings"]["language"]
+def delAllowedUA(ua):
+    _config["server"]["Allowed UA"].remove(ua)
+    save()
 
-    def set_language(self, language):
-        self.config["settings"]["language"] = language
-        self.save_config()
+def getAllowedUA():
+    return _config["server"]["Allowed UA"]
 
-    def get_allowed_ua(self):
-        self.load_config()
-        return self.config["server"]["Allowed UA"]
+def addAllowedIP(ip):
+    _config["server"]["Allowed IP"].append(ip)
+    save()
 
-    def get_allowed_ip(self):
-        self.load_config()
-        return self.config["server"]["Allowed IP"]
+def delAllowedIP(ip):
+    _config["server"]["Allowed IP"].remove(ip)
+    save()
 
-    def get_game_path(self, game):
-        self.load_config()
-        return self.config["game"][game]["path"]
+def getAllowedIP():
+    return _config["server"]["Allowed IP"]
 
-    def set_game_path(self, path, game):
-        self.config["game"][game]["path"] = path
-        self.save_config()
+def getGamePath(game):
+    return _config["games"][game]["path"]
 
-    def get_game_version(self, game):
-        self.load_config()
-        return self.config["game"][game]["bg_version"]
+def setGamePath(game, path):
+    _config["games"][game]["path"] = path
+    save()
 
-    def set_game_version(self, version, game):
-        self.config["game"][game]["br_version"] = version
-        self.save_config()
+def getBGVersion(game:str) -> int:
+    return _config["games"][game]["bg_version"]
 
-    def set_auth_key(self, key):
-        self.config["auth"]["key"] = key
-        self.save_config()
+def setBGVersion(game:str, version:int):
+    _config["games"][game]["bg_version"] = version
+    save()
+
+def getLangData(lang) -> dict:
+    lang = json.loads(f"data\\language\\{lang}.json")
+    return lang
+
+def getPlayerData(player:str) -> Player:
+    player_info = pickle.load(open(f"data\\players\\{player}.uid", "rb"))
+    return player_info

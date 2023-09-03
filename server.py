@@ -3,7 +3,6 @@ import os  # 系统操作
 import lib.init as inits  # 函数
 import json  # json解析
 import api
-from api.env import *
 from env import *
 from views import data, settings, init
 import traceback
@@ -54,8 +53,8 @@ def before_request():
     plugin_return = plu.run_funcion(plugin, "before_request", request)
     UA = request.headers.get("User-Agent")
     ip = request.remote_addr
-    allowed_ua = conf.get_allowed_ua()
-    allowed_ip = conf.get_allowed_ip()
+    allowed_ua = conf.getAllowedUA()
+    allowed_ip = conf.getAllowedIP()
     '''
     for i in plugin_return:
         if not i or ip not in allowed_ip or UA not in allowed_ua:
@@ -66,7 +65,7 @@ def before_request():
 
 @app.route("/")
 def index():
-    lang = conf.get_language()
+    lang = conf.getLang()
     try:
         data = json.load(open("data\\language\\{}.json".format(lang), encoding="utf-8"))
     except:
@@ -81,7 +80,7 @@ def game(game):
     运行游戏
     """
     # 查询游戏路径
-    gamepath = conf.get_game_path(game)
+    gamepath = conf.getGamePath(game)
     # 提取信息
     file = os.path.basename(gamepath)
     path = os.path.dirname(gamepath)
@@ -98,7 +97,7 @@ def postgamepath():
     """
     gamepath = request.args.get("gamepath")
     game = request.args.get("game")
-    conf.set_game_path(gamepath, game)
+    conf.setGamePath(gamepath, game)
     return "OK"
 
 
@@ -113,7 +112,7 @@ def getfile(filename):
 @app.route("/settings/<key>/<val>")
 def settin(key, val):
     if key == "language":
-        conf.set_language(val)
+        conf.setLang(val)
     return "success"
 
 

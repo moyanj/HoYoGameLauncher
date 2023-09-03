@@ -1,7 +1,6 @@
 import requests as r
 from flask import redirect
 import json
-from lib.config import Config
 from api import endpoint as ep
 import json
 import lib
@@ -15,13 +14,13 @@ def get_ysbg():
     all_data = datas["data"]
     adv = all_data["adv"]
     bg = adv["background"]
-    bd_ver = conf.get_game_version("ys")
+    bd_ver = conf.getBGVersion("ys")
     if bd_ver < int(adv["version"]):
         with open("html/static/images/ys_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
-            conf.set_game_version(int(adv["version"]), "ys")
+            conf.setBGVersion("ys",int(adv["version"]) )
         return redirect("/files/images/ys_bg.png")
     else:
         return redirect("/files/images/ys_bg.png")
@@ -33,13 +32,13 @@ def get_srbg():
     all_data = datas["data"]
     adv = all_data["adv"]
     bg = adv["background"]
-    bd_ver = conf.get_game_version("sr")
+    bd_ver = conf.getBGVersion("sr")
     if bd_ver < int(adv["version"]):
         with open("html/static/images/sr_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
-            conf.set_game_version(int(adv["version"]), "sr")
+            conf.setBGVersion( "sr",int(adv["version"]))
         return redirect("/files/images/sr_bg.png")
     else:
         return redirect("/files/images/sr_bg.png")

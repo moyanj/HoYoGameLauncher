@@ -1,4 +1,5 @@
 {
+    "mode":"PYINSTALLER",
     "conf_init": "False",
     "player_init": "False",
     "settings": {
@@ -15,7 +16,7 @@
             "127.0.0.1"
         ]
     },
-    "game": {
+    "games": {
         "ys": {
             "path": "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe",
             "bg_version":0

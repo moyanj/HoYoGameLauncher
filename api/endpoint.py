@@ -1,4 +1,4 @@
-from api.env import *
+from env import *
 
 
 def GameRecordRoleBasicInfo(uid: Player):

@@ -1,10 +1,9 @@
 from configparser import ConfigParser
 import winreg
-from lib.config import Config
+from env import *
 import lib
 import os
 
-conf = Config("config.json")
 
 
 def get_Reg_key(path, key_):
@@ -25,6 +24,7 @@ def raedini(path):
 
 def get_game_path():
     ysgamepath = "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
+    srgamepath = "C:\\Program Files\\Genshin Impact\\Game\\YuanShen.exe"
     try:
         yslunpath = get_Reg_key(
             "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\原神", "InstallPath"
@@ -48,12 +48,12 @@ def get_game_path():
 
     if ys:
         # 读取配置文件
-        f = raedini(yslunpath + "\\config.ini")
+        f = raedini(yslunpath + "\\config.ini")# type: ignore        
         ysgamepath = (
             f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
     if sr:
-        f = raedini(srlunpath + "\\config.ini")
+        f = raedini(srlunpath + "\\config.ini")# type: ignore
         srgamepath = (
             f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
@@ -71,10 +71,9 @@ def main():
     except:
         pass
 
-    if not conf.is_conf_initialized():
+    if conf.getInit("conf"):
         ysgamepath, srgamepath = get_game_path()
-        conf.set_game_path(ysgamepath, "ys")
-        conf.set_game_path(srgamepath, "sr")
+        conf.setGamePath(ysgamepath, "ys")
+        conf.setGamePath(srgamepath, "sr")
         key = lib.generate_random_key(32)
-        conf.set_auth_key(key)
-        conf.set_conf_initialized(True)
+        conf.setInit("conf","True")
