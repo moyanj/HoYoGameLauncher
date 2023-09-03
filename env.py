@@ -6,6 +6,7 @@ import lib.plugin as plu
 from lib.config import Config  # 配置
 from api.env import *
 import logging
+from lib import debug as dbg
 
 # 关闭Flask原生日志
 logs = logging.getLogger ('werkzeug') 

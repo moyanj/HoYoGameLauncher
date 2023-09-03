@@ -39,7 +39,10 @@ for filename in os.listdir("data/player"):
     play = Player("111111")
     name = "data/player/" + filename
     PlayerList.append(play.load(name=name))
-
+@app.after_request
+def after_request(response):
+    status_code = response.status_code
+    log.info(f"{request.method} {request.path} {status_code}")
 
 
 @app.before_request
@@ -59,7 +62,6 @@ def before_request():
             log.warning("接收到一个不正常的请求：")
             return "This is not a request from HoYoGameLauncher", 403
     '''
-    log.info(f"method:{request.method}  path:{request.path}  IP:{request.remote_addr}")
 
 
 @app.route("/")
