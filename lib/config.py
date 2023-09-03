@@ -90,6 +90,6 @@ def getLangData(lang) -> dict:
     lang = json.loads(f"data\\language\\{lang}.json")
     return lang
 
-def getPlayerData(player:str) -> Player:
+def getPlayerData(player:str):
     player_info = pickle.load(open(f"data\\players\\{player}.uid", "rb"))
     return player_info

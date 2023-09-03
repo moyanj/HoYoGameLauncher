@@ -9,6 +9,7 @@ import logging
 from lib import debug as dbg
 import re
 import pickle as p
+from lib import i18ns as i18n
 
 
 # 关闭Flask原生日志

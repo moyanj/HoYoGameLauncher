@@ -27,7 +27,7 @@ def ifinit():
     """
     判断是否初始化
     """
-    if conf.is_player_initialized():
+    if conf.getInit("conf"):
         return "ok"
     else:
         return "not ok"

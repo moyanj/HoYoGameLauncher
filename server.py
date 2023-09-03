@@ -42,6 +42,7 @@ for filename in os.listdir("data/player"):
 def after_request(response):
     status_code = response.status_code
     log.info(f"{request.method} {request.path} {status_code}")
+    return response
 
 
 @app.before_request
@@ -71,6 +72,7 @@ def index():
     except:
         data = json.load(open("data\\language\\zh-cn.json", encoding="utf-8"))
     plugins_info = plu.get_plugin_info(plugin)
+    
     return render_template("index.html", lang=data, plugins=plugins_info)
 
 
@@ -125,6 +127,12 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
+@app.route("/i18n/get")
+def i18n_get():
+    return i18n.t(request.args.get("key"))
+
+
+
 
 @app.route("/<path:url>")
 def pluurl(url):
@@ -147,4 +155,4 @@ def pluurl(url):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6553, debug=False)
+    app.run(host="0.0.0.0", port=6553, debug=True)

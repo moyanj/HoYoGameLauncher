@@ -73,7 +73,7 @@ def main():
 
     if conf.getInit("conf"):
         ysgamepath, srgamepath = get_game_path()
-        conf.setGamePath(ysgamepath, "ys")
-        conf.setGamePath(srgamepath, "sr")
+        conf.setGamePath("ys",ysgamepath, )
+        conf.setGamePath("sr",srgamepath, )
         key = lib.generate_random_key(32)
         conf.setInit("conf","True")
