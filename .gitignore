@@ -2,6 +2,9 @@ build/
 package/
 pack/
 .hintrc
+docs/node_modules/
+docs/.temp/
+docs/.cache/
 server/static/images/avatar.png
 .DS_Store
 *.pyc
@@ -21,3 +24,8 @@ html/static/images/sr_bg.png
 debug.txt
 1.txt
 test.py
+docs/raw/node_modules/
+docs/raw/package-lock.json
+docs/raw/docs/.vuepress/.temp/
+docs/raw/docs/.vuepress/.cache/
+

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-8daa1a0e","path":"/","title":"介绍","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"使用的开源项目","slug":"使用的开源项目","link":"#使用的开源项目","children":[]},{"level":2,"title":"致谢","slug":"致谢","link":"#致谢","children":[]}],"git":{"updatedTime":null,"contributors":[]},"filePathRelative":"README.md"}');export{e as data};
