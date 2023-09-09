@@ -3,6 +3,8 @@ import { defaultTheme } from '@vuepress/theme-default'
 import { backToTopPlugin } from '@vuepress/plugin-back-to-top'
 
 export default defineUserConfig({
+
+  base: "/HoYoGameLauncher",
   lang: 'zh-CN',
   title: 'HoYoGameLauncher',
   description: '这是我的第一个 VuePress 站点',
