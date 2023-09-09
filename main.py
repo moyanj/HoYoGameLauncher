@@ -1,12 +1,18 @@
 import webview
 import click
 from server import app as flask
+from env import *
+import platform
+from tkinter import messagebox
+import threading as t
 
 engine_dict = {
     "Edge":"edgechromium",
     "IE":"mshtml",
     "GTK":"gtk"
 }
+def run_server(port,debug):
+    flask.run(host="0.0.0.0", port=port, debug=debug, processes=True)
 # 创建WebView窗口
 @click.command()
 @click.option("--debug", is_flag=True,help="是否开启调试模式")
@@ -14,17 +20,21 @@ engine_dict = {
 @click.option("--height", default=720, help="高度")
 @click.option("--minimized", is_flag=True, help="最小化")
 @click.option("--engine", default="Edge", help="webview引擎")
-@click.option("--server", is_flag=False, help="是否单独启动服务端")
+@click.option("--server", is_flag=True, help="是否单独启动服务端")
 @click.option("--port", default=6553, help="服务端端口")
-@click.option("--fullscreen", is_flag=False, help="是否全屏")
-@click.option("--private", is_flag=False, help="是否为隐私模式。")
+@click.option("--fullscreen", is_flag=True, help="是否全屏")
+@click.option("--private", is_flag=True, help="是否为隐私模式。")
 def main(debug, width,height,minimized,engine,server,port,fullscreen,private):
     if engine not in ["Edge", "IE", "GTK"]:
-        print("请输入正确的引擎")
+        messagebox.showerror("错误", "请输入正确的引擎")
+        exit()
+    if platform.system() != "Windows":
+        messagebox.showerror("错误", "请使用Windows系统运行HoYoGameLauncher")
         exit()
     # 将要运行的代码加到这里
-    if server and debug:
-        flask.run(host="0.0.0.0", port=port, debug=True)
+    if server:
+        run_server(port,debug)
+
     if debug:
         webview.create_window(
             "HoYoGameLauncher",
@@ -51,4 +61,6 @@ def main(debug, width,height,minimized,engine,server,port,fullscreen,private):
 
 
 if __name__ == "__main__":
+    
+    
     main()

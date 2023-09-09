@@ -47,6 +47,8 @@ def make(old,new,out):
             f.write(file+"\n")
         else:
             print("MD5一致",file)
+
+
     f.close()
     
 if __name__ == "__main__":
