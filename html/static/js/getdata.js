@@ -4,7 +4,7 @@ $(document).ready(function () {
         url: "/ifinit",
         success: function (data) {
             if (data == "not ok") {
-                $("#APPinit").show();
+                // $("#APPinit").show();
             }
         }
 

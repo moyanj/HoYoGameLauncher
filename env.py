@@ -10,7 +10,7 @@ from lib import debug as dbg
 import re
 import pickle as p
 from lib import i18ns as i18n
-
+HOYOGAMELAUNCHER_VERSION = "1.1.0-Pre1"
 
 # 关闭Flask原生日志
 logs = logging.getLogger ('werkzeug') 

@@ -47,6 +47,12 @@ def make(old,new,out):
             f.write(file+"\n")
         else:
             print("MD5一致",file)
+    for file, md5 in new_files.items():
+        old_file_md5 = old_files.get(file,"<UNK>")
+        if old_file_md5 == "<UNK>":
+            os.makedirs(os.path.dirname(os.path.join(out, file)),exist_ok=True)
+            shutil.copy(os.path.join(new, file), os.path.join(out, file))
+
 
 
     f.close()
