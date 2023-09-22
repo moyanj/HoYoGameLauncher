@@ -4,6 +4,7 @@ from flask import abort
 
 class Plugins(Plugin):
     __name__ = "test"
+
     def __init__(self):
         super().__init__()
 
@@ -12,6 +13,7 @@ class Plugins(Plugin):
 
     def route_type(self, req):
         return 1
+
     def route_name(self, req):
         raise NameError
 

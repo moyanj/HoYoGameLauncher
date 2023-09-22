@@ -5,7 +5,6 @@ import lib
 import os
 
 
-
 def get_Reg_key(path, key_):
     reg_root = winreg.HKEY_LOCAL_MACHINE
     reg_path = path
@@ -48,12 +47,12 @@ def get_game_path():
 
     if ys:
         # 读取配置文件
-        f = raedini(yslunpath + "\\config.ini")# type: ignore        
+        f = raedini(yslunpath + "\\config.ini")  # type: ignore
         ysgamepath = (
             f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
     if sr:
-        f = raedini(srlunpath + "\\config.ini")# type: ignore
+        f = raedini(srlunpath + "\\config.ini")  # type: ignore
         srgamepath = (
             f["launcher"]["game_install_path"] + "/" + f["launcher"]["game_start_name"]
         )
@@ -73,7 +72,13 @@ def main():
 
     if conf.getInit("conf"):
         ysgamepath, srgamepath = get_game_path()
-        conf.setGamePath("ys",ysgamepath, )
-        conf.setGamePath("sr",srgamepath, )
+        conf.setGamePath(
+            "ys",
+            ysgamepath,
+        )
+        conf.setGamePath(
+            "sr",
+            srgamepath,
+        )
         key = lib.generate_random_key(32)
-        conf.setInit("conf","True")
+        conf.setInit("conf", "True")

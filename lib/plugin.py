@@ -10,8 +10,14 @@ class Plugin:
     __version__ = ""
     __description__ = ""
     __author__ = ""
+
     def __init__(self):
-        self.root = os.path.dirname(os.path.realpath(sys.argv[0]))+"\\plugins\\" + self.__name__
+        self.root = (
+            os.path.dirname(os.path.realpath(sys.argv[0]))
+            + "\\plugins\\"
+            + self.__name__
+        )
+
     def route_main(self, req):
         return "Plugin Index"
 
@@ -45,8 +51,7 @@ def load_plugins(dir):
     plugins = []
     pre_fix = plugin_dir.replace("\\", ".").replace("/", ".")
     for file_name in os.listdir(plugin_dir):
-        if not os.path.isdir(dir +"/" + file_name):
-
+        if not os.path.isdir(dir + "/" + file_name):
             module_name = file_name.split(".")[0]
             module = importlib.import_module(pre_fix + "." + module_name)
             for name, obj in inspect.getmembers(module):
@@ -80,12 +85,12 @@ def run_one_funcion(plugins, name, funcion, *args, **kwargs):
                 plu = getattr(plugin, funcion)
                 ret = plu(*args, **kwargs)
             except AttributeError as e:
-                #log.error(e)
+                # log.error(e)
                 ret = "Nones"
             break
         else:
             ret = "Nones"
-    
+
     if ret == "Nones":
         return abort(404)
     else:

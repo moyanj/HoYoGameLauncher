@@ -6,7 +6,7 @@ app = Blueprint("settings", __name__, url_prefix="/setting")
 
 @app.route("/html")
 def setting_html():
-    return render_template("setting.html",lang={})
+    return render_template("setting.html", lang={})
 
 
 @app.route("/", methods=["POST"])

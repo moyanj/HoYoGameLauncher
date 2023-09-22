@@ -1,27 +1,30 @@
-from flask import Flask, request, send_from_directory, render_template  # flask
+from flask import Flask, request, send_from_directory, render_template  # Flask
 import os  # 系统操作
 import lib.init as inits  # 函数
 import json  # json解析
-import api
-from env import *
-from views import data, settings, init
-import traceback
-from lib import debug as dbg
+import api  # 所有API
+from env import *  # 所有全局变量
+from views import data, settings, init  # 视图函数
+import traceback  # 错误追踪
+from lib import debug as dbg  # DBG
 
 # 初始化Flask
 app = Flask(__name__, template_folder=save_path + "/html/")
 
-# 一大堆错误处理
+
+# 404错误
 @app.errorhandler(404)
 def error_404(e):
-    return f"该页面不存在", 404
+    return Rest("页面不存在", 404)
 
 
+# 顶级错误处理器
 @app.errorhandler(Exception)
 def error_500(e):
     stack_trace = traceback.format_exc()
     dbg.crash(stack_trace, app, e)
-    return f"未知错误，错误日志位于{save_path}\\debug.txt", 500
+    return Rest(f"未知错误，错误日志位于{save_path}\\debug.txt", 500)
+
 
 # 注册蓝图
 app.register_blueprint(data.app)
@@ -38,42 +41,22 @@ for filename in os.listdir("data/player"):
     play = Player("111111")
     name = "data/player/" + filename
     PlayerList.append(play.load(name=name))
+
+
+# 输出日志
 @app.after_request
 def after_request(response):
+    # 获取状态码
     status_code = response.status_code
+    # log
     log.info(f"{request.method} {request.path} {status_code}")
     return response
 
 
-@app.before_request
-def before_request():
-    """
-    验证请求
-    """
-
-    plugin_return = plu.run_funcion(plugin, "before_request", request)
-    UA = request.headers.get("User-Agent")
-    ip = request.remote_addr
-    allowed_ua = conf.getAllowedUA()
-    allowed_ip = conf.getAllowedIP()
-    '''
-    for i in plugin_return:
-        if not i or ip not in allowed_ip or UA not in allowed_ua:
-            log.warning("接收到一个不正常的请求：")
-            return "This is not a request from HoYoGameLauncher", 403
-    '''
-
-
 @app.route("/")
 def index():
-    lang = conf.getLang()
-    try:
-        data = json.load(open("data\\language\\{}.json".format(lang), encoding="utf-8"))
-    except:
-        data = json.load(open("data\\language\\zh-cn.json", encoding="utf-8"))
-    plugins_info = plu.get_plugin_info(plugin)
-    
-    return render_template("index.html", lang=data, plugins=plugins_info)
+    # 返回主页
+    return render_template("index.html")
 
 
 @app.route("/run/<game>")
@@ -89,7 +72,7 @@ def game(game):
     panfu = gamepath.split(":")[0] + ":"
     # 运行
     os.system("{} && cd {} && dir && {}".format(panfu, path, file))
-    return "RUN OK"
+    return Rest("成功")
 
 
 @app.route("/post/gamepath")
@@ -100,7 +83,7 @@ def postgamepath():
     gamepath = request.args.get("gamepath")
     game = request.args.get("game")
     conf.setGamePath(gamepath, game)
-    return "OK"
+    return Rest("成功")
 
 
 @app.route("/files/<path:filename>")
@@ -108,14 +91,14 @@ def getfile(filename):
     """
     静态文件
     """
-    return (send_from_directory(save_path + "/html/static/", filename), 200)
+    return send_from_directory(save_path + "/html/static/", filename), 200
 
 
 @app.route("/settings/<key>/<val>")
 def settin(key, val):
     if key == "language":
         conf.setLang(val)
-    return "success"
+    return Rest("成功")
 
 
 @app.route("/bg/ys")
@@ -127,11 +110,11 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
+
 @app.route("/i18n/get")
 def i18n_get():
-    return i18n.t(request.args.get("key"))
-
-
+    return Rest(data=i18n.t(request.args.get("key")))
+    # return i18n.t(request.args.get("key"))
 
 
 @app.route("/<path:url>")

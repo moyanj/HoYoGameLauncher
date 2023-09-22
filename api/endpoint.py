@@ -38,5 +38,4 @@ def HuTaoUpload(Rank: bool = False):
 
 
 def Ltoken() -> str:
-
     return f"{ApiTakumiAuthApi}/getMultiTokenByLoginTicket"
