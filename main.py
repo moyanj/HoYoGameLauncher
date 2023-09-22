@@ -78,6 +78,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             minimized=minimized,
             fullscreen=fullscreen,
         )
+        # 显示窗口
         webview.start(
             user_agent="HoYoGameLauncher-WebView/1.0.0",
             gui=engine_dict[engine],
