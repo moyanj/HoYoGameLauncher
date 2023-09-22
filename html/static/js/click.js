@@ -47,11 +47,11 @@ $(document).ready(function () {
             url: "/run/ys",
             success: function (data) {
                 // 显示运行成功模态框
-                $("#RunOK").modal("show")
+                bs4pop.notice(t("游戏启动成功"), {type: 'success'})
             },
             error: function (data) {
                 // 显示运行失败模态框
-                $("#RunError").modal("show")
+                bs4pop.notice(t("游戏启动失败"), {type: 'danger'})
             }
 
         });
@@ -63,11 +63,11 @@ $(document).ready(function () {
             url: "/run/sr",
             success: function (data) {
                 // 显示运行成功模态框
-                $("#RunOK").modal("show")
+                bs4pop.notice(t("游戏启动成功"), {type: 'success'})
             },
             error: function (data) {
                 // 显示运行失败模态框
-                $("#RunError").modal("show")
+                bs4pop.notice(t("游戏启动失败"), {type: 'danger'})
             },
 
         });

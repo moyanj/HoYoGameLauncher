@@ -19,7 +19,7 @@ def info_init():
         os.remove("static/images/avatar.png")
     except:
         pass
-    return "ok"
+    return Rest("OK")
 
 
 @app.route("/ifinit")
@@ -28,6 +28,6 @@ def ifinit():
     判断是否初始化
     """
     if conf.getInit("conf"):
-        return "ok"
+        return Rest("OK")
     else:
-        return "not ok"
+        return Rest("NO OK")
