@@ -12,8 +12,9 @@ import pickle as p
 from lib import i18ns as i18n
 from lib.retur import Rest
 
-HOYOGAMELAUNCHER_VERSION = "1.1.0-Pre1"
-
+with open("data/version.txt",encoding="utf-8") as f:
+    HOYOGAMELAUNCHER_VERSION = f.read()
+print(HOYOGAMELAUNCHER_VERSION)
 # 关闭Flask原生日志
 logs = logging.getLogger("werkzeug")
 logs.disabled = True
