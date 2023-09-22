@@ -17,6 +17,11 @@ jobs:
         run: |
           python lib/pre-commit.py -t dev
           python lib/build.py pack
+      - name: Archive Version
+        uses: actions/upload-artifact@v2
+        with:
+          name: Version.txt
+          path: HoYoGameLauncher/data/version.txt
       - name: Archive Main build
         uses: actions/upload-artifact@v2
         with:
