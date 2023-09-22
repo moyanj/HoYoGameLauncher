@@ -19,7 +19,7 @@ def run_server(port, debug):
     """
     flask.run(host="0.0.0.0", port=port, debug=debug, processes=True)
 
-
+help(run_server)
 # 创建WebView窗口
 @click.command()
 @click.option("--debug", is_flag=True, help="是否开启调试模式")

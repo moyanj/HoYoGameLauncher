@@ -30,3 +30,4 @@ docs/raw/docs/.vuepress/.temp/
 docs/raw/docs/.vuepress/.cache/
 __pycache__
 .history/
+test.html
