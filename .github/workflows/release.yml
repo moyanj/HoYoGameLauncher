@@ -15,6 +15,7 @@ jobs:
         
       - name: Run build script
         run: |
+          python lib/pre-commit.py -t dev
           python lib/build.py pack
       - name: Archive Main build
         uses: actions/upload-artifact@v2
