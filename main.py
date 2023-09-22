@@ -15,7 +15,7 @@ def run_server(port, debug):
 
     Arguments:
         port -- 端口
-        debug -- 是否为调试
+        debug --  是否为调试
     """
     flask.run(host="0.0.0.0", port=port, debug=debug, processes=True)
 
@@ -68,6 +68,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
     # 以普通模式启动
     else:
         print("默认模式")
+        # 创建窗口
         webview.create_window(
             "HoYoGameLauncher",
             url=flask,
