@@ -28,10 +28,11 @@ except:
     messagebox.showwarning("警告", "未安装Microsoft Edge WebView2")
     # 是否安装Microsoft Edge WebView2
     if messagebox.askyesno("提示", "是否安装Microsoft Edge WebView2?"):
-        
         req = requests.get(DownloadURL["WebView"])
-        WebViewDownloadPath = os.path.join(AppDataPath,"DownloadFiles","MicrosoftEdgeWebView2.exe")
-        with open(WebViewDownloadPath,"wb") as f:
+        WebViewDownloadPath = os.path.join(
+            AppDataPath, "DownloadFiles", "MicrosoftEdgeWebView2.exe"
+        )
+        with open(WebViewDownloadPath, "wb") as f:
             f.write(req.content)
         os.system(WebViewDownloadPath)
 
@@ -96,7 +97,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             user_agent="HoYoGameLauncher-WebView/1.0.0",
             gui=engine_dict[engine],
             private_mode=private,
-            storage_path=os.path.join(AppDataPath,"Web"),
+            storage_path=os.path.join(AppDataPath, "Web"),
         )
     # 以普通模式启动
     else:
@@ -116,7 +117,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             user_agent="HoYoGameLauncher-WebView/1.0.0",
             gui=engine_dict[engine],
             private_mode=private,
-            storage_path=os.path.join(AppDataPath,"Web"),
+            storage_path=os.path.join(AppDataPath, "Web"),
         )
 
 

@@ -66,7 +66,7 @@ DownloadURL = json.load(open("data/url.json", "r", encoding="utf-8"))
 
 AppDataPath = os.path.join(os.environ["APPDATA"], "HoYoGameLauncher")
 
-os.makedirs(os.path.join(AppDataPath, "DownloadFiles"),exist_ok=True)
+os.makedirs(os.path.join(AppDataPath, "DownloadFiles"), exist_ok=True)
 # Copyright (c) DGP Studio. All rights reserved.
 ApiGeetest = "https://api.geetest.com"
 ApiV6Geetest = "https://apiv6.geetest.com"
@@ -94,14 +94,8 @@ SdkStatic = "https://sdk-static.mihoyo.com"
 SdkStaticLauncherApi = f"{SdkStatic}/hk4e_cn/mdk/launcher/api"
 WebStaticMihoyoReferer = "https://webstatic.mihoyo.com"
 AnnouncementQuery = "game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000"
-server_id = {
-    5:"cn_qd01",
-    6:"os_usa",
-    7:"os_euro",
-    8:"os_asia",
-    9:"os_cht"
+server_id = {5: "cn_qd01", 6: "os_usa", 7: "os_euro", 8: "os_asia", 9: "os_cht"}
 
-}
 
 class Player:
     """
