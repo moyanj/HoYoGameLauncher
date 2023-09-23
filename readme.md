@@ -46,6 +46,7 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 - [requests](https://github.com/psf/requests)（请求API）
 - [bootstrap](https://github.com/twbs/bootstrap)（前端CSS框架）
 - [jQuery](https://github.com/jquery/jquery)（前端JS框架）
+- [psutil](https://github.com/giampaolo/psutil)（获取系统信息）
 
 
 
