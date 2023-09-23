@@ -94,7 +94,14 @@ SdkStatic = "https://sdk-static.mihoyo.com"
 SdkStaticLauncherApi = f"{SdkStatic}/hk4e_cn/mdk/launcher/api"
 WebStaticMihoyoReferer = "https://webstatic.mihoyo.com"
 AnnouncementQuery = "game=hk4e&game_biz=hk4e_cn&lang=zh-cn&bundle_id=hk4e_cn&platform=pc&region=cn_gf01&level=55&uid=100000000"
+server_id = {
+    5:"cn_qd01",
+    6:"os_usa",
+    7:"os_euro",
+    8:"os_asia",
+    9:"os_cht"
 
+}
 
 class Player:
     """
@@ -114,18 +121,8 @@ class Player:
         prefix = int(str_uid[0])
         if 1 <= prefix and prefix <= 4:
             result = "cn_gf01"  # 国服
-        elif 5 == prefix:
-            result = "cn_qd01"  # 渠道
-        elif 6 == prefix:
-            result = "os_usa"  # 各服
-        elif 7 == prefix:
-            result = "os_euro"  # 各服
-        elif 8 == prefix:
-            result = "os_asia"  # 各服
-        elif 9 == prefix:
-            result = "os_cht"  # 各服
         else:
-            result = "unknown"  # 未知
+            result = server_id.get(prefix, "Unknown")
         self.uid = uid
         self.ok = re.match(r"^[^34]\d{8}$", str_uid) != None
         self.region = result
