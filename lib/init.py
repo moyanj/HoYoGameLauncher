@@ -3,6 +3,8 @@ import winreg
 from env import *
 import lib
 import os
+from tkinter import ttk
+import ttkbootstrap
 
 
 def get_Reg_key(path, key_):

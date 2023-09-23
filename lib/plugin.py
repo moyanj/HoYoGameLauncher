@@ -2,7 +2,9 @@ import os
 import importlib
 import inspect
 from flask import abort
-from env import *
+import sys
+
+# from env import *
 
 
 class Plugin:
@@ -40,7 +42,6 @@ class Plugin:
                 f = open(static_path + "\\" + file_path, "rb")
                 data = f.read()
             except Exception as e:
-                log.error("File Not Found")
                 return "File Not Found"
             else:
                 return data

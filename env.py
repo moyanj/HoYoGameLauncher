@@ -11,10 +11,24 @@ import re
 import pickle as p
 from lib import i18ns as i18n
 from lib.retur import Rest
+import subprocess
 
-with open("data/version.txt",encoding="utf-8") as f:
+os.makedirs(os.path.join(os.environ["APPDATA"], "HoYoGameLauncher"), exist_ok=True)
+with open("data/version.txt", encoding="utf-8") as f:
     HOYOGAMELAUNCHER_VERSION = f.read()
-print(HOYOGAMELAUNCHER_VERSION)
+MODE = json.load(open("config.json", encoding="utf-8"))["mode"]
+
+
+def restart():
+    if MODE == "DEBUG":
+        command = " ".join(sys.argv)
+        command = "python " + command
+    elif MODE == "PYINSTALLER":
+        command = " ".join(sys.argv)
+    subprocess.Popen(command)
+    sys.exit()
+
+
 # 关闭Flask原生日志
 logs = logging.getLogger("werkzeug")
 logs.disabled = True
@@ -48,6 +62,11 @@ plugin = plu.load_plugins("plugins")
 
 print = log.debug
 
+DownloadURL = json.load(open("data/url.json", "r", encoding="utf-8"))
+
+AppDataPath = os.path.join(os.environ["APPDATA"], "HoYoGameLauncher")
+
+os.makedirs(os.path.join(AppDataPath, "DownloadFiles"),exist_ok=True)
 # Copyright (c) DGP Studio. All rights reserved.
 ApiGeetest = "https://api.geetest.com"
 ApiV6Geetest = "https://apiv6.geetest.com"

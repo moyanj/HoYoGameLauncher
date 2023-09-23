@@ -3,6 +3,8 @@ from http.cookies import SimpleCookie
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from base64 import b64encode, b64decode
+import sys
+import subprocess as sub
 
 
 def encrypt(key, data):

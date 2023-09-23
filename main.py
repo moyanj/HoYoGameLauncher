@@ -5,6 +5,38 @@ from env import *
 import platform
 from tkinter import messagebox
 import threading as t
+import winreg
+import sys
+import requests
+
+
+def get_Reg_key(path, key_):
+    reg_root = winreg.HKEY_CURRENT_USER
+    reg_path = path
+    reg_flags = winreg.KEY_READ
+    key = winreg.OpenKey(reg_root, reg_path, 0, reg_flags)
+
+    value, key_type = winreg.QueryValueEx(key, key_)
+    winreg.CloseKey(key)
+    return value
+
+
+try:
+    EdgeVersion = get_Reg_key("Software\\Microsoft\\EdgeWebView\\BLBeacon", "version")
+except:
+    EdgeVersion = "0"
+    messagebox.showwarning("警告", "未安装Microsoft Edge WebView2")
+    # 是否安装Microsoft Edge WebView2
+    if messagebox.askyesno("提示", "是否安装Microsoft Edge WebView2?"):
+        
+        req = requests.get(DownloadURL["WebView"])
+        WebViewDownloadPath = os.path.join(AppDataPath,"DownloadFiles","MicrosoftEdgeWebView2.exe")
+        with open(WebViewDownloadPath,"wb") as f:
+            f.write(req.content)
+        os.system(WebViewDownloadPath)
+
+        restart()
+
 
 # 渲染引擎字典
 engine_dict = {"Edge": "edgechromium", "IE": "mshtml", "GTK": "gtk"}
@@ -19,7 +51,7 @@ def run_server(port, debug):
     """
     flask.run(host="0.0.0.0", port=port, debug=debug, processes=True)
 
-help(run_server)
+
 # 创建WebView窗口
 @click.command()
 @click.option("--debug", is_flag=True, help="是否开启调试模式")
@@ -64,6 +96,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             user_agent="HoYoGameLauncher-WebView/1.0.0",
             gui=engine_dict[engine],
             private_mode=private,
+            storage_path=os.path.join(AppDataPath,"Web"),
         )
     # 以普通模式启动
     else:
@@ -83,6 +116,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             user_agent="HoYoGameLauncher-WebView/1.0.0",
             gui=engine_dict[engine],
             private_mode=private,
+            storage_path=os.path.join(AppDataPath,"Web"),
         )
 
 
