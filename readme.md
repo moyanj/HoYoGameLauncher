@@ -38,23 +38,26 @@ HoYoGameLauncher提供了一个米哈游聚合启动器，可以快捷的启动�
 - 如果你下载了exe安装包, 请直接运行，然后根据提示安装。<br/>
 - 如果你下载了zip程序压缩包, 请解压后双击打开`HoYoGameLauncher.exe`即可运行。（注意：您可能需要安Microsoft Edge WebView2）<br/>
 - 如果你下载了源代码, 请前往[开发文档](/dev)查看如何运行。<br/>
+# 特别感谢
+* [OpenAI](https://openai.com/)
+* [Microsoft](https://www.microsoft.com/)
+* [GitHub](https://github.com/)
+* [清华大学](https://github.com/THUDM)
+* [UIGF organization](https://uigf.org)
+* [EnkaAPI](https://enka.network/)
 
-## 使用的开源项目
-- [Flask](https://github.com/pallets/flask)（为服务器提供框架）
+# 特定的原神项目 
+- [Snap.Hutao](https://hut.ao)
+- [Genshin.Launcher.Plus](https://github.com/DawnFz/Genshin.Launcher.Plus)
+- [Starward](https://github.com/Scighost/Starward)
+# 使用的技术栈
+## 后端
+- [Flask](https://github.com/pallets/flask)（服务器框架）
 - [pywebview](https://github.com/r0x0r/pywebview)（显示页面）
 - [pyinstaller](https://github.com/pyinstaller/pyinstaller)（打包EXE）
 - [requests](https://github.com/psf/requests)（请求API）
+## 前端
 - [bootstrap](https://github.com/twbs/bootstrap)（前端CSS框架）
 - [jQuery](https://github.com/jquery/jquery)（前端JS框架）
-- [psutil](https://github.com/giampaolo/psutil)（获取系统信息）
-
-
-
-## 致谢
-- 由 [UIGF](https://uigf.org/) 的[米哈游 API 合集](https://github.com/UIGF-org/mihoyo-api-collect)项目提供了其使用的API
-- 由 [Microsoft](https://www.microsoft.com/) 的 [NewBing](https://www.bing.com/new) 为我们提供了图标。
-- 由 [Microsoft](https://code.visualstudio.com/) 的 Visual Studio Code 提供 IDE 支持。
-- 由 [GitHub](https://github.com/) 为我们提供了代码托管服务。
-- 由 [OpenAI](https://openai.com/) 的 [ChatGPT](https://chat.openai.com/) 为我们提供了AI 辅助工具。
-- 由 [清华大学](https://github.com/THUDM) 提供CodeGeeX代码辅助编写。
-- 由 [EnkaAPI](https://enka.network/) 提供原神数据查询支持。
+- [Vue](https://vuejs.org/)（前端JS框架）
+- [Elment Plus](https://element-plus.org/)（前端UI框架）
