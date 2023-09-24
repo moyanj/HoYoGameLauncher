@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+
 <head>
     <meta charset="utf-8">
     <title>HoYoGameLauncher</title>
@@ -8,6 +11,7 @@
     <link rel="stylesheet" href="/files/css/lib/element-2.3.14.min.css">
     <link rel="stylesheet" href="/files/css/main.css"> <!-- 自定义主样式 -->
     <link rel="stylesheet" href="/files/css/dark.css"> <!-- 自定义暗黑模式样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@2.3.14/theme-chalk/dark/css-vars.css">
 
     <!-- 引入 JavaScript 文件 -->
     <script src="/files/js/lib/jquery.min.js"></script> <!-- JQuery -->
@@ -28,42 +32,25 @@
             min-height: 400px;
         }
     </style>
-    <script lang="ts" setup>
-        import { ref } from 'vue'
-        import {
-            Document,
-            Menu as IconMenu,
-            Location,
-            Setting,
-        } from '@element-plus/icons-vue'
-
-        const isCollapse = ref(true)
-        const handleOpen = (key: string, keyPath: string[]) => {
-            console.log(key, keyPath)
-        }
-        const handleClose = (key: string, keyPath: string[]) => {
-            console.log(key, keyPath)
-        }
-    </script>
 
 </head>
 
 <body>
     <div id="app">
-        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="true" @open="handleOpen"
-            @close="handleClose" collapse="true">
+        <el-menu default-active="2" class="el-menu-vertical-demo sidebar nav" :collapse="false" @open="handleOpen"
+            @close="handleClose">
             <h4 align="center">HoYoGame<br>&nbsp;Launcher</h4>
             <el-sub-menu index="1">
-                
+
                 <template #title>
                     <el-icon>
                         <i class="bi bi-rocket-takeoff"></i>
                     </el-icon>
                     <span> 启动游戏</span>
                 </template>
-                    <el-menu-item index="1-1">崩坏：星穹铁道</el-menu-item>
-                    <el-menu-item index="1-2">原神</el-menu-item>
-                </el-sub-menu>
+                <el-menu-item index="1-1">崩坏：星穹铁道</el-menu-item>
+                <el-menu-item index="1-2">原神</el-menu-item>
+            </el-sub-menu>
             </el-sub-menu>
             <el-menu-item index="2">
                 <el-icon>
@@ -112,9 +99,14 @@
 
                     <el-button onclick="alert('1212')"><i class="bi bi-list"></i></el-button>
                 </el-icon>
-                
+
             </el-menu-item>
         </el-menu>
+        <div id="content" ref="content">
+            <div>
+                <h1>111</h1>
+            </div>
+        </div>
 
     </div>
     </div>
@@ -124,10 +116,13 @@
                 return {
                     message: AppName,
                 };
-            },
+            }
         };
+
         const app = Vue.createApp(App);
         app.use(ElementPlus);
         app.mount("#app");
     </script>
 </body>
+
+</html>

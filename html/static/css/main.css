@@ -3,15 +3,11 @@ html {
     overflow-x: hidden;
     overflow-y: hidden;
 }
-a {
-    text-decoration: none;
-    color: #000;
-}
+
 /* 侧边栏样式 */
 .sidebar {
     width: 12.5vw;
     height: 100vh;
-    background-color: #f1f1f1;
     position: fixed;
     overflow: auto;
     top: 0;
@@ -25,20 +21,6 @@ a {
     height: 100vh;
 }
 
-.nav-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-item img {
-    max-width: 70%;
-    max-height: 70%;
-    display: block;
-    margin: auto;
-    border-radius: 50%;
-}
 
 .user-profile {
     display: flex;
@@ -64,12 +46,12 @@ a {
 }
 
 /* 内容区域样式 */
-.container-fluid {
+.content {
     display: flex;
     margin-left: 25vh;
 }
 
-.container-fluid>div {
+.content>div {
     flex: 1;
     padding-left: 5vh;
     display: none;

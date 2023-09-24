@@ -6,7 +6,7 @@ $(document).ready(function () {
     navLinks.on("click", function (event) {
         event.preventDefault();
         // 隐藏所有内容区域
-        $("div[id$='Content']").hide();
+        $("div[id$='Contedfnt']").hide();
 
         // 移除所有图标的激活状态
         navLinks.removeClass("active");
