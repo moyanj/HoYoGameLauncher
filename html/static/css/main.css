@@ -119,3 +119,8 @@ a {
     color: #6c757d;
     font-size: 5px;
 }
+
+#NavIcon {
+    width: 6vh;
+    height: 6vh;
+}

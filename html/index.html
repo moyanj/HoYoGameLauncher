@@ -52,12 +52,14 @@
     <div id="app">
         <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
             @close="handleClose">
+            <h4 align="center">HoYoGame<br>&nbsp;Launcher</h4>
             <el-sub-menu index="1">
+                
                 <template #title>
                     <el-icon>
                         <i class="bi bi-rocket-takeoff"></i>
                     </el-icon>
-                    <span>启动游戏</span>
+                    <span> 启动游戏</span>
                 </template>
                     <el-menu-item index="1-1">崩坏：星穹铁道</el-menu-item>
                     <el-menu-item index="1-2">原神</el-menu-item>
@@ -65,21 +67,39 @@
             </el-sub-menu>
             <el-menu-item index="2">
                 <el-icon>
-                    <icon-menu />
+                    <img src="/files/images/icons/UI/Abyss.png" id="NavIcon">
                 </el-icon>
-                <template #title>深境螺旋</template>
+                <template #title> &nbsp;深境螺旋</template>
             </el-menu-item>
             <el-menu-item index="3">
                 <el-icon>
-                    <document />
+                    <img src="/files/images/icons/UI/Role.png" id="NavIcon">
                 </el-icon>
                 <template #title>角色信息</template>
             </el-menu-item>
             <el-menu-item index="4">
                 <el-icon>
-                    <setting />
+                    <img src="/files/images/icons/UI/Wish.png" id="NavIcon">
+                </el-icon>
+                <template #title>祈愿记录</template>
+            </el-menu-item>
+            <el-menu-item index="5">
+                <el-icon>
+                    <img src="/files/images/icons/UI/Map.png" id="NavIcon">
                 </el-icon>
                 <template #title>提瓦特大地图</template>
+            </el-menu-item>
+            <el-menu-item index="6">
+                <el-icon>
+                    <img src="/files/images/icons/UI/YSWiki.png" id="NavIcon">
+                </el-icon>
+                <template #title>原神Wiki</template>
+            </el-menu-item>
+            <el-menu-item index="7">
+                <el-icon>
+                    <img src="/files/images/icons/UI/SRWiki.png" id="NavIcon">
+                </el-icon>
+                <template #title>崩坏：星穹铁道Wiki</template>
             </el-menu-item>
         </el-menu>
 
