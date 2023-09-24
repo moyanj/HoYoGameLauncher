@@ -116,7 +116,6 @@ def i18n_get():
     return Rest(data=i18n.t(request.args.get("key")))
     # return i18n.t(request.args.get("key"))
 
-
 @app.route("/<path:url>")
 def pluurl(url):
     url = str(url)

@@ -75,3 +75,7 @@ def getavatar():
             with open("html/static/images/avatar.png", "wb") as f:
                 f.write(data.content)
             return redirect("/files/images/avatar.png")
+
+@app.route("/ver")
+def getVer():
+    return Rest(data=HOYOGAMELAUNCHER_VERSION)
