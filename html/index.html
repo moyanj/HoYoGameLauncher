@@ -50,8 +50,8 @@
 
 <body>
     <div id="app">
-        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
-            @close="handleClose">
+        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="true" @open="handleOpen"
+            @close="handleClose" collapse="true">
             <h4 align="center">HoYoGame<br>&nbsp;Launcher</h4>
             <el-sub-menu index="1">
                 
@@ -100,6 +100,19 @@
                     <img src="/files/images/icons/UI/SRWiki.png" id="NavIcon">
                 </el-icon>
                 <template #title>崩坏：星穹铁道Wiki</template>
+            </el-menu-item>
+            <el-menu-item index="8">
+                <el-icon>
+                    <i class="bi bi-gear"></i>
+                </el-icon>
+                <template #title>设置</template>
+            </el-menu-item>
+            <el-menu-item index="9">
+                <el-icon>
+
+                    <el-button onclick="alert('1212')"><i class="bi bi-list"></i></el-button>
+                </el-icon>
+                
             </el-menu-item>
         </el-menu>
 
