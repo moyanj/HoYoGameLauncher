@@ -48,13 +48,13 @@ html {
 /* 内容区域样式 */
 .content {
     display: flex;
-    margin-left: 25vh;
+    margin-left: 12.5vw !important;
 }
 
 .content>div {
     flex: 1;
     padding-left: 5vh;
-    display: none;
+    display: block;
 }
 
 /* 按钮 */
