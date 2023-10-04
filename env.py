@@ -127,7 +127,6 @@ class Player:
         self.ltoken = ltoken
         self.id = id
         self.name = name
-        # self.server = 1
 
     def __str__(self):
         return str(self.uid)

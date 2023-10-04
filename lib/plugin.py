@@ -86,7 +86,6 @@ def run_one_funcion(plugins, name, funcion, *args, **kwargs):
                 plu = getattr(plugin, funcion)
                 ret = plu(*args, **kwargs)
             except AttributeError as e:
-                # log.error(e)
                 ret = "Nones"
             break
         else:

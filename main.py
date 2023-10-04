@@ -60,9 +60,8 @@ def run_server(port, debug):
 @click.option("--engine", default="Edge", help="webview引擎")
 @click.option("--server", is_flag=True, help="是否单独启动服务端")
 @click.option("--port", default=6553, help="服务端端口")
-@click.option("--fullscreen", is_flag=True, help="是否全屏")
 @click.option("--private", is_flag=True, help="是否为隐私模式。")
-def main(debug, width, height, minimized, engine, server, port, fullscreen, private):
+def main(debug, width, height, minimized, engine, server, port, private):
     """主函数
 
     Arguments:
@@ -87,8 +86,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             text_select=True,
             width=width,
             height=height,
-            minimized=minimized,
-            fullscreen=fullscreen,
+            minimized=minimized
         )
         webview.start(
             debug=True,
@@ -107,8 +105,7 @@ def main(debug, width, height, minimized, engine, server, port, fullscreen, priv
             text_select=True,
             width=width,
             height=height,
-            minimized=minimized,
-            fullscreen=fullscreen,
+            minimized=minimized
         )
         # 显示窗口
         webview.start(
