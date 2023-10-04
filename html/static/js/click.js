@@ -5,8 +5,9 @@ $(document).ready(function () {
     // 添加点击事件监听器
     navLinks.on("click", function (event) {
         event.preventDefault();
+        console.log($(this).attr("id"));
         // 隐藏所有内容区域
-        $("div[id$='Contedfnt']").hide();
+        $("div[id$='Content']").hide();
 
         // 移除所有图标的激活状态
         navLinks.removeClass("active");

@@ -43,7 +43,7 @@ def username():
         if uid == "unknown":
             return "旅行者"
         else:
-            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
+            data = r.get("https://profile.microgg.cn/api/uid/{}".format(uid))
             data = json.loads(data.text)
             # print(data)
             name = data["playerInfo"]["nickname"]
@@ -66,7 +66,7 @@ def getavatar():
         if uid == "unknown":
             return redirect("https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png")
         else:
-            data = r.get("https://enka.network/api/uid/{}/?info".format(uid))
+            data = r.get("https://profile.microgg.cn/api/uid/{}/?info".format(uid))
             data = json.loads(data.text)
             # print(data)
             avatar = data["playerInfo"]["profilePicture"]["avatarId"]

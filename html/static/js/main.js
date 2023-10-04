@@ -1,9 +1,13 @@
 console.log(location.href)
 $(document).ready(function () {
+    $("div[id$='Content']").hide();
     // 显示默认页面
-    $("#ysContent").show();
+    $("#ysStartContent").show();
     // 激活默认页面
-    $("#ys").addClass("active");
+    $("#ysStart").addClass("active");
+    $()
+    $("#ysStart").addClass("is-active");
+
     
 });
 
