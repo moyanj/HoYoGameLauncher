@@ -72,7 +72,7 @@ def game(game):
     path = os.path.dirname(gamepath)
     panfu = gamepath.split(":")[0] + ":"
     # 运行
-    os.system("{} && cd {} && dir && {}".format(panfu, path, file))
+    os.system("{} && cd {} && {}".format(panfu, path, file))
     return Rest("成功")
 
 
