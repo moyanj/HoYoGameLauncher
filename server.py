@@ -35,7 +35,7 @@ app.register_blueprint(init.app)
 
 # 初始化程序
 inits.main()
-
+print(dbg.getID())
 # 加载玩家列表
 PlayerList = []
 for filename in os.listdir("data/player"):

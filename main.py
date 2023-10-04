@@ -4,9 +4,7 @@ from server import app as flask
 from env import *
 import platform
 from tkinter import messagebox
-import threading as t
 import winreg
-import sys
 import requests
 
 

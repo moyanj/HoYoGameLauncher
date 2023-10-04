@@ -3,7 +3,7 @@ import sys
 import time
 import psutil
 import os
-
+import hashlib as h
 
 def get_current_memory_mb():
     # 获取当前进程内存占用。
@@ -119,5 +119,19 @@ def crash(error, app, flask_e):
             else:
                 f.write("   " + key + "=" + str(value) + "\n")
 
-
+def getID():
+    system_name = pf.platform()
+    computer_name = pf.node()
+    computer_system = pf.system()
+    computer_bit = pf.architecture()[0]
+    cpu_count = psutil.cpu_count()
+    mem = psutil.virtual_memory()
+    mem_total = format(float(mem.total) / 1024 / 1024 / 1024)
+    id = system_name + "_"+computer_name + "_"+computer_system + "_"+computer_bit+"_"+str(cpu_count)+"_"+mem_total
+    print(id)
+    # 对id进行sha1
+    hash_id = h.sha1(id.encode("utf-16be")).hexdigest()
+    big_hash_id = str(hash_id).upper()
+    return big_hash_id
+    
 # def upload():
