@@ -40,7 +40,7 @@ $(document).ready(function () {
                 },
                 success:function (data) {
                     // 获取键为data的数据
-                    var text = data["Data"]
+                    var text= data["Data"]
                     $(domEle).text(text);
                 }
             }
