@@ -6,7 +6,6 @@ $(document).ready(function () {
     $("#ysStart").addClass("active");
     $("#ysStart").addClass("is-active");
 
-    
 });
 
 
