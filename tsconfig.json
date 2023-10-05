@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+      "outFile": "./html/static/js/index.js",
+      "allowJs": true
+  },
+  "include": [
+      "./html/static/js/**/*"
+  ],
+  "exclude":[
+    "index.js"
+  ]
+}
