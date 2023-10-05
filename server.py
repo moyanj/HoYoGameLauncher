@@ -30,7 +30,7 @@ def error_404(e):
 def error_500(e):
     stack_trace = traceback.format_exc()
     dbg.crash(stack_trace)
-    return Rest(f"未知错误，错误日志位于{save_path}\\debug.txt", 500)
+    return Rest(f"未知错误，错误日志位于{save_path}\\Dump.hgld", 500)
 
 
 # 注册蓝图
