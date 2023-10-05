@@ -9,10 +9,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - run: |
+      - name: Set up Python 3.9
+        run: |
             pip install -r requirements.txt
-        
+      - name: Install Typescript
+        run: npm install -g typescript
+      - name: Build TS
+        run: tsc
       - name: Run build script
         run: |
           python lib/pre-commit.py -t dev
