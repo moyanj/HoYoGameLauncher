@@ -86,7 +86,7 @@ def main(debug, width, height, minimized, engine, server, port, private):
             text_select=True,
             width=width,
             height=height,
-            minimized=minimized
+            minimized=minimized,
         )
         webview.start(
             debug=True,
@@ -105,7 +105,7 @@ def main(debug, width, height, minimized, engine, server, port, private):
             text_select=True,
             width=width,
             height=height,
-            minimized=minimized
+            minimized=minimized,
         )
         # 显示窗口
         webview.start(
@@ -114,7 +114,6 @@ def main(debug, width, height, minimized, engine, server, port, private):
             private_mode=private,
             storage_path=os.path.join(AppDataPath, "Web"),
         )
-
 
 
 if __name__ == "__main__":

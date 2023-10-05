@@ -1,4 +1,10 @@
-from flask import Flask, request, send_from_directory, render_template, redirect  # Flask
+from flask import (
+    Flask,
+    request,
+    send_from_directory,
+    render_template,
+    redirect,
+)  # Flask
 import os  # 系统操作
 import requests
 import lib.init as inits  # 函数
@@ -23,7 +29,7 @@ def error_404(e):
 @app.errorhandler(Exception)
 def error_500(e):
     stack_trace = traceback.format_exc()
-    dbg.crash(stack_trace, app, e)
+    dbg.crash(stack_trace)
     return Rest(f"未知错误，错误日志位于{save_path}\\debug.txt", 500)
 
 
@@ -35,7 +41,6 @@ app.register_blueprint(init.app)
 
 # 初始化程序
 inits.main()
-print(dbg.getID())
 # 加载玩家列表
 PlayerList = []
 for filename in os.listdir("data/player"):
@@ -111,15 +116,22 @@ def bg_ys():
 def bg_srr():
     return api.get_srbg()
 
+
 @app.route("/web/wiki/ys")
 def wiki_ys():
-    req = requests.get("https://bbs.mihoyo.com/ys/obc/?&bbs_presentation_style=no_header&mihoyo_app=true5")
-    return redirect("https://bbs.mihoyo.com/ys/obc/?&bbs_presentation_style=no_header&mihoyo_app=true5")
+    req = requests.get(
+        "https://bbs.mihoyo.com/ys/obc/?&bbs_presentation_style=no_header&mihoyo_app=true5"
+    )
+    return redirect(
+        "https://bbs.mihoyo.com/ys/obc/?&bbs_presentation_style=no_header&mihoyo_app=true5"
+    )
+
 
 @app.route("/i18n/get")
 def i18n_get():
     return Rest(data=i18n.t(request.args.get("key")))
     # return i18n.t(request.args.get("key"))
+
 
 @app.route("/<path:url>")
 def pluurl(url):

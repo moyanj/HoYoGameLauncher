@@ -3,7 +3,8 @@ from http.cookies import SimpleCookie
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from base64 import b64encode, b64decode
-import sys
+import zipfile
+import os
 import subprocess as sub
 
 
@@ -44,3 +45,20 @@ def load_cookie(ck):
         ck_value = morsel.value  # cookie 值
         ck_dict[ck_key] = ck_value
     return ck_dict
+
+
+def zipDir(dirpath, outFullName):
+    """
+    压缩指定文件夹
+    :param dirpath: 目标文件夹路径
+    :param outFullName: 压缩文件保存路径+xxxx.zip
+    :return: 无
+    """
+    zip = zipfile.ZipFile(outFullName, "w", zipfile.ZIP_DEFLATED)
+    for path, dirnames, filenames in os.walk(dirpath):
+        # 去掉目标跟路径，只对目标文件夹下边的文件及文件夹进行压缩
+        fpath = path.replace(dirpath, '')
+ 
+        for filename in filenames:
+            zip.write(os.path.join(path, filename), os.path.join(fpath, filename))
+    zip.close()

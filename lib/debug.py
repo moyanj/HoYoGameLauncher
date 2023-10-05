@@ -3,7 +3,13 @@ import sys
 import time
 import psutil
 import os
-import hashlib as h
+import moyanlib as mlib
+import json
+import shutil
+import lib
+
+AppDataPath = os.path.join(os.environ["APPDATA"], "HoYoGameLauncher")
+save_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 def get_current_memory_mb():
     # 获取当前进程内存占用。
@@ -13,7 +19,17 @@ def get_current_memory_mb():
     return str(info.uss / 1024 / 1024)
 
 
-def crash(error, app, flask_e):
+def crash(error):
+    DumpPath = os.path.join(AppDataPath, "ErrorDump")
+    if os.path.exists(DumpPath):
+        shutil.rmtree(DumpPath)
+    os.makedirs(DumpPath, exist_ok=True)
+    system_name = pf.node()
+    computer_bit = pf.architecture()[0]
+    cpu_count = psutil.cpu_count()
+    disks = psutil.disk_partitions()
+    disks_list = []
+    networks = psutil.net_io_counters()
     p = psutil.Process(os.getpid())
     mem = psutil.virtual_memory()
 
@@ -21,117 +37,75 @@ def crash(error, app, flask_e):
     mem_free = format(float(mem.free) / 1024 / 1024 / 1024, ".3f")
     mem_used = format(float(mem.used) / 1024 / 1024 / 1024, ".3f")
 
-    if "TypeError" in error:
-        err_type = "1A7JW358NS78000"
-    elif "NameError" in error:
-        err_type = "1762VB58NS78000"
-    elif "IndexError" in error:
-        err_type = "95Q68SBR8NT00000"
-    else:
-        err_type = "NBEDDQ6YXVG"
-
-    system_name = pf.platform()
-    computer_name = pf.node()
-    computer_system = pf.system()
-    computer_bit = pf.architecture()[0]
-    file_system = sys.getfilesystemencoding()
-    recurdion = sys.getrecursionlimit()
-    date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-    time_stamp = int(time.time())
-    cpu_count = psutil.cpu_count()
-    disks = psutil.disk_partitions()
-    networks = psutil.net_io_counters()
-    boot_time = psutil.boot_time()
-    python = sys.version.split(" ")[0]
-
-    f = open("debug.txt", "w", encoding="utf-8")
-
-    f.write("Info: \n")
-
-    f.write("   Error Code:" + err_type + "\n")
-    f.write("   Time:" + date + "\n")
-    f.write("   Time Stamp:" + str(time_stamp) + "\n")
-    f.write(f"   Python Version: {python}\n")
-    f.write("   Total Memory: " + mem_total + " GB\n")
-    f.write("   Free Memory: " + mem_free + " GB\n")
-    f.write("   Total memory usage: " + mem_used + " GB\n")
-    f.write("   Boot Time: " + str(boot_time) + "\n")
-    f.write("   Application:\n")
-    f.write("       Application occupies memory: " + get_current_memory_mb() + " MB\n")
-    f.write("       Application Threads Count: " + str(p.num_threads()) + "\n")
-    f.write("       Application Process ID: " + str(p.pid) + "\n")
-    f.write("       Application Open Files: \n")
-    for i in p.open_files():
-        f.write("           " + i.path + "\n")
-    f.write("   System:\n")
-    f.write("       System Name:" + system_name + "\n")
-    f.write("       Computer Name:" + computer_name + "\n")
-    f.write("       Computer System:" + computer_system + "\n")
-    f.write("       Computer Bit:" + str(computer_bit) + "\n")
-    f.write("       File System:" + file_system + "\n")
-    f.write("       Recursion Limit:" + str(recurdion) + "\n")
-    f.write("       CPU Count:" + str(cpu_count) + "\n")
-    f.write("   Disks:\n")
+    open_files = []
     for i in disks:
         disk_name = i.device
         disk_type = i.fstype
-        disk = psutil.disk_usage(disk_name)
-        disk_total = format(disk.total / 1024 / 1024 / 1024, ".3f")
-        disk_used = format(disk.used / 1024 / 1024 / 1024, ".3f")
-        disk_free = format(disk.free / 1024 / 1024 / 1024, ".3f")
-        f.write(f"      {disk_name}:\n")
-        f.write(f"         Type: {disk_type}\n")
-        f.write(f"         Total: {disk_total} GB\n")
-        f.write(f"         Used: {disk_used} GB\n")
-        f.write(f"         Free: {disk_free} GB\n")
-        f.write(f"         Percentage: {disk.percent}%\n")
-    f.write("   Networks:\n")
-    f.write("      Sent: " + str(networks.bytes_sent) + " Bytes\n")
-    f.write("      Received: " + str(networks.bytes_recv) + " Bytes\n")
-    f.write("      Packets Sent: " + str(networks.packets_sent) + "\n")
-    f.write("      Packets Received: " + str(networks.packets_recv) + "\n")
+        diskss = psutil.disk_usage(disk_name)
+        disk_total = format(diskss.total / 1024 / 1024 / 1024, ".3f")
+        disk_used = format(diskss.used / 1024 / 1024 / 1024, ".3f")
+        disk_free = format(diskss.free / 1024 / 1024 / 1024, ".3f")
+        disk_info = {
+            "Type": disk_type,
+            "Name": disk_name,
+            "Total": disk_total,
+            "Used": disk_used,
+            "Free": disk_free,
+        }
+        disks_list.append(disk_info)
 
-    f.write("\nStack Trace: \n")
-    f.write("   " + str(error))
+    for i in p.open_files():
+        open_files.append(i.path)
+    f = open(os.path.join(DumpPath, "System.json"), "w", encoding="utf-8")
+    System = {
+        "DeviceID":mlib.getDeviceID(),
+        "SystemName": system_name,
+        "ComputerBit": computer_bit,
+        "CPUCount": cpu_count,
+        "Disks": disks_list,
+        "Networks": {
+            "Bytes Sent":networks.bytes_sent,
+            "Bytes Recv":networks.bytes_recv,
+            "Packages Sent":networks.packets_sent,
+            "Packages Recv":networks.packets_recv,
+        }
+    }
+    json.dump(System, f, ensure_ascii=False, indent=4)
+    f.close()
+    f = open(os.path.join(DumpPath, "Mem.json"), "w", encoding="utf-8")
+    Mem = {
+        "Total": mem_total,
+        "Used": mem_used,
+        "Free": mem_free,
+        "App":get_current_memory_mb()
+    }
+    json.dump(Mem, f, ensure_ascii=False, indent=4)
+    f.close()
+    f = open(os.path.join(DumpPath, "Info.json"), "w", encoding="utf-8")
+    Infos = {
+        "Time": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        "Time Stamp": int(time.time()),
+        "Python Version": sys.version.split(" ")[0],
+        "Boot Time": psutil.boot_time(),
+        "Application":{
+            "PID":os.getpid(),
+            "Threads Count":p.num_threads(),
+            "Open Files":open_files,
 
-    f.write("\nFlask Log: \n")
-    with open("log/flask.log", "r", encoding="utf-8") as file:
-        logs = []
-        lines = file.readlines()[-20:]
-        for line in lines:
-            logs.append("   " + line)
-    f.writelines(lines)
-
-    f.write("\nApplication Variables: \n")
-    config_list = [
-        "template_folder",
-        "root_path",
-        "config",
-        "_static_folder",
-        "import_name",
-        "name",
-    ]
-    for key, value in app.__dict__.items():
-        if key in config_list:
-            if key == "config":
-                for key1, value1 in value.items():
-                    f.write("   " + key1 + "=" + str(value1) + "\n")
-            else:
-                f.write("   " + key + "=" + str(value) + "\n")
-
-def getID():
-    system_name = pf.platform()
-    computer_name = pf.node()
-    computer_system = pf.system()
-    computer_bit = pf.architecture()[0]
-    cpu_count = psutil.cpu_count()
-    mem = psutil.virtual_memory()
-    mem_total = format(float(mem.total) / 1024 / 1024 / 1024)
-    id = system_name + "_"+computer_name + "_"+computer_system + "_"+computer_bit+"_"+str(cpu_count)+"_"+mem_total
-    print(id)
-    # 对id进行sha1
-    hash_id = h.sha1(id.encode("utf-16be")).hexdigest()
-    big_hash_id = str(hash_id).upper()
-    return big_hash_id
-    
-# def upload():
+        }
+    }
+    json.dump(Infos, f, ensure_ascii=False, indent=4)
+    f.close()
+    f = open(os.path.join(DumpPath, "StackTrace"), "w", encoding="utf-8")
+    f.write(str(error))
+    f.close()
+    shutil.copytree(os.path.join(save_path, "log"), os.path.join(DumpPath, "Log"))
+    shutil.copytree(os.path.join(save_path, "plugins"), os.path.join(DumpPath, "Plugins"))
+    shutil.copy(os.path.join(save_path, "config.json"), os.path.join(DumpPath, "Config.json"))
+    # 以树形列出所有文件
+    out = os.popen(f"tree {save_path} /F")
+    out = out.read()
+    f = open(os.path.join(DumpPath, "Files.txt"), "w", encoding="utf-8")
+    f.write(out)
+    f.close()
+    lib.zipDir(DumpPath, os.path.join(save_path, "Dump.hgld"))

@@ -28,3 +28,4 @@ __pycache__
 .history/
 test.html
 html/static/js/index.js
+*.hgld
