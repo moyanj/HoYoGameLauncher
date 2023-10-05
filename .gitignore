@@ -24,10 +24,7 @@ html/static/images/sr_bg.png
 debug.txt
 1.txt
 test.py
-docs/raw/node_modules/
-docs/raw/package-lock.json
-docs/raw/docs/.vuepress/.temp/
-docs/raw/docs/.vuepress/.cache/
 __pycache__
 .history/
 test.html
+html/static/js/index.js

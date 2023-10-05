@@ -13,17 +13,20 @@
     <link rel="stylesheet" href="/files/css/dark.css"> <!-- 自定义暗黑模式样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-plus@2.3.14/theme-chalk/dark/css-vars.css">
 
-    <!-- 引入 JavaScript 文件 -->
-    <script src="/files/js/lib/jquery.min.js"></script> <!-- JQuery -->
-    <script src="/files/js/lib/bootstrap.bundle.min.js"></script> <!-- bootstrap -->
-    <script src="/files/js/lib/bs4pop-1.1-min.js"></script><!-- Bootstrap Pop -->
-    <script src="/files/js/main.js"></script> <!-- 自定义主脚本 -->
-    <script src="/files/js/getdata.js"></script> <!-- 数据初始化脚本 -->
-    <script src="/files/js/click.js"></script> <!-- 按钮逻辑脚本 -->
-    <script src="/files/js/i18n.js"></script> <!-- 按钮逻辑脚本 -->
-    <script src="/files/js/config.js"></script>
-    <script src="/files/js/lib/Vue-3.2.36.min.js"></script><!-- Vue -->
-    <script src="/files/js/lib/element-2.3.14.min.js"></script><!--Element-->
+    <!-- 引入 JavaScript 文件 
+     JQuery 
+     bootstrap 
+    <script src="/files/js/lib/bs4pop-1.1-min.js"></script>Bootstrap Pop 
+    <script src="/files/js/main.js"></script> 自定义主脚本
+    <script src="/files/js/getdata.js"></script> 数据初始化脚本 
+    <script src="/files/js/click.js"></script> 按钮逻辑脚本
+    <script src="/files/js/i18n.js"></script> 按钮逻辑脚本
+    <script src="/files/js/config.js"></script> -->
+    <script src="/files/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="/files/js/lib/jquery.min.js"></script>
+    <script src="/files/js/lib/Vue-3.2.36.min.js"></script>
+    <script src="/files/js/lib/element-2.3.14.min.js"></script>
+    <script src="/files/js/index.js"></script>
 </head>
 
 <body>
@@ -153,11 +156,6 @@
     </div>
     <script>
         const App = {
-            data() {
-                return {
-                    message: AppName,
-                };
-            }
         };
 
         const app = Vue.createApp(App);

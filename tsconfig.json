@@ -4,9 +4,10 @@
       "allowJs": true
   },
   "include": [
-      "./html/static/js/**/*"
+      "./html/static/js/*"
   ],
   "exclude":[
-    "index.js"
+    "index.js",
+
   ]
 }
