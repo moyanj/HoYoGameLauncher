@@ -19,8 +19,12 @@ onMounted(() => {
 });
 
 function getImage(game: string) {
-  const prefix = "/src/assets/images/";
-  return `url("${prefix}${game}_bg.png")`;
+  const env = import.meta.env.MODE;
+  if(env === "development") {
+    return `url("/images/${game}_bg.png")`;
+  } else {
+    return `url("/web/images/${game}_bg.png")`;
+  }
 }
 </script>
 <style lang="css" scoped>

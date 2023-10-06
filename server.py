@@ -74,6 +74,8 @@ def fallback(fb):
         if fb.endswith('.js'):
             res.headers['Content-Type'] = 'text/javascript'
         return res
+    elif fb.startswith('images/'):
+        return app.send_static_file(fb)
     else:
         return app.send_static_file('index.html')
 
