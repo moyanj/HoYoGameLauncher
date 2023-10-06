@@ -43,6 +43,8 @@ app.register_blueprint(init.app)
 inits.main()
 # 加载玩家列表
 PlayerList = []
+if not os.path.exists("data/player"):
+    os.mkdir("data/player")
 for filename in os.listdir("data/player"):
     play = Player("111111")
     name = "data/player/" + filename
