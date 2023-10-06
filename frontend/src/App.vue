@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="app">
     <SideBar />
-    <router-view />
+    <div class="router">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -10,5 +12,14 @@ import SideBar from "./components/app/SideBar.vue";
 </script>
 
 <style scoped>
+.app {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
 
+.router {
+  flex: 1;
+  overflow-y: auto;
+}
 </style>
