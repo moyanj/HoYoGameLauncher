@@ -29,3 +29,5 @@ __pycache__
 test.html
 html/static/js/index.js
 *.hgld
+# Temp
+temp

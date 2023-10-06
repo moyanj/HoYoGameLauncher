@@ -16,7 +16,7 @@ import traceback  # 错误追踪
 from lib import debug as dbg  # DBG
 
 # 初始化Flask
-app = Flask(__name__, template_folder=save_path + "/html/")
+app = Flask(__name__, static_folder=save_path + "/front/dist")
 
 
 # 404错误
@@ -64,7 +64,18 @@ def after_request(response):
 @app.route("/")
 def index():
     # 返回主页
-    return render_template("index.html")
+    return app.send_static_file("index.html")
+
+
+@app.route("/web/<path:fb>")
+def fallback(fb):
+    if fb.startswith('assets/'):
+        res = app.send_static_file(fb)
+        if fb.endswith('.js'):
+            res.headers['Content-Type'] = 'text/javascript'
+        return res
+    else:
+        return app.send_static_file('index.html')
 
 
 @app.route("/run/<game>")

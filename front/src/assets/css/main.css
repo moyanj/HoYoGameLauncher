@@ -87,21 +87,16 @@ html {
     max-width: 100%;
     height: 100vh;
     width: 74vh;
-    background-image: url("/bg/ys");
+    background-image: url("images/ys_bg.png");
 }
 
 .srbg {
     max-width: 100%;
     height: 100vh;
     width: 74vh;
-    background-image: url("/bg/sr");
+    background-image: url("images/sr_bg.png");
 }
 
 #Copyright {
     color: #6c757d;
-}
-
-#NavIcon {
-    width: 6vh;
-    height: 6vh;
 }
