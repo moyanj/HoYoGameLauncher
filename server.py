@@ -5,6 +5,7 @@ from flask import (
     render_template,
     redirect,
 )  # Flask
+from flask_cors import CORS  # 跨域
 import os  # 系统操作
 import requests
 import lib.init as inits  # 函数
@@ -17,6 +18,7 @@ from lib import debug as dbg  # DBG
 
 # 初始化Flask
 app = Flask(__name__, static_folder=save_path + "/frontend/dist")
+CORS(app)
 
 
 # 404错误
