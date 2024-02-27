@@ -224,28 +224,18 @@ route函数命名规则：
 
 ```python
 from lib.plugin import Plugin
-
-
 class Plugin(Plugin):
     __name__ = "插件名"
     __version__ = "插件版本"
     __description__ = "插件描述"
     __author__ = "插件作者"
-
     def __init__(self):
         super().__init__()
-
-    def route_<
-
-    路径 > (self, request):
-
-
-return "<返回值>"
-
-
-def before_reques(self, request):
-    # 用于验证请求，True为通过，False为不通过。
-    return True
+    def route_<路径>(self, request):
+        return "<返回值>"
+    def before_reques(self, request):
+        # 用于验证请求，True为通过，False为不通过。
+        return True
 ```
 
 ### `static`
