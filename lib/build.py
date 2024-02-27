@@ -44,6 +44,9 @@ def pack():
         "pyinstaller --workpath ./build/work --specpath ./build/ --distpath ./ -w --icon ../images/icon.ico --uac-admin main.py"
     )
 
+    # 如果有 HoYoGameLauncher 文件夹则删除
+    if os.path.exists("./HoYoGameLauncher"):
+        shutil.rmtree("./HoYoGameLauncher")
     os.rename("./main", "./HoYoGameLauncher")
     os.rename("./HoYoGameLauncher/main.exe", "./HoYoGameLauncher/HoYoGameLauncher.exe")
     shutil.copytree("html", "HoYoGameLauncher/html")

@@ -17,7 +17,7 @@ import traceback  # 错误追踪
 from lib import debug as dbg  # DBG
 
 # 初始化Flask
-app = Flask(__name__, static_folder=save_path + "/frontend/dist")
+app = Flask(__name__, static_folder=save_path + "/html")
 CORS(app)
 
 

@@ -2,12 +2,6 @@ import json
 import pickle
 from env import *
 
-# 如果不存在config.json
-# 将 config.example.json 复制到 config.json
-if not os.path.exists("config.json"):
-    with open("config.example.json", "r") as f:
-        with open("config.json", "w") as f2:
-            f2.write(f.read())
 _config = json.load(open("config.json", "r"))
 
 

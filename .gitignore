@@ -17,9 +17,6 @@ Pipfile.lock
 Pipfile
 *.exe
 *.zip
-html/static/images/avatar.png
-html/static/images/ys_bg.png
-html/static/images/sr_bg.png
 *.uid
 debug.txt
 1.txt
@@ -27,7 +24,8 @@ test.py
 __pycache__
 .history/
 test.html
-html/static/js/index.js
 *.hgld
 # Temp
 temp
+html
+HoYoGameLauncher

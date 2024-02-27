@@ -20,6 +20,7 @@ export default defineConfig({
         emptyOutDir: true,
         watch: {
             include: 'src/**',
-        }
+        },
+        outDir: "../html"
     }
 })
