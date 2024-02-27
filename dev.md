@@ -19,8 +19,9 @@ python lib/build.py pack
 
 ### 前端
 
+> 将 `frontend/request/index.ts` 中的 `API_URL` 改为 `http://localhost:6553`。
+
 ```shell
-cd frontend
 pnpm install
 pnpm build
 ```
@@ -31,8 +32,8 @@ pnpm build
 > 在运行前请将 `config.example.json` 复制一份并命名为 `config.json` 到根目录
 
 ```shell
-python server.py # 先运行服务端
-python main.py
+python server.py
+python main.py --debug
 ```
 
 # 参数
@@ -258,20 +259,20 @@ def before_reques(self, request):
 ## 模板命名规则
 
 - header.html
-    <br>
-    其会被加载进header中（`head`）。
+  <br>
+  其会被加载进header中（`head`）。
 - sidebar.html
-    <br>
-    其会被加载进主页面的sidebar中（`.nav`）。
+  <br>
+  其会被加载进主页面的sidebar中（`.nav`）。
 - content.html
-    <br>
-    其会被加载进主页面的内容区域中（`.container-fluid`）。
+  <br>
+  其会被加载进主页面的内容区域中（`.container-fluid`）。
 - modal.html
-    <br>
-    其会被加载进模态框中。
+  <br>
+  其会被加载进模态框中。
 - settings.html
-    <br>
-    其会被加载进设置页面的内容区域中（`.container`）。
+  <br>
+  其会被加载进设置页面的内容区域中（`.container`）。
 
 
 
