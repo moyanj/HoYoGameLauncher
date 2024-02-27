@@ -109,7 +109,7 @@ def main(debug, width, height, minimized, engine, server, port, private):
         )
         # 显示窗口
         webview.start(
-            user_agent="HoYoGameLauncher-WebView/1.0.0",
+            user_agent="HoYoGameLauncher-WebView/1.1.0",
             gui=engine_dict[engine],
             private_mode=private,
             storage_path=os.path.join(AppDataPath, "Web"),
