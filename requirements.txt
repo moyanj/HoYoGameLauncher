@@ -1,5 +1,6 @@
 click==8.1.6
 Flask==2.3.2
+flask_cors==4.0.0
 loguru==0.7.0
 pyinstaller==5.13.0
 pywebview==4.2.2
