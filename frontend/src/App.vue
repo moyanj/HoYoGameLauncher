@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import SideBar from "./components/app/SideBar.vue";
+import SideBar from "./components/SideBar.vue";
 </script>
 
 <style scoped>

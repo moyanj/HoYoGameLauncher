@@ -40,7 +40,6 @@ app.register_blueprint(data.app)
 app.register_blueprint(settings.app)
 app.register_blueprint(init.app)
 
-
 # 初始化程序
 inits.main()
 # 加载玩家列表
@@ -124,14 +123,14 @@ def settin(key, val):
     return Rest("成功")
 
 
-@app.route("/bg/ys")
-def bg_ys():
-    return api.get_ysbg()
+@app.route("/bg/ys/<int:force>")
+def bg_ys(force=0):
+    return api.get_ysbg(force)
 
 
-@app.route("/bg/sr")
-def bg_srr():
-    return api.get_srbg()
+@app.route("/bg/sr/<int:force>")
+def bg_srr(force=0):
+    return api.get_srbg(force)
 
 
 @app.route("/web/wiki/ys")

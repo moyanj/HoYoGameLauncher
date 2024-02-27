@@ -1,4 +1,8 @@
 <template>
+  <div class="config-div"></div>
+  <div class="refresh-div">
+    <el-button type="primary" size="large" class="refresh-btn" @click.native="refresh()">刷新</el-button>
+  </div>
   <div class="launcher-div">
     <el-button type="primary" size="large" class="launcher-btn" @click.native="launchGame()">启动游戏</el-button>
   </div>
@@ -6,7 +10,7 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
-import request from "../../request/index.ts";
+import request from "../request";
 
 const route = useRoute();
 
@@ -14,18 +18,18 @@ const {game} = route.params;
 
 const bgImage = ref<string>();
 
-onMounted(() => {
+onMounted(async () => {
   if (typeof game !== "string") return;
   bgImage.value = getImage(game);
 });
 
-function getImage(game: string) {
-  const env = import.meta.env.MODE;
-  if (env === "development") {
-    return `url("/images/${game}_bg.png")`;
-  } else {
-    return `url("/web/images/${game}_bg.png")`;
-  }
+function refresh() {
+  if (typeof game !== "string") return;
+  bgImage.value = getImage(game, true);
+}
+
+function getImage(game: string, force = false): string {
+  return `url("/bg/${game}/${force ? 1 : 0}")`;
 }
 
 async function launchGame() {
@@ -40,6 +44,17 @@ async function launchGame() {
 }
 </script>
 <style lang="css" scoped>
+.refresh-div {
+  position: absolute;
+  right: 5vh;
+  top: 5vh;
+}
+
+.refresh-btn {
+  width: 10vh;
+  height: 5vh;
+}
+
 .launcher-div {
   width: 100%;
   height: 100%;

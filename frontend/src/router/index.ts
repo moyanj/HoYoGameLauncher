@@ -10,7 +10,6 @@ import routes from './routes'
 const router = createRouter({
     history: createWebHistory('/web/'),
     routes,
-
 });
 
 // 参数变化时，刷新页面
