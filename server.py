@@ -22,7 +22,7 @@ app = Flask(__name__, template_folder=save_path + "/html/")
 # 404错误
 @app.errorhandler(404)
 def error_404(e):
-    return Rest("页面不存在", 404)
+    return Rest("<h1>页面不存在</h1>", 404)
 
 
 # 顶级错误处理器
