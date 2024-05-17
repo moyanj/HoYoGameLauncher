@@ -1,29 +1,39 @@
 # 开发
 
 # 打包
-运行以下命令，即可在pack文件夹中找到打包好的可执行文件。
+
+运行以下命令，即可在 `HoYoGameLauncher` 文件夹中找到打包好的可执行文件。
 
 ```shell
-python build.py pack
+python lib/build.py pack
 ```
+
 # 从源代码运行
 
-## 配置环境
+## 环境配置
+
+前端：NodeJS、Pnpm
+后端：Python3.8+
+
+## 运行
+
+### 前端
+
+> 将 `frontend/request/index.ts` 中的 `API_URL` 改为 `http://localhost:6553`。
 
 ```shell
-pip install pipenv
-python -m pipenv shell
+pnpm install
+pnpm build
 ```
 
-# 运行
+### 后端
 
-请先进入 pipenv 虚拟环境，再运行以下命令：
-```shell
-python main.py
-```
-main.py的具体参数说明见[#Main.py](#Main.py)
+> 建议采用 venv 虚拟环境
+> 在运行前请将 `config.example.json` 复制一份并命名为 `config.json` 到根目录
+
 ```shell
 python server.py
+python main.py --debug
 ```
 
 # 参数
@@ -36,16 +46,15 @@ python server.py
 - `--server` : 启动服务端在6553端口上，默认不加。
 - `--port <port>` : 服务端端口，默认6553。
 
-
 # 插件开发
 
 ## 可以调用的库
+
 此为在import后的名字
 <details>
     <summary>
         查看
     </summary>
-
 
 - sys
 - builtins
@@ -180,10 +189,11 @@ python server.py
 - views（内置服务端的视图函数）
 - server（内置服务端）
 - main（内置主程序）
-  
+
 </details>
 
 ## 不可使用的函数名
+
 - route_files
 
 ## 文件结构
@@ -203,13 +213,14 @@ plugins/<插件名>/─┐
 
 主文件，必须包含有，其需要继承`lib.plugin.Plugin`这个类。
 <br>
-其只能调用[该表](#可以调用的库)内的函数，当然，您也可以将库放在`plugins/<插件名>`内，您就可以调用了。（需在import 时加点，如：有一个名为`c`的库,你可以这样导入：`import .c`）
+其只能调用[该表](#可以调用的库)内的函数，当然，您也可以将库放在`plugins/<插件名>`内，您就可以调用了。（需在import
+时加点，如：有一个名为`c`的库,你可以这样导入：`import .c`）
 route函数命名规则：
+
 1. 必须以route开头
 2. 其以`_`代替url里的`/`
 3. 不得使用[此表](#可以调用的库)内的函数名
-如route_test_1,就可以在`<插件名>/test/1/`处访问到其返回值
-
+   如route_test_1,就可以在`<插件名>/test/1/`处访问到其返回值
 
 ```python
 from lib.plugin import Plugin
@@ -238,20 +249,20 @@ class Plugin(Plugin):
 ## 模板命名规则
 
 - header.html
-    <br>
-    其会被加载进header中（`head`）。
+  <br>
+  其会被加载进header中（`head`）。
 - sidebar.html
-    <br>
-    其会被加载进主页面的sidebar中（`.nav`）。
+  <br>
+  其会被加载进主页面的sidebar中（`.nav`）。
 - content.html
-    <br>
-    其会被加载进主页面的内容区域中（`.container-fluid`）。
+  <br>
+  其会被加载进主页面的内容区域中（`.container-fluid`）。
 - modal.html
-    <br>
-    其会被加载进模态框中。
+  <br>
+  其会被加载进模态框中。
 - settings.html
-    <br>
-    其会被加载进设置页面的内容区域中（`.container`）。
+  <br>
+  其会被加载进设置页面的内容区域中（`.container`）。
 
 
 

@@ -7,40 +7,36 @@ import lib
 from env import *
 
 
-def get_ysbg():
+def get_ysbg(force: int):
     req = r.get(ep.LauncherContent("ys"))
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]
     bg = adv["background"]
     bd_ver = conf.getBGVersion("ys")
-    if bd_ver < int(adv["version"]):
-        with open("html/static/images/ys_bg.png", "wb") as f:
+    if bd_ver < int(adv["version"]) or force == 1:
+        with open("html/images/ys_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
             conf.setBGVersion("ys", int(adv["version"]))
-        return redirect("/files/images/ys_bg.png")
-    else:
-        return redirect("/files/images/ys_bg.png")
+    return redirect("/web/images/ys_bg.png")
 
 
-def get_srbg():
+def get_srbg(force: int):
     req = r.get(ep.LauncherContent("sr"))
     datas = json.loads(req.text)
     all_data = datas["data"]
     adv = all_data["adv"]
     bg = adv["background"]
     bd_ver = conf.getBGVersion("sr")
-    if bd_ver < int(adv["version"]):
-        with open("html/static/images/sr_bg.png", "wb") as f:
+    if bd_ver < int(adv["version"]) or force == 1:
+        with open("html/images/sr_bg.png", "wb") as f:
             bg_content = r.get(bg).content
             f.write(bg_content)
             f.close()
             conf.setBGVersion("sr", int(adv["version"]))
-        return redirect("/files/images/sr_bg.png")
-    else:
-        return redirect("/files/images/sr_bg.png")
+    return redirect("/web/images/sr_bg.png")
 
 
 def get_ltoken(cookie: str):

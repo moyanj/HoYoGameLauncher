@@ -5,6 +5,7 @@ from flask import (
     render_template,
     redirect,
 )  # Flask
+from flask_cors import CORS  # 跨域
 import os  # 系统操作
 import requests
 import lib.init as inits  # 函数
@@ -16,7 +17,8 @@ import traceback  # 错误追踪
 from lib import debug as dbg  # DBG
 
 # 初始化Flask
-app = Flask(__name__, template_folder=save_path + "/html/")
+app = Flask(__name__, static_folder=save_path + "/html")
+CORS(app)
 
 
 # 404错误
@@ -37,7 +39,6 @@ def error_500(e):
 app.register_blueprint(data.app)
 app.register_blueprint(settings.app)
 app.register_blueprint(init.app)
-
 
 # 初始化程序
 inits.main()
@@ -64,7 +65,20 @@ def after_request(response):
 @app.route("/")
 def index():
     # 返回主页
-    return render_template("index.html")
+    return app.send_static_file("index.html")
+
+
+@app.route("/web/<path:fb>")
+def fallback(fb):
+    if fb.startswith('assets/'):
+        res = app.send_static_file(fb)
+        if fb.endswith('.js'):
+            res.headers['Content-Type'] = 'text/javascript'
+        return res
+    elif fb.startswith('images/'):
+        return app.send_static_file(fb)
+    else:
+        return app.send_static_file('index.html')
 
 
 @app.route("/run/<game>")
@@ -109,14 +123,14 @@ def settin(key, val):
     return Rest("成功")
 
 
-@app.route("/bg/ys")
-def bg_ys():
-    return api.get_ysbg()
+@app.route("/bg/ys/<int:force>")
+def bg_ys(force=0):
+    return api.get_ysbg(force)
 
 
-@app.route("/bg/sr")
-def bg_srr():
-    return api.get_srbg()
+@app.route("/bg/sr/<int:force>")
+def bg_srr(force=0):
+    return api.get_srbg(force)
 
 
 @app.route("/web/wiki/ys")

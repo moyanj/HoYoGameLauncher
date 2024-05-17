@@ -1,0 +1,42 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.user-avatar {
+    flex: 0 0 80px;
+    /* 设置用户头像区域的宽度 */
+    margin-right: 10px;
+}
+
+#user-avatar {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;;
+}
+
+.user-info {
+    flex: 1;
+    /* 设置用户信息栏占据剩余空间 */
+}
+
+/* 内容区域样式 */
+.content {
+    display: flex;
+    margin-left: 12.5vw !important;
+}
+
+.content>div {
+    flex: 1;
+    padding-left: 5vh;
+    display: block;
+}
+
